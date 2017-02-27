@@ -15,3 +15,11 @@ Instructions:
 
   - this runs the server on your local machine
   - go to http://127.0.0.1:8000/ on any browser to see how the website looks like
+  - should display a message on the screen
+  
+4). Find file in this path: webapp/templates/webapp/home.html
+  - this is the basic html file that is displayed on the website
+  - might be a little confusing, but ask me if you want to understand more
+  - you can play around with this to create the website
+  
+5). Experiment around with some html stuff like buttons, text fields and stuff
