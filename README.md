@@ -11,7 +11,7 @@ Instructions:
 
 2). Pull code from this github repo and put in any new folder/directory
 
-3). python3 manage.py runserver 
+3). python3 manage.py runserver (or just python if you're running on Windows)
 
   - this runs the server on your local machine
   - go to http://127.0.0.1:8000/ on any browser to see how the website looks like
