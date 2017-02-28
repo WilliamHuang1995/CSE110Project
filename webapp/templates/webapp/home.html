@@ -1,13 +1,82 @@
 <!DOCTYPE html>
 <html>
 
-  <head>
-    <title>Practice</title>
-  </head>
+    <head>
+        <meta charset="utf-8">
+        <title>Calendo - Home</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+        <!-- Optional Bootstrap theme -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+        <link rel='stylesheet' href='http://fullcalendar.io/js/fullcalendar-2.2.3/fullcalendar.css' />
+    </head>
+    <body>
+        <nav role="navigation" class="navbar navbar-inverse">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+                <button type="button" data-target="#navbarCollapse" data-toggle="collapse" class="navbar-toggle">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a href="#" class="navbar-brand">Calendo</a>
+            </div>
+            <!-- Collection of nav links, forms, and other content for toggling -->
+            <div id="navbarCollapse" class="collapse navbar-collapse">
+                <ul class="nav navbar-nav">
+                    <li><a href="#" class="pull-left"><img src="logowhite.png " class="img-responsive" style="max-width:25px; max-height:25px"></a></li>
+                    <li class="active"><a href="#">Calendar</a></li>
+                    <li><a href="#">To Do List</a></li>
+                    <li><a href="#">What should this be</a></li>
+                </ul>
+                <form role="search" class="navbar-form navbar-left">
+                    <div class="form-group">
+                        <input type="text" placeholder="Search" class="form-control">
+                    </div>
+                </form>
+                <ul class="nav navbar-nav navbar-right">
+                    <li><a href="#">Login</a></li>
+                </ul>
+            </div>
+        </nav>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <img src="http://i.imgur.com/7nylkQZ.png" alt="">
+                    <p><strong>A responsive calendar</strong> which is best viewed: <a href="http://bootsnipp.com/iframe/V0PMQ" target="_blank">full screen</a>
+                        <br>
+                        FullCalendar is a jQuery plugin that provides a full-sized, drag & drop event calendar like the one below. It uses AJAX to fetch events on-the-fly and is easily configured to use your own feed format. It is visually customizable with a rich API. 
 
-  <body>
-    <p>Hi friends! Congrats on getting django setup</p>
-    <p>Hey, that's pretty good</p>
-  </body>
+                        <a href="http://fullcalendar.io/" target="_blank">FullCalendar Reference and Github</a>
+                    </p>
+                    <hr>
 
+                    <div id="calendar" class="fc fc-ltr fc-unthemed"><div class="fc-toolbar"><div class="fc-left"><h2>February 2017</h2></div><div class="fc-right"><button type="button" class="fc-today-button fc-button fc-state-default fc-corner-left fc-corner-right fc-state-disabled" disabled="disabled">today</button><div class="fc-button-group"><button type="button" class="fc-prev-button fc-button fc-state-default fc-corner-left"><span class="fc-icon fc-icon-left-single-arrow"></span></button><button type="button" class="fc-next-button fc-button fc-state-default fc-corner-right"><span class="fc-icon fc-icon-right-single-arrow"></span></button></div></div><div class="fc-center"></div><div class="fc-clear"></div></div><div class="fc-view-container" style=""><div class="fc-view fc-month-view fc-basic-view"><table><thead><tr><td class="fc-widget-header"><div class="fc-row fc-widget-header"><table><thead><tr><th class="fc-day-header fc-widget-header fc-sun">Sun</th><th class="fc-day-header fc-widget-header fc-mon">Mon</th><th class="fc-day-header fc-widget-header fc-tue">Tue</th><th class="fc-day-header fc-widget-header fc-wed">Wed</th><th class="fc-day-header fc-widget-header fc-thu">Thu</th><th class="fc-day-header fc-widget-header fc-fri">Fri</th><th class="fc-day-header fc-widget-header fc-sat">Sat</th></tr></thead></table></div></td></tr></thead><tbody><tr><td class="fc-widget-content"><div class="fc-day-grid-container"><div class="fc-day-grid"><div class="fc-row fc-week fc-widget-content" style="height: 57px;"><div class="fc-bg"><table><tbody><tr><td class="fc-day fc-widget-content fc-sun fc-other-month fc-past" data-date="2017-01-29"></td><td class="fc-day fc-widget-content fc-mon fc-other-month fc-past" data-date="2017-01-30"></td><td class="fc-day fc-widget-content fc-tue fc-other-month fc-past" data-date="2017-01-31"></td><td class="fc-day fc-widget-content fc-wed fc-past" data-date="2017-02-01"></td><td class="fc-day fc-widget-content fc-thu fc-past" data-date="2017-02-02"></td><td class="fc-day fc-widget-content fc-fri fc-past" data-date="2017-02-03"></td><td class="fc-day fc-widget-content fc-sat fc-past" data-date="2017-02-04"></td></tr></tbody></table></div><div class="fc-content-skeleton"><table><thead><tr><td class="fc-day-number fc-sun fc-other-month fc-past" data-date="2017-01-29">29</td><td class="fc-day-number fc-mon fc-other-month fc-past" data-date="2017-01-30">30</td><td class="fc-day-number fc-tue fc-other-month fc-past" data-date="2017-01-31">31</td><td class="fc-day-number fc-wed fc-past" data-date="2017-02-01">1</td><td class="fc-day-number fc-thu fc-past" data-date="2017-02-02">2</td><td class="fc-day-number fc-fri fc-past" data-date="2017-02-03">3</td><td class="fc-day-number fc-sat fc-past" data-date="2017-02-04">4</td></tr></thead><tbody><tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr></tbody></table></div></div><div class="fc-row fc-week fc-widget-content" style="height: 57px;"><div class="fc-bg"><table><tbody><tr><td class="fc-day fc-widget-content fc-sun fc-past" data-date="2017-02-05"></td><td class="fc-day fc-widget-content fc-mon fc-past" data-date="2017-02-06"></td><td class="fc-day fc-widget-content fc-tue fc-past" data-date="2017-02-07"></td><td class="fc-day fc-widget-content fc-wed fc-past" data-date="2017-02-08"></td><td class="fc-day fc-widget-content fc-thu fc-past" data-date="2017-02-09"></td><td class="fc-day fc-widget-content fc-fri fc-past" data-date="2017-02-10"></td><td class="fc-day fc-widget-content fc-sat fc-past" data-date="2017-02-11"></td></tr></tbody></table></div><div class="fc-content-skeleton"><table><thead><tr><td class="fc-day-number fc-sun fc-past" data-date="2017-02-05">5</td><td class="fc-day-number fc-mon fc-past" data-date="2017-02-06">6</td><td class="fc-day-number fc-tue fc-past" data-date="2017-02-07">7</td><td class="fc-day-number fc-wed fc-past" data-date="2017-02-08">8</td><td class="fc-day-number fc-thu fc-past" data-date="2017-02-09">9</td><td class="fc-day-number fc-fri fc-past" data-date="2017-02-10">10</td><td class="fc-day-number fc-sat fc-past" data-date="2017-02-11">11</td></tr></thead><tbody><tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr></tbody></table></div></div><div class="fc-row fc-week fc-widget-content" style="height: 57px;"><div class="fc-bg"><table><tbody><tr><td class="fc-day fc-widget-content fc-sun fc-past" data-date="2017-02-12"></td><td class="fc-day fc-widget-content fc-mon fc-past" data-date="2017-02-13"></td><td class="fc-day fc-widget-content fc-tue fc-past" data-date="2017-02-14"></td><td class="fc-day fc-widget-content fc-wed fc-past" data-date="2017-02-15"></td><td class="fc-day fc-widget-content fc-thu fc-past" data-date="2017-02-16"></td><td class="fc-day fc-widget-content fc-fri fc-past" data-date="2017-02-17"></td><td class="fc-day fc-widget-content fc-sat fc-past" data-date="2017-02-18"></td></tr></tbody></table></div><div class="fc-content-skeleton"><table><thead><tr><td class="fc-day-number fc-sun fc-past" data-date="2017-02-12">12</td><td class="fc-day-number fc-mon fc-past" data-date="2017-02-13">13</td><td class="fc-day-number fc-tue fc-past" data-date="2017-02-14">14</td><td class="fc-day-number fc-wed fc-past" data-date="2017-02-15">15</td><td class="fc-day-number fc-thu fc-past" data-date="2017-02-16">16</td><td class="fc-day-number fc-fri fc-past" data-date="2017-02-17">17</td><td class="fc-day-number fc-sat fc-past" data-date="2017-02-18">18</td></tr></thead><tbody><tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr></tbody></table></div></div><div class="fc-row fc-week fc-widget-content" style="height: 57px;"><div class="fc-bg"><table><tbody><tr><td class="fc-day fc-widget-content fc-sun fc-past" data-date="2017-02-19"></td><td class="fc-day fc-widget-content fc-mon fc-past" data-date="2017-02-20"></td><td class="fc-day fc-widget-content fc-tue fc-past" data-date="2017-02-21"></td><td class="fc-day fc-widget-content fc-wed fc-past" data-date="2017-02-22"></td><td class="fc-day fc-widget-content fc-thu fc-past" data-date="2017-02-23"></td><td class="fc-day fc-widget-content fc-fri fc-past" data-date="2017-02-24"></td><td class="fc-day fc-widget-content fc-sat fc-past" data-date="2017-02-25"></td></tr></tbody></table></div><div class="fc-content-skeleton"><table><thead><tr><td class="fc-day-number fc-sun fc-past" data-date="2017-02-19">19</td><td class="fc-day-number fc-mon fc-past" data-date="2017-02-20">20</td><td class="fc-day-number fc-tue fc-past" data-date="2017-02-21">21</td><td class="fc-day-number fc-wed fc-past" data-date="2017-02-22">22</td><td class="fc-day-number fc-thu fc-past" data-date="2017-02-23">23</td><td class="fc-day-number fc-fri fc-past" data-date="2017-02-24">24</td><td class="fc-day-number fc-sat fc-past" data-date="2017-02-25">25</td></tr></thead><tbody><tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr></tbody></table></div></div><div class="fc-row fc-week fc-widget-content" style="height: 57px;"><div class="fc-bg"><table><tbody><tr><td class="fc-day fc-widget-content fc-sun fc-past" data-date="2017-02-26"></td><td class="fc-day fc-widget-content fc-mon fc-today fc-state-highlight" data-date="2017-02-27"></td><td class="fc-day fc-widget-content fc-tue fc-future" data-date="2017-02-28"></td><td class="fc-day fc-widget-content fc-wed fc-other-month fc-future" data-date="2017-03-01"></td><td class="fc-day fc-widget-content fc-thu fc-other-month fc-future" data-date="2017-03-02"></td><td class="fc-day fc-widget-content fc-fri fc-other-month fc-future" data-date="2017-03-03"></td><td class="fc-day fc-widget-content fc-sat fc-other-month fc-future" data-date="2017-03-04"></td></tr></tbody></table></div><div class="fc-content-skeleton"><table><thead><tr><td class="fc-day-number fc-sun fc-past" data-date="2017-02-26">26</td><td class="fc-day-number fc-mon fc-today fc-state-highlight" data-date="2017-02-27">27</td><td class="fc-day-number fc-tue fc-future" data-date="2017-02-28">28</td><td class="fc-day-number fc-wed fc-other-month fc-future" data-date="2017-03-01">1</td><td class="fc-day-number fc-thu fc-other-month fc-future" data-date="2017-03-02">2</td><td class="fc-day-number fc-fri fc-other-month fc-future" data-date="2017-03-03">3</td><td class="fc-day-number fc-sat fc-other-month fc-future" data-date="2017-03-04">4</td></tr></thead><tbody><tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr></tbody></table></div></div><div class="fc-row fc-week fc-widget-content" style="height: 57px;"><div class="fc-bg"><table><tbody><tr><td class="fc-day fc-widget-content fc-sun fc-other-month fc-future" data-date="2017-03-05"></td><td class="fc-day fc-widget-content fc-mon fc-other-month fc-future" data-date="2017-03-06"></td><td class="fc-day fc-widget-content fc-tue fc-other-month fc-future" data-date="2017-03-07"></td><td class="fc-day fc-widget-content fc-wed fc-other-month fc-future" data-date="2017-03-08"></td><td class="fc-day fc-widget-content fc-thu fc-other-month fc-future" data-date="2017-03-09"></td><td class="fc-day fc-widget-content fc-fri fc-other-month fc-future" data-date="2017-03-10"></td><td class="fc-day fc-widget-content fc-sat fc-other-month fc-future" data-date="2017-03-11"></td></tr></tbody></table></div><div class="fc-content-skeleton"><table><thead><tr><td class="fc-day-number fc-sun fc-other-month fc-future" data-date="2017-03-05">5</td><td class="fc-day-number fc-mon fc-other-month fc-future" data-date="2017-03-06">6</td><td class="fc-day-number fc-tue fc-other-month fc-future" data-date="2017-03-07">7</td><td class="fc-day-number fc-wed fc-other-month fc-future" data-date="2017-03-08">8</td><td class="fc-day-number fc-thu fc-other-month fc-future" data-date="2017-03-09">9</td><td class="fc-day-number fc-fri fc-other-month fc-future" data-date="2017-03-10">10</td><td class="fc-day-number fc-sat fc-other-month fc-future" data-date="2017-03-11">11</td></tr></thead><tbody><tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr></tbody></table></div></div></div></div></td></tr></tbody></table></div></div></div>
+
+                    <p>
+                        <a href="http://validator.w3.org/check?uri=http%3A%2F%2Fbootsnipp.com%2Fiframe%2FV0PMQ" target="_blank"><small>HTML</small><sup>5</sup></a>
+                    </p>
+
+                </div>
+            </div>
+
+        </div>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+        <script src='http://fullcalendar.io/js/fullcalendar-2.2.3/lib/moment.min.js'></script>
+        <script src='http://fullcalendar.io/js/fullcalendar-2.2.3/fullcalendar.min.js'></script>
+        <script type="text/javascript">
+            $(document).ready(function() {
+                // page is now ready, initialize the calendar...
+                // options and github  - http://fullcalendar.io/
+
+                $('#calendar').fullCalendar({
+                    dayClick: function() {
+                        alert('a day has been clicked!');
+                    }
+                });
+
+            });
+        </script>
+    </body>
 </html>
