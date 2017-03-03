@@ -7,7 +7,7 @@
 
         {% load staticfiles %}
         <link rel="stylesheet" href="{% static 'webapp/css/bootstrap.min.css' %}" type = "text/css"/>
-	      <link rel="stylesheet" href="{% static 'webapp/css/test.css' %}" type="text/css"/>
+        <link rel="stylesheet" href="{% static 'webapp/css/test.css' %}" type="text/css"/>
 
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
@@ -54,17 +54,16 @@
                 <div class="col-md-12">
                     <div id='calendar'></div>
                 </div>
+                <div>
+                    <button type="button" class="btn btn-default" id='authorize-button'>Default</button>
+                </div>
             </div>
 
         </div>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
-        <script src='http://fullcalendar.io/js/fullcalendar-2.2.3/lib/moment.min.js'></script>
-        <script src='http://fullcalendar.io/js/fullcalendar-2.2.3/fullcalendar.min.js'></script>
         <script type="text/javascript">
             $(document).ready(function() {
-
                 // page is now ready, initialize the calendar...
-
                 $('#calendar').fullCalendar({
                     header: {
                         left: 'prev,next today',
@@ -86,10 +85,11 @@
                                        className: 'nice-event'
                                    }
                                   ]})
-
             });
         </script>
         <script type='text/javascript' src='{% static "webapp/fullcalendar/gcal.js" %}'></script>
+        <script src='{% static "webapp/js/gcal2.js" %}'></script>
+        <script src="https://apis.google.com/js/client.js?onload=handleClientLoad"></script>
         <audio id="audio" src="{% static 'webapp/1.mp3' %}" ></audio>
     </body>
 </html>
