@@ -1,8 +1,12 @@
 from django.shortcuts import render
 from django.http import HttpResponse
 
+from .models import Todo
+
 def index(request):
-    return render(request, 'webapp/home.html')
+	testPlzSave = Todo(title=request.GET['title'])
+	testPlzSave.save()
+	return render(request, 'webapp/home.html')
 
 def login(request):
 	if request.user.is_authenticated:
@@ -11,4 +15,5 @@ def login(request):
 
 def test(request):
 	alex = 'omgfg'
-	return render(request, 'webapp/test.html', {'alex':alex})
+	db_result = Todo.objects.get(id=request.GET['id'])
+	return render(request, 'webapp/test.html', {'alex':alex, 'dbResult':db_result})
