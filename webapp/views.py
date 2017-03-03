@@ -15,5 +15,5 @@ def login(request):
 
 def test(request):
 	alex = 'omgfg'
-	db_result = Todo.objects.get(id=request.GET['id'])
+	db_result = Todo.objects.raw('SELECT * FROM todo_test WHERE id=%s', [request.GET['id']])[0]
 	return render(request, 'webapp/test.html', {'alex':alex, 'dbResult':db_result})
