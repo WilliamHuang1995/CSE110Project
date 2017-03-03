@@ -4,15 +4,20 @@
     <head>
         <meta charset="utf-8">
         <title>Calendo - Home</title>
+
+        {% load staticfiles %}
+        <link rel="stylesheet" href="{% static 'webapp/css/bootstrap.min.css' %}" type = "text/css"/>
+	      <link rel="stylesheet" href="{% static 'webapp/css/test.css' %}" type="text/css"/>
+
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
         <!-- Optional Bootstrap theme -->
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
         <link rel='stylesheet' href='http://fullcalendar.io/js/fullcalendar-2.2.3/fullcalendar.css' />
-        <link rel='stylesheet' href='fullcalendar/fullcalendar.css' />
-        <script src='fullcalendar/lib/jquery.min.js'></script>
-        <script src='fullcalendar/lib/moment.min.js'></script>
-        <script src='fullcalendar/fullcalendar.js'></script>
+        <link rel="stylesheet" href="{% static 'webapp/fullcalendar/fullcalendar.css' %}" type = "text/css"/>
+        <script src='{% static "webapp/fullcalendar/lib/jquery.min.js" %}'></script>
+        <script src='{% static "webapp/fullcalendar/lib/moment.min.js" %}'></script>
+        <script src='{% static "webapp/fullcalendar/fullcalendar.js" %}'></script>
 
     </head>
     <body>
@@ -30,7 +35,7 @@
             <!-- Collection of nav links, forms, and other content for toggling -->
             <div id="navbarCollapse" class="collapse navbar-collapse">
                 <ul class="nav navbar-nav">
-                    <li><a href="#" class="pull-left"><img src="logowhite.png " class="img-responsive" style="max-width:25px; max-height:25px"></a></li>
+                    <li><a href="#" class="pull-left"><img src="{% static 'webapp/logowhite.png' %}" class="img-responsive" style="max-width:25px; max-height:25px"></a></li>
                     <li class="active"><a href="#">Calendar</a></li>
                     <li><a href="#">To Do List</a></li>
                 </ul>
@@ -79,7 +84,7 @@
 
             });
         </script>
-        <script type='text/javascript' src='fullcalendar/gcal.js'></script>
-        <audio id="audio" src="1.mp3" ></audio>
+        <script type='text/javascript' src='{% static "webapp/fullcalendar/gcal.js" %}'></script>
+        <audio id="audio" src="{% static 'webapp/1.mp3' %}" ></audio>
     </body>
 </html>
