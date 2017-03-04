@@ -1,0 +1,39 @@
+Operations to perform:
+  Apply all migrations: admin, auth, contenttypes, sessions, webapp
+Running migrations:
+  Applying webapp.0002_auto_20170303_2322...Traceback (most recent call last):
+  File "manage.py", line 22, in <module>
+    execute_from_command_line(sys.argv)
+  File "/usr/local/lib/python2.7/dist-packages/django/core/management/__init__.py", line 367, in execute_from_command_line
+    utility.execute()
+  File "/usr/local/lib/python2.7/dist-packages/django/core/management/__init__.py", line 359, in execute
+    self.fetch_command(subcommand).run_from_argv(self.argv)
+  File "/usr/local/lib/python2.7/dist-packages/django/core/management/base.py", line 294, in run_from_argv
+    self.execute(*args, **cmd_options)
+  File "/usr/local/lib/python2.7/dist-packages/django/core/management/base.py", line 345, in execute
+    output = self.handle(*args, **options)
+  File "/usr/local/lib/python2.7/dist-packages/django/core/management/commands/migrate.py", line 204, in handle
+    fake_initial=fake_initial,
+  File "/usr/local/lib/python2.7/dist-packages/django/db/migrations/executor.py", line 115, in migrate
+    state = self._migrate_all_forwards(state, plan, full_plan, fake=fake, fake_initial=fake_initial)
+  File "/usr/local/lib/python2.7/dist-packages/django/db/migrations/executor.py", line 145, in _migrate_all_forwards
+    state = self.apply_migration(state, migration, fake=fake, fake_initial=fake_initial)
+  File "/usr/local/lib/python2.7/dist-packages/django/db/migrations/executor.py", line 244, in apply_migration
+    state = migration.apply(state, schema_editor)
+  File "/usr/local/lib/python2.7/dist-packages/django/db/migrations/migration.py", line 129, in apply
+    operation.database_forwards(self.app_label, schema_editor, old_state, project_state)
+  File "/usr/local/lib/python2.7/dist-packages/django/db/migrations/operations/fields.py", line 84, in database_forwards
+    field,
+  File "/usr/local/lib/python2.7/dist-packages/django/db/backends/sqlite3/schema.py", line 231, in add_field
+    self._remake_table(model, create_fields=[field])
+  File "/usr/local/lib/python2.7/dist-packages/django/db/backends/sqlite3/schema.py", line 113, in _remake_table
+    self.effective_default(field)
+  File "/usr/local/lib/python2.7/dist-packages/django/db/backends/base/schema.py", line 221, in effective_default
+    default = field.get_db_prep_save(default, self.connection)
+  File "/usr/local/lib/python2.7/dist-packages/django/db/models/fields/__init__.py", line 755, in get_db_prep_save
+    prepared=False)
+  File "/usr/local/lib/python2.7/dist-packages/django/db/models/fields/__init__.py", line 747, in get_db_prep_value
+    value = self.get_prep_value(value)
+  File "/usr/local/lib/python2.7/dist-packages/django/db/models/fields/__init__.py", line 1832, in get_prep_value
+    return int(value)
+TypeError: int() argument must be a string or a number, not 'datetime.datetime'

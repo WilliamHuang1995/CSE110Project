@@ -8,17 +8,17 @@
 		<nav class="navbar navbar-default">
 			<div class="container-fluid">
 				<div class="navbar-header">
-					<a class="navbar-brand" href="#">Calendo</a>
+					<a class="navbar-brand" href="./home.html">Calendo</a>
 				</div>
 				<ul class="nav navbar-nav">
-					<li class="active"><a href="#">Home</a></li>
-					<li><a href="#">To-Do's</a></li>
-					<li><a href="#">Calendar</a></li>
-					<li><a href="#">Settings</a></li>
+					<li class="active"><a href="./home.html">Home</a></li>
+					<li><a href="todo.html">To-Do's</a></li>
+					<li><a href="calendar.html">Calendar</a></li>
+					<li><a href="settings.html">Settings</a></li>
 				</ul>
 			</div>
 		</nav>
-		<h1>{% block title %}(no title){% endblock %}</h1>
+		<h1>{% block title %}{% endblock %}</h1>
 		{% block content %}(no content){% endblock %}
 	</div>
 
