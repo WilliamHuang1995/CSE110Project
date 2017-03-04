@@ -6,14 +6,14 @@
         <title>Calendo - Home</title>
 
         {% load staticfiles %}
+        <!--Import Bootstrap-->
         <link rel="stylesheet" href="{% static 'webapp/css/bootstrap.min.css' %}" type = "text/css"/>
         <link rel="stylesheet" href="{% static 'webapp/css/test.css' %}" type="text/css"/>
 
+        <!--Not sure what this one does, too afraid to remove-->
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-        <!-- Optional Bootstrap theme -->
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
-        <link rel='stylesheet' href='http://fullcalendar.io/js/fullcalendar-2.2.3/fullcalendar.css' />
+
+        <!--Import fullcalendar/jquery-->
         <link rel="stylesheet" href="{% static 'webapp/fullcalendar/fullcalendar.css' %}" type = "text/css"/>
         <script src='{% static "webapp/fullcalendar/lib/jquery.min.js" %}'></script>
         <script src='{% static "webapp/fullcalendar/lib/moment.min.js" %}'></script>
@@ -51,9 +51,11 @@
         </nav>
         <div class="container">
             <div class="row">
-                <div class="col-md-12">
+                <div class="col-md-12"><!--Change this to col-md-6 for half view-->
+                    <!--this line does the magic-->
                     <div id='calendar'></div>
                 </div>
+                <!--TODO: TURN raw input to fullcalendar compatible format-->
                 <div>
                     <button id="authorize-button" style="display: none;">Authorize</button>
                     <button id="signout-button" style="display: none;">Sign Out</button>
@@ -61,7 +63,6 @@
             </div>
 
         </div>
-        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
         <script type="text/javascript">
             $(document).ready(function() {
                 // page is now ready, initialize the calendar...
@@ -89,7 +90,7 @@
             });
         </script>
         <pre id="content"></pre>
-        <script type="text/javascript">
+        <script type="text/javascript"><!--This is the stuff that needs to be learned and converted-->
             // Client ID and API key from the Developer Console
             var CLIENT_ID = '617019221248-anpai3721kguigchcufa4emvq19o7bmn.apps.googleusercontent.com';
 
@@ -204,14 +205,13 @@
             }
 
         </script>
-
+        <!-- The following has to go with the above script-->
         <script async defer src="https://apis.google.com/js/api.js"
                 onload="this.onload=function(){};handleClientLoad()"
                 onreadystatechange="if (this.readyState === 'complete') this.onload()">
         </script>
+        <!--The following script is a script that is used to get public google calendars. But we don't want that -->
         <script type='text/javascript' src='{% static "webapp/fullcalendar/gcal.js" %}'></script>
-        <!--script src='{% static "webapp/js/gcal2.js" %}'></script>
-        <script src="https://apis.google.com/js/client.js?onload=handleClientLoad"></script-->
-        <audio id="audio" src="{% static 'webapp/1.mp3' %}" ></audio>
+        <audio id="audio" src="{% static 'webapp/1.mp3' %}" ></audio><!--yee-->
     </body>
 </html>
