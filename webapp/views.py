@@ -4,8 +4,8 @@ from django.http import HttpResponse
 from .models import Todo
 
 def index(request):
-	testPlzSave = Todo(title=request.GET['title'])
-	testPlzSave.save()
+	#testPlzSave = Todo(title=request.GET['title'])
+	#testPlzSave.save()
 	return render(request, 'webapp/home.html')
 
 def login(request):
