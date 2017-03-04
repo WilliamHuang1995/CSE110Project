@@ -28,8 +28,8 @@ class Calendo_User(models.Model):
 	Email = models.CharField(max_length=30)
 	Password = models.CharField(max_length=20)
 	NotificationsFreq = models.BooleanField(default=False)
-	ColorScheme = models.IntegerField()
-	CalenderView = models.CharField(max_length=1, choices=VIEW_CHOICES)
+	ColorScheme = models.IntegerField(default=3)
+	#CalenderView = models.CharField(max_length=1, choices=VIEW_CHOICES)
 
 	def __str__(self):
 			return self.Email

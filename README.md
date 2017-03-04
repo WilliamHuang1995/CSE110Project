@@ -29,19 +29,21 @@ Instructions:
 ##Alex Notes
 ###Database
 Once you push, you may have to run these commands:
-	python manage.py makemigrations webapp
-	python manage.py migrate
+
+	`python manage.py makemigrations webapp`
+	`python manage.py migrate`
 
 To see database:
 
+```bash
+
 	sqlite3 db.sqlite3
 
-	>>.tables
-		//shows all tables
+	>>.tables                //shows all tables
 
 
 	>>select * from todo_test
-
+```
 
 To add to database:
 
