@@ -5,11 +5,13 @@
 
 {% block content %}
 	
+	{#TODO make different error messages for different errors (wrong pass, no such email, etc#}
 	{% if auth_failed == True %}
 		<div class="alert alert-danger" role="alert">
 		  <strong>Oh snap!</strong> Change a few things up and try submitting again.
 			</div>
 	{% endif %}
+
 	<div class="row">
 
 	<div class="col-xs-4">

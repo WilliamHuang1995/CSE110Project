@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html>
+
+    <head>
+        <meta charset="utf-8">
+        <title>Calendo - Home</title>
+
+        {% load staticfiles %}
+        <!--Import Bootstrap-->
+        <link rel="stylesheet" href="{% static 'webapp/css/bootstrap.min.css' %}" type = "text/css"/>
+        <link rel="stylesheet" href="{% static 'webapp/css/test.css' %}" type="text/css"/>
+
+        <!--Not sure what this one does, too afraid to remove-->
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <!--Import fullcalendar/jquery-->
+        <link rel="stylesheet" href="{% static 'webapp/fullcalendar/fullcalendar.css' %}" type = "text/css"/>
+        <script src='{% static "webapp/fullcalendar/lib/jquery.min.js" %}'></script>
+        <script src='{% static "webapp/fullcalendar/lib/moment.min.js" %}'></script>
+        <script src='{% static "webapp/fullcalendar/lib/jquery-ui.min.js"%}'></script>
+        <script src='{% static "webapp/fullcalendar/fullcalendar.js" %}'></script>
+        <script src='{% static "webapp/fullcalendar/dragger.js" %}'></script>
+
+    </head>
+    <body>
+        <nav role="navigation" class="navbar navbar-inverse">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+                <button type="button" data-target="#navbarCollapse" data-toggle="collapse" class="navbar-toggle">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a href="#" class="navbar-brand">Calendo</a>
+            </div>
+            <!-- Collection of nav links, forms, and other content for toggling -->
+            <div id="navbarCollapse" class="collapse navbar-collapse">
+                <ul class="nav navbar-nav">
+                    <li><a href="#" class="pull-left"><img src="{% static 'webapp/logowhite.png' %}" class="img-responsive" style="max-width:25px; max-height:25px"></a></li>
+                    <li class="active"><a href="#">Calendar</a></li>
+                    <li><a href="#">To Do List</a></li>
+                </ul>
+                <form role="search" class="navbar-form navbar-left">
+                    <div class="form-group">
+                        <input type="text" placeholder="Search" class="form-control">
+                    </div>
+                </form>
+                <ul class="nav navbar-nav navbar-right">
+                    <li><a href="#">Login</a></li>
+                </ul>
+            </div>
+        </nav>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-8"><!--Change this to col-md-6 for half view-->
+                    <!--this line does the magic-->
+
+                    <div id='calendar'></div>
+                </div>
+                <div class="col-md-4">
+                    <div id='external-events'>
+                        <h4>To Dos</h4>
+                        <div class='fc-event'>
+													<div>
+														My Event 1
+														<img src="http://www.placehold.it/100x100"/>
+													</div>
+												</div>
+                        <div class='fc-event'>My Event 2</div>
+                        <div class='fc-event'>My Event 3</div>
+                        <div class='fc-event'>My Event 4</div>
+                        <div class='fc-event'>My Event 5</div>
+                        <p>
+                            <input type='checkbox' id='drop-remove' />
+                            <label for='drop-remove'>remove after drop</label>
+                        </p>
+                    </div>
+
+
+                    <!--TODO: TURN raw input to fullcalendar compatible format-->
+
+                </div>
+                <div class="col-md-12">
+                    <button id="authorize-button" style="display: none;">Authorize</button>
+                    <button id="signout-button" style="display: none;">Sign Out</button>
+                </div>
+
+            </div>
+            <script type="text/javascript">
+                $(document).ready(function() {
+                    // page is now ready, initialize the calendar...
+                    $('#external-events .fc-event').each(function() {
+
+                        // store data so the calendar knows to render an event upon drop
+                        $(this).data('event', {
+                            title: $.trim($(this).text()), // use the element's text as the event title
+                            stick: true // maintain when user navigates (see docs on the renderEvent method)
+                        });
+
+                        // make the event draggable using jQuery UI
+                        $(this).draggable({
+                            zIndex: 999,
+                            revert: true,      // will cause the event to go back to its
+                            revertDuration: 0  //  original position after the drag
+                        });
+
+                    });
+
+                    $('#calendar').fullCalendar({
+                        header: {
+                            left: 'prev,next today',
+                            center: 'title',
+                            right: 'month,agendaWeek,agendaDay,listWeek'
+                        },
+                        editable: true,
+                        droppable: true, // this allows things to be dropped onto the calendar
+                        drop: function() {
+                            // is the "remove after drop" checkbox checked?
+                            if ($('#drop-remove').is(':checked')) {
+                                // if so, remove the element from the "Draggable Events" list
+                                $(this).remove();
+                            }
+                        },
+                        dayClick: function() {
+                            var audio = document.getElementById("audio");
+                            audio.play();
+                        },
+                        googleCalendarApiKey: 'AIzaSyD0XdpABM5YzCNI0QFP_Gm7mgqDuNzqy7M',
+                        // put your options and callbacks here
+                        eventSources: [{
+                            googleCalendarId: 'shsidforever@gmail.com',
+                            className: 'gcal-event' //an option!
+                        },
+                                       {
+                                           googleCalendarId: 'slmnliu@gmail.com',
+                                           className: 'nice-event'
+                                       }
+                                      ]});
+                });
+            </script>
+            <pre id="content"></pre>
+            <script type="text/javascript"><!--This is the stuff that needs to be learned and converted-->
+                    // Client ID and API key from the Developer Console
+                    var CLIENT_ID = '617019221248-anpai3721kguigchcufa4emvq19o7bmn.apps.googleusercontent.com';
+
+                // Array of API discovery doc URLs for APIs used by the quickstart
+                var DISCOVERY_DOCS = ["https://www.googleapis.com/discovery/v1/apis/calendar/v3/rest"];
+
+                // Authorization scopes required by the API; multiple scopes can be
+                // included, separated by spaces.
+                var SCOPES = "https://www.googleapis.com/auth/calendar";
+
+                var authorizeButton = document.getElementById('authorize-button');
+                var signoutButton = document.getElementById('signout-button');
+
+                /**
+       *  On load, called to load the auth2 library and API client library.
+       */
+                function handleClientLoad() {
+                    gapi.load('client:auth2', initClient);
+                }
+
+                /**
+       *  Initializes the API client library and sets up sign-in state
+       *  listeners.
+       */
+                function initClient() {
+                    gapi.client.init({
+                        discoveryDocs: DISCOVERY_DOCS,
+                        clientId: CLIENT_ID,
+                        scope: SCOPES
+                    }).then(function () {
+                        // Listen for sign-in state changes.
+                        gapi.auth2.getAuthInstance().isSignedIn.listen(updateSigninStatus);
+
+                        // Handle the initial sign-in state.
+                        updateSigninStatus(gapi.auth2.getAuthInstance().isSignedIn.get());
+                        authorizeButton.onclick = handleAuthClick;
+                        signoutButton.onclick = handleSignoutClick;
+                    });
+                }
+
+                /**
+       *  Called when the signed in status changes, to update the UI
+       *  appropriately. After a sign-in, the API is called.
+       */
+                function updateSigninStatus(isSignedIn) {
+                    if (isSignedIn) {
+                        authorizeButton.style.display = 'none';
+                        signoutButton.style.display = 'block';
+                        listUpcomingEvents();
+                    } else {
+                        authorizeButton.style.display = 'block';
+                        signoutButton.style.display = 'none';
+                    }
+                }
+
+                /**
+       *  Sign in the user upon button click.
+       */
+                function handleAuthClick(event) {
+                    gapi.auth2.getAuthInstance().signIn();
+                }
+
+                /**
+       *  Sign out the user upon button click.
+       */
+                function handleSignoutClick(event) {
+                    gapi.auth2.getAuthInstance().signOut();
+                }
+
+                /**
+       * Append a pre element to the body containing the given message
+       * as its text node. Used to display the results of the API call.
+       *
+       * @param {string} message Text to be placed in pre element.
+       */
+                function appendPre(message) {
+                    var pre = document.getElementById('content');
+                    var textContent = document.createTextNode(message + '\n');
+                    pre.appendChild(textContent);
+                }
+
+                /**
+       * Print the summary and start datetime/date of the next ten events in
+       * the authorized user's calendar. If no events are found an
+       * appropriate message is printed.
+       */
+                function listUpcomingEvents() {
+                    gapi.client.calendar.events.list({
+                        'calendarId': 'primary',
+                        'timeMin': (new Date()).toISOString(),
+                        'showDeleted': false,
+                        'singleEvents': true,
+                        'maxResults': 10,
+                        'orderBy': 'startTime'
+                    }).then(function(response) {
+                        var events = response.result.items;
+                        appendPre('Upcoming events:');
+
+                        if (events.length > 0) {
+                            for (i = 0; i < events.length; i++) {
+                                var event = events[i];
+                                var when = event.start.dateTime;
+                                if (!when) {
+                                    when = event.start.date;
+                                }
+                                appendPre(event.summary + ' (' + when + ')')
+                            }
+                        } else {
+                            appendPre('No upcoming events found.');
+                        }
+                    });
+                }
+
+            </script>
+            <!-- The following has to go with the above script-->
+            <script async defer src="https://apis.google.com/js/api.js"
+                    onload="this.onload=function(){};handleClientLoad()"
+                    onreadystatechange="if (this.readyState === 'complete') this.onload()">
+            </script>
+            <!--The following script is a script that is used to get public google calendars. But we don't want that -->
+            <script type='text/javascript' src='{% static "webapp/fullcalendar/gcal.js" %}'></script>
+            <audio id="audio" src="{% static 'webapp/1.mp3' %}" ></audio><!--yee-->
+            </body>
+        </html>
+
