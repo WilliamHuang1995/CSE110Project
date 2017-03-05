@@ -107,7 +107,7 @@ def calendar(request):
 
 
 def todos(request):
-	return render(request, 'webapp/login.html');
+	return render(request, 'webapp/todo.html');
 
 
 def test(request):
