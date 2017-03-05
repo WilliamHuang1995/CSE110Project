@@ -6,6 +6,8 @@ from django.core.signing import Signer
 from .models import Todo
 from .models import Calendo_User
 
+from django.core.mail import send_mail
+
 def alex_test(request):
 	return render(request, 'webapp/home.alex.html')
 
@@ -24,24 +26,65 @@ def register_auth(request):
 		return redirect('/register')
 	
 	#see if all were provided
+	if( not (request.POST.get('name') and request.POST.get('email') and request.POST.get('password') and request.POST.get('confirm'))):
+		
+		#TODO error handling, give them error messages
+		return redirect('/register')
 
+	
+	input_email = request.POST['email']
+	input_name = request.POST['name']
+	input_password = request.POST['password']
+	input_confirm = request.POST['confirm']
+	
+	#see if email is an email, password is right TODO
+	regex_email = r'(^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$)'
+	
 
-
-	#see if email is an email, password is right
-
-
+		#use regex. See if paswords match. see is password is long enough, enough special chars, etc
 
 	#see if email already exists
+	
+	preExistingUsers = Calendo_User.objects.raw('SELECT * FROM webapp_calendo_user WHERE Email=%s', [input_email])
+	
+	if( len(list(preExistingUsers)) > 0):
+		#TODO preexisting user error message
+		return redirect('/register');
+	
+	#salt, hash password TODO
+
+	#insert into database TODO
+	
+	password_hashed = input_password #TODO
+
+	#insertResult = Calendo_User.objects.raw('INSERT INTO webapp_calendo_user(name, email, password) VALUES(%s, %s. %s)', [input_name, input_email, password_hashed])
+	insertNewUserResult = Calendo_User(Name=input_name, Email=input_email, Password=password_hashed)
+	insertNewUserResult.save()
 
 
-	#insert into database
+	#send email to given email TODO
+
+	send_mail(
+		'Verify your Calendo Account, ' + input_name,
+		"""
+		Hello + input_name + ! \n\n 
+		
+		To verify your Calendo account, please click on the link below:\n
+
+		linkhere.com\n\n
+
+		Have a nice day!\n
+		-Calendo Team
+		""",
+		'help@calendo.com',
+		[input_email],
+		fail_silently=False,
+	)
 
 
-	#send email to given email
 
 	#render response
-
-	return render(request, 'webapp/register-complete.html')
+	return render(request, 'webapp/register-complete.html', {'email':input_email})
 	
 def login(request):
 	auth_failed = False
@@ -107,6 +150,16 @@ def calendar(request):
 
 
 def todos(request):
+	return render(request, 'webapp/login.html');
+
+
+def confirmEmail(request):
+	return render(request, 'webapp/login.html');
+
+def confirmEmail_success(request):
+	return render(request, 'webapp/login.html');
+
+def confirmEmail_failure(request):
 	return render(request, 'webapp/login.html');
 
 
