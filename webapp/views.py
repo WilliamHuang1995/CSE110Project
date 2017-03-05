@@ -5,6 +5,10 @@ import django.apps
 from django.core.signing import Signer
 from .models import Todo
 from .models import Calendo_User
+from .models import Confirm_Email
+
+import string
+import random
 
 from django.core.mail import send_mail
 
@@ -62,16 +66,26 @@ def register_auth(request):
 	insertNewUserResult.save()
 
 
+	#genereate confirm email code
+	
+	codeGenerated = confirm_code_generator()
+	insertNewEmailConfirmCodeResult = Confirm_Email(Email=input_email, Code=codeGenerated, IsConfirmed=False);
+	insertNewEmailConfirmCodeResult.save();
+
+
+
 	#send email to given email TODO
 
 	send_mail(
 		'Verify your Calendo Account, ' + input_name,
 		"""
-		Hello + input_name + ! \n\n 
+		Hello """ + input_name  +  """! \n\n 
 		
 		To verify your Calendo account, please click on the link below:\n
 
-		linkhere.com\n\n
+		http://127.0.0.1:8000/confirm_email?code=""" + codeGenerated + 
+		
+		"""\n\n
 
 		Have a nice day!\n
 		-Calendo Team
@@ -169,3 +183,6 @@ def test(request):
 	#get from database
 	db_result = Todo.objects.raw('SELECT * FROM webapp_todo WHERE id=%s', [request.GET['id']])[0]
 	return render(request, 'webapp/test.html', {'alex':alex, 'dbResult':db_result})
+
+def confirm_code_generator(size=30, chars=string.ascii_uppercase + string.digits):
+    return ''.join(random.SystemRandom().choice(string.ascii_uppercase + string.digits) for _ in range(size))
