@@ -120,7 +120,7 @@ def login_auth(request):
 	
 	signer = Signer()
 	
-	print"password:%s, signed:%s", request.POST['password'], signer.sign(request.POST['password'])
+	print("password:%s, signed:%s", request.POST['password'], signer.sign(request.POST['password']))
 	
 	if( len(list(userResult)) != 1):
 		print("oh shits")
@@ -150,7 +150,7 @@ def calendar(request):
 
 
 def todos(request):
-	return render(request, 'webapp/login.html');
+	return render(request, 'webapp/todo.html');
 
 
 def confirmEmail(request):
