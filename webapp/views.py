@@ -77,7 +77,7 @@ def login_auth(request):
 	
 	signer = Signer()
 	
-	print"password:%s, signed:%s", request.POST['password'], signer.sign(request.POST['password'])
+	print("password:%s, signed:%s", request.POST['password'], signer.sign(request.POST['password']))
 	
 	if( len(list(userResult)) != 1):
 		print("oh shits")
