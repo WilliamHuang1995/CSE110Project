@@ -28,9 +28,17 @@
         <script src='{% static "webapp/fullcalendar/lib/jquery-ui.min.js"%}'></script>
         <script src='{% static "webapp/fullcalendar/fullcalendar.js" %}'></script>
         <script src='{% static "webapp/fullcalendar/dragger.js" %}'></script>
+        
+        <!-- Latest compiled and minified JavaScript -->
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 
 
     </head>
+    
+    <body>
+    <!--Modal for editing events-->
+    <div id="eventModal"></div>
+        
     <div class="navbar navbar-inverse navbar-fixed-left">
         <ul class="nav navbar-nav">
             <div class="navbar-fixed-top">
