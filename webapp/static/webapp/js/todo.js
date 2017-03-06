@@ -29,9 +29,25 @@ list.addEventListener('click', function(ev) {
 
 // Create a new list item when clicking on the "Add" button
 function newElement() {
-  var li = document.createElement("li");
-  var inputValue = document.getElementById("myInput").value;
-  var t = document.createTextNode(inputValue);
+    
+    var li = document.createElement("li");
+    var inputValue = document.getElementById("myInput").value;
+    
+    var url = "/api/post";
+   
+    var params = inputValue;
+    
+    var xhr = new XMLHttpRequest();
+    xhr.open("POST", url, true);
+
+//Send the proper header information along with the request
+    //xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+    xhr.setRequestHeader("X-CSRF-Token", "{%csrftoken%}");
+
+    xhr.send(params);
+      
+}; 
+  /*var t = document.createTextNode(inputValue);
   li.appendChild(t);
   if (inputValue === '') {
     alert("You must write something!");
@@ -52,4 +68,4 @@ function newElement() {
       div.style.display = "none";
     }
   }
-}
+}*/

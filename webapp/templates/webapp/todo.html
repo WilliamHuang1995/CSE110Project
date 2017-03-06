@@ -6,33 +6,49 @@
     <script src='{% static "webapp/fullcalendar/lib/jquery.min.js" %}'></script>
     <script src='{% static "webapp/fullcalendar/lib/moment.min.js" %}'></script>
     <script src='{% static "webapp/fullcalendar/lib/jquery-ui.min.js"%}'></script>
-
+    
 </head>
 <body>
 
 <div id="myDIV" class="header">
   <h2 style="margin:5px">Calendo To Do List</h2>
   <input type="text" id="myInput" placeholder="Title...">
+    
   <span onclick="newElement()" class="addBtn">Add</span>
     </div>
 <script type="text/javascript">
     $(document).ready(function(){
         var client = new HttpClient();
-        client.get('http://127.0.0.1:8000/api/get', function(response) {
+        client.get('/api/get', function(response) {
     // do something with response
         
-        var temp = JSON.parse(response); 
+            var temp = JSON.parse(response); 
         
-        console.log(temp[0].title);
-        console.log(temp.length);    
-        for(var i = 0; i < temp.length; i++){
+            console.log(temp[0].title);
+            console.log(temp.length);    
+            for(var i = 0; i < temp.length; i++){
         
-        var node = document.createElement("LI");
-        console.log("entered loop");
-        var textnode = document.createTextNode(temp[i].title);
-        node.appendChild(textnode);
-        document.getElementById("myUL").appendChild(node);
-        }
+                var node = document.createElement("LI");
+                console.log("entered loop");
+                console.log(i);
+                var textnode = document.createTextNode(temp[i].title);
+                node.appendChild(textnode);
+                document.getElementById("myUL").appendChild(node);
+                
+
+                var span = document.createElement("SPAN");
+                var txt = document.createTextNode("\u00D7");
+                span.className = "close";
+                span.appendChild(txt);
+                document.getElementById("myUL").appendChild(node).appendChild(span);
+
+                for (var j = 0; j < close.length; j++) {
+                    close[j].onclick = function() {
+                    var div = this.parentElement;
+                    div.style.display = "none";
+                    }   
+                }
+            }
         })
     }); 
     var HttpClient = function() {

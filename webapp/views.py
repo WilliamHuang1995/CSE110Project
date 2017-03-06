@@ -29,6 +29,25 @@ def get_request(request):
 	data = [{'title': item.title, 'id': item.id} for item in queryset]
 	return HttpResponse(json.dumps(data),content_type='application/json')
 
+def post_request(request):
+	if request.method != 'POST':
+		return redirect('/todo')
+	
+	#see if all were provided
+	if( not (request.POST.get('title') )):
+		
+		#TODO error handling, give them error messages
+		return redirect('/todo')
+
+	
+	input_title = request.POST['title']
+	
+	insertToDoResult = webapp_todo(title=input_title)
+	insertToDoResult.save()
+
+	return render(request, 'webapp/todo.html')
+	
+
 def index(request):
 	#insert into database
 	if (request.GET.get('boop')):
