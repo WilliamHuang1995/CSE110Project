@@ -9,8 +9,10 @@ from .models import Todo
 from .models import Calendo_User
 
 import json
+import time
 
 from .models import Confirm_Email
+from .models import Session
 
 
 from django.http import HttpResponse
@@ -23,7 +25,19 @@ import random
 
 from django.core.mail import send_mail
 
+
+def prompt_login(request):
+	t = loader.get_template('webapp/login.html')
+	c = {}
+
+	response = HttpResponse(t.render(c, request))
+	response.delete_cookie('calendo_session_token')
+	return response
+
 def alex_test(request):
+	if(not user_is_auth(request)):
+		return prompt_login(request)
+
 	return render(request, 'webapp/home.alex.html')
 
 def get_request(request):
@@ -88,9 +102,12 @@ def register_auth(request):
 	#see if email already exists
 	
 	preExistingUsers = Calendo_User.objects.raw('SELECT * FROM webapp_calendo_user WHERE Email=%s', [input_email])
+
+	print( len(list(preExistingUsers )))
 	
 	if( len(list(preExistingUsers)) > 0):
 		#TODO preexisting user error message
+		print("omg kill me")
 		return redirect('/register');
 	
 
@@ -141,6 +158,8 @@ def register_auth(request):
 	return render(request, 'webapp/register-complete.html', {'email':input_email})
 	
 def login(request):
+	if(not user_is_auth(request)):
+		return prompt_login(request)
 	auth_failed = False
 	if(request.GET.get('auth_failed') and request.GET['auth_failed'] == 'true'):
 		auth_failed = True
@@ -187,19 +206,24 @@ def login_auth(request):
 			return render(request, 'webapp/home.html', {'userResult':userResult[0]})
 		
 		#create token in database TODO
+		
+		session_token = login_token_generator()
+		token_death_date = int(time.time()) + 60*2
 
+		insertSessionTokenResult = Session(SessionId=session_token, UserId=userOfInterest.id, UserEmail=userOfInterest.Email, DeathDate=token_death_date)
+		insertSessionTokenResult.save()
 
 		t = loader.get_template('webapp/home.html')
 		c = {'userResult':userResult[0]}
 
 		response = HttpResponse(t.render(c, request))
-		response.set_signed_cookie('plzWork', 'value mofo!')
+		response.set_cookie('calendo_session_token', session_token)
 		print("OH YES BABY")
 		return response
 
 	else:
 		print("OH NOOOOOOOOO")
-		return render(request, 'webapp/home.html', {'userResult':userResult[0]})
+		return redirect('./home.html')
 
 def confirm_email(request):
 	
@@ -212,10 +236,14 @@ def confirm_email(request):
 	return render(request, 'webapp/confirmEmail_succ.html', {'email':email})
 
 def calendar(request):
+	if(not user_is_auth(request)):
+		return prompt_login(request)
 	return render(request, 'webapp/login.html');
 
 
 def todos(request):
+	if(not user_is_auth(request)):
+		return prompt_login(request)
 	return render(request, 'webapp/todo.html');
 
 
@@ -244,6 +272,8 @@ def confirmEmail(request):
 	return render(request, 'webapp/confirm_email.html', {'confirm_status':'success', 'email':emailToConfirm});
 
 def test(request):
+	if(not user_is_auth(request)):
+		return prompt_login(request)
 	alex = 'omgfg'
 
 	#get from database
@@ -252,3 +282,32 @@ def test(request):
 
 def confirm_code_generator(size=30, chars=string.ascii_uppercase + string.digits):
     return ''.join(random.SystemRandom().choice(string.ascii_uppercase + string.digits) for _ in range(size))
+def login_token_generator(size=25, chars=string.ascii_lowercase + string.digits):
+    return ''.join(random.SystemRandom().choice(string.ascii_uppercase + string.digits) for _ in range(size))
+
+
+def user_is_auth(request):
+	calendo_session_token = request.COOKIES.get('calendo_session_token')
+
+	if(not calendo_session_token):
+		return False
+	
+	sessionQueryResult = Session.objects.raw('SELECT * FROM webapp_session WHERE SessionId=%s', [calendo_session_token])
+
+	if( len(list(sessionQueryResult)) != 1):
+		return False
+	
+	session_record = sessionQueryResult[0]
+	
+	#if token is expired, passed deathdate
+
+	if (session_record.DeathDate <  int(time.time())):
+		return False
+	
+	#update token for another 10 mins
+	
+	new_death_date = int(time.time()) + 2*60
+	updateDeathDateResult = Session(id=session_record.id, DeathDate=new_death_date)
+	updateDeathDateResult.save(update_fields=['DeathDate'])
+	
+	return True

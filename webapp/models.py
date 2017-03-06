@@ -19,7 +19,6 @@ class User(models.Model):
 		('T', 'Three-Day'),
 		('M', 'Month')
 	)
-	#UserName = models.CharField(max_length=20)
 	Email = models.CharField(max_length=30)
 	Password = models.CharField(max_length=20)
 	NotificationsFreq = models.BooleanField(default=False)
@@ -28,7 +27,6 @@ class User(models.Model):
 
 	def __str__(self):
 			return self.UserName
-
 
 class Calendo_User(models.Model):
 	VIEW_CHOICES = (
@@ -60,9 +58,9 @@ class Todo(models.Model):
 	id = models.AutoField(primary_key=True)
 	title = models.TextField(null=True)
 	#UserID = models.ForeignKey(User) #may need on_delete models.CASCADE
-	#title = models.CharField(max_length=40)
-	#description = models.CharField(max_length=160)
-	#EstimateTime = models.IntegerField()
+	title = models.CharField(max_length=40, default="")
+	description = models.CharField(max_length=160, default="")
+	EstimateTime = models.IntegerField(default=1)
 	#DueDate = models.DateField()
 
 	def __str__(self):
