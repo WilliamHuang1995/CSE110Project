@@ -36,6 +36,7 @@ $(document).ready(function() {
                             var audio = document.getElementById("audio");
                             audio.play();
                         },
+
                         eventClick: function(calEvent, jsEvent, view) {
                             
                             var header = "Event: " + calEvent.title;
@@ -45,17 +46,10 @@ $(document).ready(function() {
                             createModal('eventModal', calEvent, strSubmitFunc, btnText);
                             //return false;
                         },
-                        googleCalendarApiKey: 'AIzaSyD0XdpABM5YzCNI0QFP_Gm7mgqDuNzqy7M',
+
+                        googleCalendarApiKey: 'AIzaSyD0XdpABM5YzCNI0QFP_Gm7mgqDuNzqy7M'
                         // put your options and callbacks here
-                        eventSources: [{
-                            googleCalendarId: 'shsidforever@gmail.com',
-                            className: 'gcal-event' //an option!
-                        },
-                                       {
-                                           googleCalendarId: 'slmnliu@gmail.com',
-                                           className: 'nice-event'
-                                       }
-                        ]
+                        
                     });
 });
 /* Set the width of the side navigation to 250px */
