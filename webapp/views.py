@@ -7,6 +7,11 @@ from .models import Todo
 from .models import Calendo_User
 from .models import Confirm_Email
 
+
+from django.http import HttpResponse
+from django.template import loader
+
+
 import string
 import random
 
@@ -55,13 +60,15 @@ def register_auth(request):
 		#TODO preexisting user error message
 		return redirect('/register');
 	
-	#salt, hash password TODO
 
-	#insert into database TODO
 	
-	password_hashed = input_password #TODO
+	#salt, hash password TODO
+	signer = Signer()
+	password_hashed = input_password 
+	password_hashed = signer.sign(input_password)
+	password_hashed= password_hashed[password_hashed.find(":")+1:]
 
-	#insertResult = Calendo_User.objects.raw('INSERT INTO webapp_calendo_user(name, email, password) VALUES(%s, %s. %s)', [input_name, input_email, password_hashed])
+	#insert into database 
 	insertNewUserResult = Calendo_User(Name=input_name, Email=input_email, Password=password_hashed)
 	insertNewUserResult.save()
 
@@ -69,7 +76,7 @@ def register_auth(request):
 	#genereate confirm email code
 	
 	codeGenerated = confirm_code_generator()
-	insertNewEmailConfirmCodeResult = Confirm_Email(Email=input_email, Code=codeGenerated, IsConfirmed=False);
+	insertNewEmailConfirmCodeResult = Confirm_Email(UserId=insertNewUserResult.id,Email=input_email, Code=codeGenerated, IsConfirmed=False);
 	insertNewEmailConfirmCodeResult.save();
 
 
@@ -111,43 +118,55 @@ def login_auth(request):
 	if (request.method != 'POST'):
 		return redirect('/login') 
 
-	#see if provided credentials are legal
+	if( not (request.POST.get('email') and request.POST.get('password') )):
+		#TODO error handling, give them error messages
+		return redirect('/login')
+
+	
+	input_email = request.POST['email']
+	input_password = request.POST['password']
+
+	#see if provided credentials are legal TODO, length pass, is an eail, etc
 
 
 	#query database for given email
-
-
-	#if not exactly 1 row, error
-
-
-	#Hash given password. Check with database. error back if not right
-
-	#If still hasnt confrmed password, error it
-
-	#create token in memcache set to expire in x hours
-
-	#set cookie, key as calendo_auth_token, value as memcache token
-
-	#send result
-
 	userResult = Calendo_User.objects.raw('SELECT * FROM webapp_calendo_user  WHERE Email=%s', [request.POST['email']])
 	
-	signer = Signer()
-	
-	print("password:%s, signed:%s", request.POST['password'], signer.sign(request.POST['password']))
-	
+	#if not exactly 1 row, error
 	if( len(list(userResult)) != 1):
 		print("oh shits")
 		return redirect('/login?auth_failed=true&noUser=true') 
 	
 	userOfInterest = userResult[0]
 
-	print(userResult)
-	print(userResult.Email)
-	print(userResult.Password)
-	return render(request, 'webapp/login.html', {'userResult':userResult[0]})
+
+	#Hash given password. Check with database. error back if not right
+	signer = Signer()
+
+	input_password_enc = signer.sign(input_password)
+	input_password_enc = input_password_enc[input_password_enc.find(":")+1:]
+
+	if(input_password_enc  == userOfInterest.Password): 
+		
+		#If still hasnt confrmed password, error it
+		if (not (userOfInterest.isConfirmed)):
+			#TODO let user know they have to confirm their email
+			return render(request, 'webapp/home.html', {'userResult':userResult[0]})
+		
+		#create token in database TODO
 
 
+		t = loader.get_template('webapp/home.html')
+		c = {'userResult':userResult[0]}
+
+		response = HttpResponse(t.render(c, request))
+		response.set_signed_cookie('plzWork', 'value mofo!')
+		print("OH YES BABY")
+		return response
+
+	else:
+		print("OH NOOOOOOOOO")
+		return render(request, 'webapp/home.html', {'userResult':userResult[0]})
 
 def confirm_email(request):
 	
@@ -168,14 +187,28 @@ def todos(request):
 
 
 def confirmEmail(request):
-	return render(request, 'webapp/login.html');
+	
+	if( not request.GET.get('code')):
+		return render(request, 'webapp/confirm_email.html', {'confirm_status':'fail'})
+	
+	givenCode = request.GET['code']
+	
+	codeQueryResult = Confirm_Email.objects.raw('SELECT * FROM webapp_Confirm_Email WHERE Code=%s AND IsConfirmed = 0',[givenCode])
+	
+	if( len(list(codeQueryResult)) != 1):
+		return render(request, 'webapp/confirm_email.html', {'confirm_status':'fail'})
+	
+	emailToConfirm = codeQueryResult[0].Email
+	
+	userIdToUse = codeQueryResult[0].UserId
 
-def confirmEmail_success(request):
-	return render(request, 'webapp/login.html');
+	codeUpdateResult = Confirm_Email(Code=givenCode, id=codeQueryResult[0].id, IsConfirmed=True)
+	codeUpdateResult.save(update_fields=['IsConfirmed'])
 
-def confirmEmail_failure(request):
-	return render(request, 'webapp/login.html');
+	userUpdateResult = Calendo_User(id=userIdToUse, isConfirmed=True)
+	userUpdateResult.save(update_fields=['isConfirmed'])
 
+	return render(request, 'webapp/confirm_email.html', {'confirm_status':'success', 'email':emailToConfirm});
 
 def test(request):
 	alex = 'omgfg'

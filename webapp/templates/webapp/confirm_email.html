@@ -1,0 +1,25 @@
+{% extends 'webapp/base.html' %}
+
+{% load bootstrap3 %}
+
+
+	{% block title %}
+		{% if confirm_status == 'success'%}
+			Confirm Email Successful
+		{% else %}
+			Confirm Email Denied, yo
+		{% endif %}
+	{% endblock %}
+
+	{% block content %}
+		{% if confirm_status == 'success'%}
+			<h2>Your email, {{email}} has been confirmed!</h2>
+			<br/>
+			<h3>Please login <a href="/login">here</a> to enter your account!</h3>
+		{% else %}
+			<h2>Your email has NOT been confirmed.</h2>
+			<br/>
+			<h3>Please regiser <a href="/register">here</a> to register your account.</h3>
+		{% endif %}
+	{% endblock %}
+
