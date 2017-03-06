@@ -44,7 +44,7 @@ $(document).ready(function() {
                             var strSubmitFunc = "saveChanges()";
                             var btnText = "Save Changes";
                             createModal('eventModal', calEvent, strSubmitFunc, btnText);
-                            //return false;
+                            return false;
                         },
 
                         googleCalendarApiKey: 'AIzaSyD0XdpABM5YzCNI0QFP_Gm7mgqDuNzqy7M'
