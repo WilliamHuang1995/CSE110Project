@@ -8,6 +8,7 @@ from django.core import serializers
 from .models import Todo
 from .models import Calendo_User
 
+
 import json
 
 from .models import Confirm_Email
@@ -33,16 +34,22 @@ def post_request(request):
 	if request.method != 'POST':
 		return redirect('/todo')
 	
+	print("daddy")
+
+	for key, value in request.POST.items():
+		print ("%s %s" ,(key, value))
+
+
 	#see if all were provided
 	if( not (request.POST.get('title') )):
 		
 		#TODO error handling, give them error messages
-		return redirect('/todo')
+		return redirect('/home')
 
 	
-	input_title = request.POST['title']
+	input_title = request.POST.get('title');
 	
-	insertToDoResult = webapp_todo(title=input_title)
+	insertToDoResult = Todo(title=input_title)
 	insertToDoResult.save()
 
 	return render(request, 'webapp/todo.html')

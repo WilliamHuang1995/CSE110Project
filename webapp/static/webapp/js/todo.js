@@ -29,24 +29,26 @@ list.addEventListener('click', function(ev) {
 
 // Create a new list item when clicking on the "Add" button
 function newElement() {
-    
-    var li = document.createElement("li");
     var inputValue = document.getElementById("myInput").value;
-    
+    var csrftoken = jQuery("[name=csrfmiddlewaretoken]").val(); 
     var url = "/api/post";
-   
+    
     var params = inputValue;
+    var form_data = new FormData();
+    form_data.append("title", params); 
     
     var xhr = new XMLHttpRequest();
     xhr.open("POST", url, true);
+                
+            //Send the proper header information along with the request
+            //xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+    xhr.setRequestHeader("X-CSRFToken", csrftoken);
 
-//Send the proper header information along with the request
-    //xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-    xhr.setRequestHeader("X-CSRF-Token", "{%csrftoken%}");
-
-    xhr.send(params);
-      
-}; 
+    xhr.send(form_data);
+    console.log("sent params");
+    
+    
+};  
   /*var t = document.createTextNode(inputValue);
   li.appendChild(t);
   if (inputValue === '') {
