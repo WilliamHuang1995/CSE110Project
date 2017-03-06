@@ -19,5 +19,9 @@ urlpatterns = [
     url(r'^setting$', views.calendar, name='calendar'),
 
     url(r'^alex$', views.alex_test, name='alex_test'),
-    url(r'^$', views.index, name='index')
+    url(r'^$', views.index, name='index'),
+
+    url(r'^api/get$', views.get_request, name='eric_test')
+    
+
 ]
