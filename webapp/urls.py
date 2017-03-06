@@ -21,7 +21,8 @@ urlpatterns = [
     url(r'^alex$', views.alex_test, name='alex_test'),
     url(r'^$', views.index, name='index'),
 
-    url(r'^api/get$', views.get_request, name='eric_test')
+    url(r'^api/get$', views.get_request, name='get_request'),
+    url(r'^api/post$', views.post_request, name='posting')
     
 
 ]
