@@ -28,22 +28,24 @@
 
     </head>
     <div class="navbar navbar-inverse navbar-fixed-left">
-        <a class="navbar-brand" href="#">Calendo</a>
         <ul class="nav navbar-nav">
-            <li><img src="{% static 'webapp/logowhite.png' %}" class="img-responsive img-centered" style="max-width:40px; max-height:40px"/></li>
-            <li><a href="#calendar"><i class="fa fa-calendar"></i><span> Calendar </span></a></li>
+            <li><img src="{% static 'webapp/nav_logo.png' %}" class="img-responsive" /></li>
+            <li><img src="{% static 'webapp/nav_calendar.png' %}" class="img-responsive"/></li>
+            <li><img src="{% static 'webapp/nav_task1.png' %}" class="img-responsive"/></li>
+            <li><img src="{% static 'webapp/nav_settings.png' %}" class="img-responsive navbar-fixed-bottom"/></li>
+            <!--li><a href="#calendar"><i class="fa fa-calendar"></i><span> Calendar </span></a></li>
             <li><a href="#todo"><i class="fa fa-list"></i><span> To-Do List </span></a></li>
             <li><a href="#settings"><i class="fa fa-ellipsis-h"></i><span> Settings </span></a></li>
-            <!--If you wanna add more just uncomment li><a href="#work"><i class="fa fa-briefcase"></i><span> Link4 </span></a></li>
+            <If you wanna add more just uncomment li><a href="#work"><i class="fa fa-briefcase"></i><span> Link4 </span></a></li>
             <li><a href="#contact"><i class="fa fa-envelope"></i><span> Link5 </span></a></li-->
         </ul>
     </div>
-    <div class="container" id="calendar">
+    <div class="container" id="calendo">
         <div class="row">
-            <div class="col-md-8"><!--Change this to col-md-6 for half view-->
+            <div class="col-md-12"><!--Change this to col-md-6 for half view-->
                 <!--this line does the magic-->
 
-                <div id='calendar'></div>
+                <div id='calendar' class='cal'></div>
             </div>
             <div class="col-md-4">
                 <div id='external-events'>
@@ -198,4 +200,5 @@
         <audio id="audio" src="{% static 'webapp/1.mp3' %}" ></audio><!--yee-->
         </body>
 </html>
+
 

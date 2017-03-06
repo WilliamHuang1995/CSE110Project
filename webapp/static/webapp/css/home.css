@@ -1,6 +1,6 @@
 /* CSS used here will be applied after bootstrap.css */
 .navbar-fixed-left {
-  width: 120px;
+  width: 40px;
   position: fixed;
   border-radius: 0;
   height: 100%;
@@ -18,7 +18,14 @@
 .container {
   height: 1000px;
 }
-
-.wrapper {
+.img-responsive {
+    padding: 8px;
+    max-width:40px; 
+    max-height:40px
+}
+.settings {
+    height: 155px;
+}
+.wrapper 
   margin-left: 140px;
 }
