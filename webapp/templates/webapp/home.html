@@ -4,9 +4,13 @@
     <head>
         <meta charset="utf-8">
         <title>Calendo - Home</title>
-
+        <!--App Icon-->
+        
         {% load staticfiles %}
         <!--Import Bootstrap-->
+        <link rel="icon" 
+              type="image/png" 
+              href='{% static "webapp/img/site_favicon2.png" %}'>
         <link rel="stylesheet" href="{% static 'webapp/css/bootstrap.min.css' %}" type = "text/css"/>
         <link rel="stylesheet" href="{% static 'webapp/css/test.css' %}" type="text/css"/>
         <link rel="stylesheet" href="{% static 'webapp/css/home.css' %}" type="text/css"/>
@@ -18,7 +22,7 @@
         <link rel="stylesheet" href="{% static 'webapp/fullcalendar/fullcalendar.css' %}" type = "text/css"/>
         <!--Import Font Awesome-->
         <link rel="stylesheet" href='https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css' type = "text/css"/>
-        
+
         <script src='{% static "webapp/fullcalendar/lib/jquery.min.js" %}'></script>
         <script src='{% static "webapp/fullcalendar/lib/moment.min.js" %}'></script>
         <script src='{% static "webapp/fullcalendar/lib/jquery-ui.min.js"%}'></script>
@@ -29,15 +33,15 @@
     </head>
     <div class="navbar navbar-inverse navbar-fixed-left">
         <ul class="nav navbar-nav">
-            <li><img src="{% static 'webapp/nav_logo.png' %}" class="img-responsive" /></li>
-            <li><img src="{% static 'webapp/nav_calendar.png' %}" class="img-responsive"/></li>
-            <li><img src="{% static 'webapp/nav_task1.png' %}" class="img-responsive"/></li>
-            <li><img src="{% static 'webapp/nav_settings.png' %}" class="img-responsive navbar-fixed-bottom"/></li>
+            <li><img src="{% static 'webapp/img/nav_logo.png' %}" class="img-responsive" /></li>
+            <a href=calendar><li><img src="{% static 'webapp/img/nav_calendar.png' %}" class="img-responsive"/></li></a>
+            <a href=todo><li> <img src="{% static 'webapp/img/nav_task1.png' %}" class="img-responsive"/></li></a>
+            <li><img src="{% static 'webapp/img/nav_settings.png' %}" class="img-responsive navbar-fixed-bottom"/></li>
             <!--li><a href="#calendar"><i class="fa fa-calendar"></i><span> Calendar </span></a></li>
-            <li><a href="#todo"><i class="fa fa-list"></i><span> To-Do List </span></a></li>
-            <li><a href="#settings"><i class="fa fa-ellipsis-h"></i><span> Settings </span></a></li>
-            <If you wanna add more just uncomment li><a href="#work"><i class="fa fa-briefcase"></i><span> Link4 </span></a></li>
-            <li><a href="#contact"><i class="fa fa-envelope"></i><span> Link5 </span></a></li-->
+<li><a href="#todo"><i class="fa fa-list"></i><span> To-Do List </span></a></li>
+<li><a href="#settings"><i class="fa fa-ellipsis-h"></i><span> Settings </span></a></li>
+<If you wanna add more just uncomment li><a href="#work"><i class="fa fa-briefcase"></i><span> Link4 </span></a></li>
+<li><a href="#contact"><i class="fa fa-envelope"></i><span> Link5 </span></a></li-->
         </ul>
     </div>
     <div class="container" id="calendo">
