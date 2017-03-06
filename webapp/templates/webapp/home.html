@@ -28,12 +28,50 @@
         <script src='{% static "webapp/fullcalendar/lib/jquery-ui.min.js"%}'></script>
         <script src='{% static "webapp/fullcalendar/fullcalendar.js" %}'></script>
         <script src='{% static "webapp/fullcalendar/dragger.js" %}'></script>
+        
+        <!-- Latest compiled and minified JavaScript -->
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 
         <!-- Latest compiled and minified JavaScript -->
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 
 
     </head>
+    
+    <body>
+    <!--Modal for editing events-->
+    <div id="eventModal"></div>
+        
+    <div class="navbar navbar-inverse navbar-fixed-left">
+        <ul class="nav navbar-nav">
+            <div class="navbar-fixed-top">
+                <li><img src="{% static 'webapp/img/nav_logo.png' %}" class="img-responsive" /></li>
+                <li><a href=calendar><img src="{% static 'webapp/img/nav_calendar.png' %}" class="img-responsive"/></a></li>
+                <li><a href=todo><li><img src="{% static 'webapp/img/nav_task1.png' %}" class="img-responsive"/></a></li>
+            </div>
+            <li><a href=settings><img src="{% static 'webapp/img/nav_settings.png' %}" class="img-responsive navbar-fixed-bottom"/></a></li>
+        </ul>
+    </div>
+    <div class="container" id="calendo">
+        <div class="row">
+            <div class="col-md-12"><!--Change this to col-md-6 for half view-->
+                <!--this line does the magic-->
+
+                <div id='calendar' class='cal'></div>
+            </div>
+            <div class="col-md-4">
+                <div id='external-events'>
+                    <h4>To Dos</h4>
+                    <div class='fc-event'>My Event 1</div>
+                    <div class='fc-event'>My Event 2</div>
+                    <div class='fc-event'>My Event 3</div>
+                    <div class='fc-event'>My Event 4</div>
+                    <div class='fc-event'>My Event 5</div>
+                    <p>
+                        <input type='checkbox' id='drop-remove' />
+                        <label for='drop-remove'>remove after drop</label>
+                    </p>
+                </div>
 
     <body>
         <!--Modal for editing events-->
