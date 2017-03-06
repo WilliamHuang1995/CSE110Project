@@ -6,26 +6,33 @@
   height: 100%;
 }
 
-.navbar-fixed-left .navbar-nav > li {
-  float: none;  /* Cancel default li float: left */
-  width: 139px;
-}
-
-.navbar-fixed-left + .container {
-  padding-left: 160px;
-}
-
-.container {
-  height: 1000px;
+/* Idk if this does anything yet*/
+.container-fluid{
+    /* Current Issue: margin-top: 10px;
+    Will screw up the navbar as well. Need to fix.
+    */
+    margin-left: 60px;
+  
 }
 .img-responsive {
     padding: 8px;
     max-width:40px; 
     max-height:40px
 }
-.settings {
-    height: 155px;
+
+#calendar{
+    padding-top: 10px;
 }
-.wrapper 
-  margin-left: 140px;
+#external-events {
+    float: right;
+    width: 150px;
+    padding: 0 10px;
+    margin-top: 10px;
+    /*border around the stuff*/
+    border: 1px solid #ccc;
+    background: #eef;
+}
+#external-events .fc-event {
+    margin: 10px 0;
+    cursor: pointer;
 }
