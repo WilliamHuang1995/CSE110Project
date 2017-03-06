@@ -2,6 +2,17 @@ from django.db import models
 
 # Create your models here.
 
+
+class Session(models.Model):
+	
+	SessionId = models.CharField(max_length=50)
+	UserId = models.IntegerField(default=0)
+	UserEmail = models.CharField(max_length=30)
+	DeathDate = models.IntegerField(default=0)
+
+	def __str__(self):
+		return self.SessionId
+
 class User(models.Model):
 	VIEW_CHOICES = (
 		('A', 'Agenda'),
@@ -18,12 +29,6 @@ class User(models.Model):
 	def __str__(self):
 			return self.UserName
 
-class Confirm_Email(models.Model):
-	Email = models.CharField(max_length=30, default="")
-	Code = models.CharField(max_length=30, default="")
-	IsConfirmed = models.BooleanField(default=False)
-	def __str__(self):
-			return self.Code
 
 class Calendo_User(models.Model):
 	VIEW_CHOICES = (
@@ -36,11 +41,19 @@ class Calendo_User(models.Model):
 	Password = models.CharField(max_length=20)
 	#NotificationsFreq = models.BooleanField(default=False)
 	#ColorScheme = models.IntegerField(default=3)
-	#isConfirmed = models.BooleanField(default=False)
+	isConfirmed = models.BooleanField(default=False)
 	#CalenderView = models.CharField(max_length=1, choices=VIEW_CHOICES)
 
 	def __str__(self):
 			return self.Email
+
+class Confirm_Email(models.Model):
+	Email = models.CharField(max_length=30, default="")
+	UserId = models.IntegerField(default=0)
+	Code = models.CharField(max_length=30, default="")
+	IsConfirmed = models.BooleanField(default=False)
+	def __str__(self):
+			return self.Code
 
 class Todo(models.Model):
 
