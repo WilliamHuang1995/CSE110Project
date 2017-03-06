@@ -49,9 +49,11 @@ function updateSigninStatus(isSignedIn) {
         signoutButton.style.display = 'block';
         listUpcomingEvents();
     } else {
-        confirm("You are not Signed in.");
+        confirm("You are not Signed in/Signed Out.");
         authorizeButton.style.display = 'block';
         signoutButton.style.display = 'none';
+        //Remove All Events.
+        $("#calendar").fullCalendar('removeEvents')
     }
 }
 
@@ -61,6 +63,7 @@ function updateSigninStatus(isSignedIn) {
 function handleAuthClick(event) {
     gapi.auth2.getAuthInstance().signIn();
 }
+
 
 /**
        *  Sign out the user upon button click.
