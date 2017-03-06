@@ -1,19 +1,33 @@
 from django.shortcuts import render
 from django.shortcuts import redirect
 from django.http import HttpResponse
+from django.http import JsonResponse
 import django.apps
 from django.core.signing import Signer
+from django.core import serializers
 from .models import Todo
 from .models import Calendo_User
+
+import json
+
 from .models import Confirm_Email
 
 import string
 import random
 
+
 from django.core.mail import send_mail
 
 def alex_test(request):
 	return render(request, 'webapp/home.alex.html')
+
+def get_request(request):
+	#db_result = Todo.objects.raw('SELECT * FROM webapp_todo')
+	#db_json = serializers.serialize('json', db_result, fields=('id', 'title'))
+	#return JsonResponse(db_json, safe=False)
+	queryset = Todo.objects.raw('SELECT * FROM webapp_todo')
+	data = [{'title': item.title, 'id': item.id} for item in queryset]
+	return HttpResponse(json.dumps(data),content_type='application/json')
 
 def index(request):
 	#insert into database
