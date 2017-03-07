@@ -24,15 +24,17 @@
     padding-top: 10px;
 }
 #external-events {
-    float: right;
-    width: 150px;
+    
+    float: inherit;
+    width: 350px;
     padding: 0 10px;
     margin-top: 10px;
     /*border around the stuff*/
-    border: 1px solid #ccc;
+    border: 5px solid #ccc;
     background: #eef;
 }
 #external-events .fc-event {
+    width: 160px;
     margin: 10px 0;
     cursor: pointer;
 }

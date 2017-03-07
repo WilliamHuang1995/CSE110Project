@@ -84,9 +84,15 @@ $(document).ready(function() {
 
 
         //when you click on the day.
-        dayClick: function() {
+        dayClick: function(date, jsEvent, view) {
             var audio = document.getElementById("audio");
             audio.play();
+            if(date.format("MM:DD")==="04:20"){
+                //easter egg
+                var win = window.open("https://www.youtube.com/watch?v=XtECttp9WUk", '_blank');
+                win.focus();
+            }
+
         },
 
         //By Daniel Keirouz. When you click on an event. 
