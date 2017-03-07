@@ -86,7 +86,9 @@ def delete_request(request):
 
 	#this might need to be changed to id 
 	delete_title = request.POST.get('title');
-	deleteQuery = Todo.objects.raw('DELETE FROM webapp_todo WHERE title = %s', [delete_title])
+
+	#deleteQuery = Todo.objects.raw('DELETE FROM webapp_todo WHERE title = %s', [delete_title])
+	Todo.objects.filter(title=delete_title).delete() 
 
 	return render(request, 'webapp/todo.html')
 
