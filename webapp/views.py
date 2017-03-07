@@ -72,7 +72,30 @@ def post_request(request):
 	insertToDoResult.save()
 
 	return render(request, 'webapp/todo.html')
-	
+
+def delete_request(request):
+	if request.method != 'POST':
+		return redirect('/todo')
+
+	print("dropping")
+
+	if( not (request.POST.get('title') )):
+		
+		#TODO error handling, give them error messages
+		return redirect('/home')
+
+	#this might need to be changed to id 
+	delete_title = request.POST.get('title');
+	deleteQuery = Todo.objects.raw('DELETE FROM webapp_todo WHERE title = %s', [delete_title])
+
+	return render(request, 'webapp/todo.html')
+
+
+
+
+
+
+
 
 def index(request):
 	#insert into database
@@ -249,8 +272,8 @@ def calendar(request):
 
 
 def todos(request):
-	if(not user_is_auth(request)):
-		return prompt_login(request)
+	#if(not user_is_auth(request)):
+		#return prompt_login(request)
 	return render(request, 'webapp/todo.html');
 
 

@@ -2,7 +2,10 @@
 <html>
 <head>
     {% load staticfiles %}
+    
     <link rel="stylesheet" href="{% static 'webapp/css/todo.css' %}" type="text/css"/>
+   
+    
     <script src='{% static "webapp/fullcalendar/lib/jquery.min.js" %}'></script>
     <script src='{% static "webapp/fullcalendar/lib/moment.min.js" %}'></script>
     <script src='{% static "webapp/fullcalendar/lib/jquery-ui.min.js"%}'></script>
@@ -17,64 +20,11 @@
 
         <span onclick="newElement()" class="addBtn">Add</span>
       
-    </div>
-<script type="text/javascript">
-    $(document).ready(function(){
-        var client = new HttpClient();
-        client.get('/api/get', function(response) {
-    // do something with response
-        
-            var temp = JSON.parse(response); 
-        
-            console.log(temp[0].title);
-            console.log(temp.length);    
-            for(var i = 0; i < temp.length; i++){
-        
-                var node = document.createElement("LI");
-                console.log("entered loop");
-                console.log(i);
-                var textnode = document.createTextNode(temp[i].title);
-                node.appendChild(textnode);
-                document.getElementById("myUL").appendChild(node);
-                
+</div>
 
-                var span = document.createElement("SPAN");
-                var txt = document.createTextNode("\u00D7");
-                span.className = "close";
-                span.appendChild(txt);
-                document.getElementById("myUL").appendChild(node).appendChild(span);
-
-                for (var j = 0; j < close.length; j++) {
-                    close[j].onclick = function() {
-                    var div = this.parentElement;
-                    div.style.display = "none";
-                    }   
-                }
-            }
-        })
-    }); 
-    var HttpClient = function() {
-    this.get = function(aUrl, aCallback) {
-        var anHttpRequest = new XMLHttpRequest();
-        anHttpRequest.onreadystatechange = function() { 
-            if (anHttpRequest.readyState == 4 && anHttpRequest.status == 200)
-                aCallback(anHttpRequest.responseText);
-        }
-
-        anHttpRequest.open( "GET", aUrl, true );            
-        anHttpRequest.send( null );
-    }
-}
-
-</script>
     
 <ul id="myUL">
-  <li>Hit the gym</li>
-  <li class="checked">Pay bills</li>
-  <li>Meet George</li>
-  <li>Buy eggs</li>
-  <li>Read a book</li>
-  <li>Organize office</li>
+  
 </ul>
 {% csrf_token %}
 <script type="text/javascript" src='{% static "webapp/js/todo.js" %}'>
