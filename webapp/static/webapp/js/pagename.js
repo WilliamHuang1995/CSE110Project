@@ -33,3 +33,22 @@ var client = new HttpClient();
 client.get('http://some/thing?with=arguments', function(response) {
     // do something with response
 });
+
+ var li = document.createElement("li");
+    var inputValue = document.getElementById("myInput").value;
+    var csrftoken = jQuery("[name=csrfmiddlewaretoken]").val(); 
+    var url = "/api/post";
+    
+    var params = inputValue;
+    
+    var xhr = new XMLHttpRequest();
+    xhr.open("POST", url, true);
+
+//Send the proper header information along with the request
+    //xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+    xhr.setRequestHeader("X-CSRFToken", csrftoken);
+
+    xhr.send(params);
+    console.log("sent params");
+      
+}; 
