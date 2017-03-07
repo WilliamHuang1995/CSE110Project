@@ -1,3 +1,13 @@
+// Client ID and API key from the Developer Console. From William
+var CLIENT_ID = '617019221248-anpai3721kguigchcufa4emvq19o7bmn.apps.googleusercontent.com';
+
+// Array of API discovery doc URLs for APIs used by the quickstart
+var DISCOVERY_DOCS = ["https://www.googleapis.com/discovery/v1/apis/calendar/v3/rest"];
+
+// Authorization scopes required by the API; multiple scopes can be
+// included, separated by spaces.
+var SCOPES = "https://www.googleapis.com/auth/calendar";
+
 $(document).ready(function() {
     //By Eric Sen. Draggable Events
     $('#external-events .fc-event').each(function() {
@@ -17,7 +27,7 @@ $(document).ready(function() {
         });
 
     });
-    
+
     //By William Huang. Initialize Calendar
     $('#calendar').fullCalendar({
         //Set the header
@@ -25,23 +35,60 @@ $(document).ready(function() {
             left: 'prev,next today',
             center: 'title',
             right: 'month,agendaWeek,agendaDay,listWeek'
+
         },
-        // This allow non-Google Calendar events to be moved
+        defaultView: 'agendaWeek',        
         editable: true,
-        
+        eventResize: function(event, delta, revertFunc) {
+
+            alert(event.title + " end is now " + event.end.format());
+
+            if (!confirm("is this okay?")) {
+                revertFunc();
+            }
+            gapi.client.init({
+                discoveryDocs: DISCOVERY_DOCS,
+                clientId: CLIENT_ID,
+                scope: SCOPES
+            });
+            var gevent = {
+                'start': {
+                    'dateTime': event.start.format(),
+                    'timeZone': 'America/Los_Angeles'
+                },
+                'end': {
+                    'dateTime': event.end.format(),
+                    'timeZone': 'America/Los_Angeles'
+                }
+            };
+            $.ajax({
+                url: "https://www.googleapis.com/calendar/v3/calendars/" + 'primary' + "/events/" + event.id,
+                method: "PUT",
+                data: gevent
+            });
+            /*gapi.client.calendar.events.update({
+                'calendarId': 'primary',
+                'eventId': event.id,
+                'resource': gevent
+            }).execute();*/
+        },
+
+
+
         // this allows things to be dropped onto the calendar
         droppable: true, 
+        slotLabelFormat:"HH:mm",
         drop: function() {
-            //remove event from list
             $(this).remove();
         },
-        
+
+
         //when you click on the day.
         dayClick: function() {
             var audio = document.getElementById("audio");
             audio.play();
         },
-        
+
         //By Daniel Keirouz. When you click on an event. 
         eventClick: function(calEvent, jsEvent, view) {
 
@@ -52,37 +99,55 @@ $(document).ready(function() {
             createModal('eventModal', calEvent, strSubmitFunc, btnText);
             return false;
         },
-        
+
         //API key created by William
         googleCalendarApiKey: 'AIzaSyD0XdpABM5YzCNI0QFP_Gm7mgqDuNzqy7M'
-        
+
 
     });
 });
 
-function saveChanges() {
-    alertString = 'Now if only I knew how to access the Google APIs..I\'d enter:\n';
-    alertString += 'Event Name: ' + $('#event-name-input').val() + '\n';
-    alertString += 'Start Time: ' + $('#start-time-input').val() + '\n';
-    alertString += 'End Time: ' + $('#end-time-input').val() + '\n';
-    alertString += 'Location: ' + $('#location-input').val() + '\n';
-    alertString += 'Description: ' + $('#description-input').val();
-    alert(alertString);
-}
-
 //this is aids. please refactor for later
-
+var id;
 function saveChanges() {
-    alertString = 'Now if only I knew how to access the Google APIs..I\'d enter:\n';
-    alertString += 'Event Name: ' + $('#event-name-input').val() + '\n';
-    alertString += 'Start Time: ' + $('#start-time-input').val() + '\n';
-    alertString += 'End Time: ' + $('#end-time-input').val() + '\n';
-    alertString += 'Location: ' + $('#location-input').val() + '\n';
-    alertString += 'Description: ' + $('#description-input').val();
-    alert(alertString);
+    //init THIS IS NEEDED TO MAKE API CALLS
+    gapi.client.init({
+        discoveryDocs: DISCOVERY_DOCS,
+        clientId: CLIENT_ID,
+        scope: SCOPES
+    });
+
+    alert(id);
+    console.log($('#event-name-input').val());
+    var event = {
+        'summary': $('#event-name-input').val(),
+        'location': $('#location-input').val(),
+        'description': $('#description-input').val(),
+        'start': {
+            'dateTime': $('#start-time-input').val(),
+            'timeZone': 'America/Los_Angeles'
+        },
+        'end': {
+            'dateTime': $('#end-time-input').val(),
+            'timeZone': 'America/Los_Angeles'
+        },
+        'reminders': {
+            'useDefault': false,
+            'overrides': [
+                {'method': 'email', 'minutes': 24 * 60},
+                {'method': 'popup', 'minutes': 10}
+            ]
+        }
+    };  
+    gapi.client.calendar.events.update({
+        'calendarId': 'primary',
+        'eventId':id,
+        'resource': event
+    }).execute();
 }
 
 function createModal(placementId, calEvent, strSubmitFunc, btnText) {
+    id = calEvent.id;
     html =  '<div id="modalWindow" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="confirm-modal" aria-hidden="true">';
     html += '<div class="modal-dialog">';
     html += '<div class="modal-content">';
@@ -125,7 +190,7 @@ function createModal(placementId, calEvent, strSubmitFunc, btnText) {
     html += '<div class="modal-footer">';
     if (btnText!='') {
         html += '<span class="btn btn-success"';
-        html += ' onClick="'+strSubmitFunc+'">'+btnText;
+        html += ' onClick='+strSubmitFunc+'>Save Changes';
         html += '</span>';
     }
     html += '<span class="btn" data-dismiss="modal">';

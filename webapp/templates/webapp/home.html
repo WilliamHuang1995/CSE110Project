@@ -12,7 +12,6 @@
               type="image/png" 
               href='{% static "webapp/img/site_favicon2.png" %}'>
         <link rel="stylesheet" href="{% static 'webapp/css/bootstrap.min.css' %}" type = "text/css"/>
-        <link rel="stylesheet" href="{% static 'webapp/css/test.css' %}" type="text/css"/>
         <link rel="stylesheet" href="{% static 'webapp/css/home.css' %}" type="text/css"/>
 
         <!--Not sure what this one does, too afraid to remove-->
@@ -27,7 +26,6 @@
         <script src='{% static "webapp/fullcalendar/lib/moment.min.js" %}'></script>
         <script src='{% static "webapp/fullcalendar/lib/jquery-ui.min.js"%}'></script>
         <script src='{% static "webapp/fullcalendar/fullcalendar.js" %}'></script>
-        <script src='{% static "webapp/fullcalendar/dragger.js" %}'></script>
 
         <!-- Latest compiled and minified JavaScript -->
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
@@ -40,8 +38,10 @@
 
 
     <body>
+
         <!--Modal for editing events-->
         <div id="eventModal"></div>
+
         <div class="navbar navbar-inverse navbar-fixed-left">
             <ul class="nav navbar-nav">
                 <div class="navbar-fixed-top">
@@ -66,10 +66,6 @@
                         <div class='fc-event'>My Event 3</div>
                         <div class='fc-event'>My Event 4</div>
                         <div class='fc-event'>My Event 5</div>
-                        <p>
-                            <input type='checkbox' id='drop-remove' />
-                            <label for='drop-remove'>remove after drop</label>
-                        </p>
                     </div>
 
 
