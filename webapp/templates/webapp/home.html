@@ -27,7 +27,8 @@
         <script src='{% static "webapp/fullcalendar/lib/jquery-ui.min.js"%}'></script>
         <script src='{% static "webapp/fullcalendar/fullcalendar.js" %}'></script>
 
-        
+        <!-- Latest compiled and minified JavaScript -->
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 
 
     </head>
@@ -63,18 +64,18 @@
                         <div class='fc-event'>My Event 4</div>
                         <div class='fc-event'>My Event 5</div>
                     </div>
-
-
-                    <!--TODO: TURN raw input to fullcalendar compatible format-->
+                    <button id="authorize-button" class="btn btn-primary btn-large btn-block">Sync with Google Calendars</button>
+                    <button id="signout-button" class="btn btn-danger btn-large btn-block">Sign Out</button>
 
                 </div>
-                <div class="col-md-12">
-                    <button id="authorize-button" style="display: none;">Authorize</button>
+                <div class="col-md-4">
+                    
                     <button id="signout-button" style="display: none;">Sign Out</button>
                 </div>
 
             </div>
-            <pre id="content"></pre>
+            <!--Debug purposes only-->
+            <!--pre id="content"></pre-->
         </div>
         <script type="text/javascript" src='{% static "webapp/js/home.js" %}'></script>
         <script type="text/javascript" src='{% static "webapp/js/gcal2.js" %}'></script>

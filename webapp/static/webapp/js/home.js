@@ -37,7 +37,7 @@ $(document).ready(function() {
             right: 'month,agendaWeek,agendaDay,listWeek'
 
         },
-        defaultView: 'agendaWeek',        
+        defaultView: 'month',        
         editable: true,
         eventResize: function(event, delta, revertFunc) {
 
@@ -155,7 +155,6 @@ function saveChanges() {
 }
 
 function createModal(placementId, calEvent, strSubmitFunc, btnText) {
-    id = calEvent.id;
     html =  '<div id="modalWindow" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="confirm-modal" aria-hidden="true">';
     html += '<div class="modal-dialog">';
     html += '<div class="modal-content">';
@@ -198,7 +197,7 @@ function createModal(placementId, calEvent, strSubmitFunc, btnText) {
     html += '<div class="modal-footer">';
     if (btnText!='') {
         html += '<span class="btn btn-success"';
-        html += ' onClick='+strSubmitFunc+'>Save Changes';
+        html += ' onClick="'+strSubmitFunc+'">'+btnText;
         html += '</span>';
     }
     html += '<span class="btn" data-dismiss="modal">';
