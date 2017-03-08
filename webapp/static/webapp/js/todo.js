@@ -20,18 +20,7 @@ function getRequest(){
                     document.getElementById("myUL").appendChild(node);
 
                     
-                    /*var span = document.createElement("SPAN");
-                    var txt = document.createTextNode("\u00D7");
-                    span.className = "close";
-                    span.appendChild(txt);
-                    document.getElementById("myUL").appendChild(node).appendChild(span);
-
-                    for (var j = 0; j < close.length; j++) {
-                        close[j].onclick = function() {
-                        var div = this.parentElement;
-                        div.style.display = "none";
-                        }   
-                    }*/
+                    
                 }
                 appendClose(); 
             })
@@ -94,13 +83,16 @@ list.addEventListener('click', function(ev) {
 
 // Create a new list item when clicking on the "Add" button
 function newElement() {
-    
     postRequest();
-    
     //This may be bad practice
-    window.location.reload(true);
-    
-    
+    var node = document.createElement("LI");
+    var newValue = document.getElementById("myInput").value;
+    var textnode = document.createTextNode(newValue);
+    node.appendChild(textnode);
+    document.getElementById("myUL").appendChild(node);
+    appendClose();
+    //window.location.reload(true);
+
 };  
 
 function postRequest(){
