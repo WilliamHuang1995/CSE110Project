@@ -77,8 +77,11 @@ $(document).ready(function() {
         droppable: true, 
         slotLabelFormat:"HH:mm",
         //if you drop an external event, it removes the original
-        drop: function() {
+        drop: function(event) {
             $(this).remove();
+            var strSubmitFunc = "saveChanges()";
+            var btnText = "Save Changes";
+            createModal('eventModal', event, strSubmitFunc, btnText);    
         },
 
 
@@ -110,7 +113,7 @@ $(document).ready(function() {
 
         //API key created by William
         googleCalendarApiKey: 'AIzaSyD0XdpABM5YzCNI0QFP_Gm7mgqDuNzqy7M'
-
+        //http://stackoverflow.com/questions/34297915/fullcalendar-how-to-remove-event
 
     });
 });
