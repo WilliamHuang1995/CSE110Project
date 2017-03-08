@@ -30,7 +30,7 @@ function initClient() {
         gapi.auth2.getAuthInstance().isSignedIn.listen(updateSigninStatus);
 
         // Handle the initial sign-in state.
-      confirm("handle the initial sign-in state.");  updateSigninStatus(gapi.auth2.getAuthInstance().isSignedIn.get());
+        updateSigninStatus(gapi.auth2.getAuthInstance().isSignedIn.get());
         
         //Assign the onclick functionality
         authorizeButton.onclick = handleAuthClick;
@@ -44,14 +44,8 @@ function initClient() {
        */
 function updateSigninStatus(isSignedIn) {
     if (isSignedIn) {
-        confirm("You are Signed in.");
-        authorizeButton.style.display = 'none';
-        signoutButton.style.display = 'block';
         listUpcomingEvents();
     } else {
-        confirm("You are not Signed in/Signed Out.");
-        authorizeButton.style.display = 'block';
-        signoutButton.style.display = 'none';
         //Remove All Events.
         $("#calendar").fullCalendar('removeEvents')
     }
@@ -117,7 +111,7 @@ function listUpcomingEvents() {
         if(events.length > 0){
             $('#calendar').fullCalendar('addEventSource', eventsList, true);
         }
-
+        /* Debug purpose
         if (events.length > 0) {
             for (i = 0; i < events.length; i++) {
                 var event = events[i];
@@ -129,6 +123,6 @@ function listUpcomingEvents() {
             }
         } else {
             appendPre('No upcoming events found.');
-        }
+        }*/
     });
 }

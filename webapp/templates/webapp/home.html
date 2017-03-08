@@ -12,7 +12,6 @@
               type="image/png" 
               href='{% static "webapp/img/site_favicon2.png" %}'>
         <link rel="stylesheet" href="{% static 'webapp/css/bootstrap.min.css' %}" type = "text/css"/>
-        <link rel="stylesheet" href="{% static 'webapp/css/test.css' %}" type="text/css"/>
         <link rel="stylesheet" href="{% static 'webapp/css/home.css' %}" type="text/css"/>
 
         <!--Not sure what this one does, too afraid to remove-->
@@ -27,13 +26,7 @@
         <script src='{% static "webapp/fullcalendar/lib/moment.min.js" %}'></script>
         <script src='{% static "webapp/fullcalendar/lib/jquery-ui.min.js"%}'></script>
         <script src='{% static "webapp/fullcalendar/fullcalendar.js" %}'></script>
-        <script src='{% static "webapp/fullcalendar/dragger.js" %}'></script>
-        
-        <!-- why do we have this? --> 
-        <!-- Latest compiled and minified JavaScript -->
-        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 
-        <!-- dont we have these install? --> 
         <!-- Latest compiled and minified JavaScript -->
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 
@@ -42,8 +35,43 @@
 
 
     <body>
+
         <!--Modal for editing events-->
-        <div id="eventModal"></div>
+        <div id="eventModal">
+            <div id="modalWindow" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="confirm-modal" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <a class="close" data-dismiss="modal">x</a>
+                            <h4>Edit Event</h4>
+                        </div>
+                        <div class="modal-body">
+                            <form class="form-inline">
+                                <div class="form-group">
+                                    <label for="example-text-input" class="col-2 col-form-label">Event Name:</label>
+                                    <div class="col-10"><input class="form-control" type="text" value="" id="event-name-input"></div>
+                                    <label for="example-text-input" class="col-2 col-form-label">Start:</label>
+                                    <div class="col-10"><input class="form-control" type="datetime-local" value="" id="start-time-input"></div>
+                                    <label for="example-text-input" class="col-2 col-form-label">End:</label>
+                                    <div class="col-10"><input class="form-control" type="datetime-local" value="" id="end-time-input"></div>
+                                    <label for="example-text-input" class="col-2 col-form-label">Location:</label>
+                                    <div class="col-10"><input class="form-control" type="text" value="" id="location-input"> </div>
+                                    <label for="example-text-input" class="col-2 col-form-label">Description:</label>
+                                    <div class="col-10"><input class="form-control" type="text" value="" id="description-input"> </div>
+
+                                </div></form>
+                        </div>
+                        <a href="">More Options</a>
+                        <div class="modal-footer"><span class="btn btn-success" onclick="saveChanges()">Save Changes</span>
+                    </div>
+                    
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+
         <div class="navbar navbar-inverse navbar-fixed-left">
             <ul class="nav navbar-nav">
                 <div class="navbar-fixed-top">
@@ -68,23 +96,19 @@
                         <div class='fc-event'>My Event 3</div>
                         <div class='fc-event'>My Event 4</div>
                         <div class='fc-event'>My Event 5</div>
-                        <p>
-                            <input type='checkbox' id='drop-remove' />
-                            <label for='drop-remove'>remove after drop</label>
-                        </p>
                     </div>
-
-
-                    <!--TODO: TURN raw input to fullcalendar compatible format-->
+                    <button id="authorize-button" class="btn btn-primary btn-large btn-block">Sync with Google Calendars</button>
+                    <button id="signout-button" class="btn btn-danger btn-large btn-block">Sign Out</button>
 
                 </div>
-                <div class="col-md-12">
-                    <button id="authorize-button" style="display: none;">Authorize</button>
+                <div class="col-md-4">
+
                     <button id="signout-button" style="display: none;">Sign Out</button>
                 </div>
 
             </div>
-            <pre id="content"></pre>
+            <!--Debug purposes only-->
+            <!--pre id="content"></pre-->
         </div>
         <script type="text/javascript" src='{% static "webapp/js/home.js" %}'></script>
         <script type="text/javascript" src='{% static "webapp/js/gcal2.js" %}'></script>

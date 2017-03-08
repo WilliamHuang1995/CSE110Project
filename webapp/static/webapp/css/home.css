@@ -1,9 +1,9 @@
 /* CSS used here will be applied after bootstrap.css */
 .navbar-fixed-left {
-  width: 40px;
-  position: fixed;
-  border-radius: 0;
-  height: 100%;
+    width: 40px;
+    position: fixed;
+    border-radius: 0;
+    height: 100%;
 }
 
 /* Idk if this does anything yet*/
@@ -12,7 +12,7 @@
     Will screw up the navbar as well. Need to fix.
     */
     margin-left: 60px;
-  
+
 }
 .img-responsive {
     padding: 8px;
@@ -24,15 +24,23 @@
     padding-top: 10px;
 }
 #external-events {
+
+    width: 100%;
     float: right;
-    width: 150px;
     padding: 0 10px;
-    margin-top: 10px;
+    margin-top: 69px; /*( ͡° ͜ʖ ͡°)*/
     /*border around the stuff*/
-    border: 1px solid #ccc;
+    border: 5px solid #ccc;
     background: #eef;
 }
 #external-events .fc-event {
+    width: 160px;
     margin: 10px 0;
     cursor: pointer;
+}
+#authorize-button {
+    margin-top: 100px;
+}
+#signout-button {
+    margin-top: 10px;
 }
