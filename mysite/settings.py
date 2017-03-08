@@ -143,3 +143,4 @@ EMAIL_USE_SSL = True
 CSRF_USE_SESSIONS = True
 
 STATICFILES_STORAGE = 'whitenoise.django.GzipManifestStaticFilesStorage'
+X_FRAME_OPTIONS = 'DENY'
