@@ -212,7 +212,7 @@ def login_auth(request):
 
 
 	#query database for given email
-	userResult = Calendo_User.objects.raw('SELECT * FROM webapp_calendo_user  WHERE webapp_calendo_user.email=%s', [request.POST['email']])
+	userResult = Calendo_User.objects.raw('SELECT * FROM webapp_calendo_user  WHERE email=%s', [request.POST['email']])
 	
 	#if not exactly 1 row, error
 	if( len(list(userResult)) != 1):
