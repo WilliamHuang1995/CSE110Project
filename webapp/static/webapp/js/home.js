@@ -37,7 +37,7 @@ $(document).ready(function() {
             right: 'month,agendaWeek,agendaDay,listWeek'
 
         },
-        defaultView: 'agendaWeek',        
+        defaultView: 'month',        
         editable: true,
         eventResize: function(event, delta, revertFunc) {
 
@@ -84,9 +84,17 @@ $(document).ready(function() {
 
 
         //when you click on the day.
-        dayClick: function() {
-            var audio = document.getElementById("audio");
-            audio.play();
+        dayClick: function(date, jsEvent, view) {
+            if (confirm("yee?")){
+                var audio = document.getElementById("audio");
+                audio.play();
+            }
+            if(date.format("MM:DD")==="04:20"){
+                //easter egg
+                var win = window.open("https://www.youtube.com/watch?v=XtECttp9WUk", '_blank');
+                win.focus();
+            }
+
         },
 
         //By Daniel Keirouz. When you click on an event. 
@@ -147,7 +155,6 @@ function saveChanges() {
 }
 
 function createModal(placementId, calEvent, strSubmitFunc, btnText) {
-    id = calEvent.id;
     html =  '<div id="modalWindow" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="confirm-modal" aria-hidden="true">';
     html += '<div class="modal-dialog">';
     html += '<div class="modal-content">';
@@ -190,7 +197,7 @@ function createModal(placementId, calEvent, strSubmitFunc, btnText) {
     html += '<div class="modal-footer">';
     if (btnText!='') {
         html += '<span class="btn btn-success"';
-        html += ' onClick='+strSubmitFunc+'>Save Changes';
+        html += ' onClick="'+strSubmitFunc+'">'+btnText;
         html += '</span>';
     }
     html += '<span class="btn" data-dismiss="modal">';
