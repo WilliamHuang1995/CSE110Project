@@ -4,7 +4,8 @@ from . import views
 urlpatterns = [
     url(r'^test*', views.test, name='test'),
     url(r'^todo*', views.todos, name='todos'),
-    url(r'^calender*', views.calendar, name='calendar'),
+    
+    url(r'^calendar*', views.calendar, name='calendar'),
 
     url(r'^login/auth*', views.login_auth, name='login-auth'),
     url(r'^login*', views.login, name='login'),
@@ -13,7 +14,8 @@ urlpatterns = [
     url(r'^register*', views.register, name='register'),
 
 	url(r'^confirm_email*', views.confirmEmail, name='confirmEmail'),
-
+	#????????????????????????????????????????
+	#why does settings take us to calendar 
     url(r'^setting*', views.calendar, name='calendar'),
     url(r'^api/get$', views.get_request, name='get_request'),
     url(r'^api/post$', views.post_request, name='posting'),
