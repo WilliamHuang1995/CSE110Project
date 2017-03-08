@@ -161,59 +161,12 @@ function createModal(placementId, calEvent, strSubmitFunc, btnText) {
     id=calEvent.id;
     console.log(calEvent.start.format('YYYY-MM-DD[T]HH:mm:ss.ms'));
     console.log(calEvent.end.format('YYYY-MM-DD[T]HH:mm:ss.ms'));
-    
-    html =  '<div id="modalWindow" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="confirm-modal" aria-hidden="true">';
-    html += '<div class="modal-dialog">';
-    html += '<div class="modal-content">';
-    html += '<div class="modal-header">';
-    html += '<a class="close" data-dismiss="modal">×</a>';
-    html += '<h4>Edit Event</h4>';
-    html += '</div>';
-    html += '<div class="modal-body">';
-    html += '<form class="form-inline">';
-    html += '<div class="form-group">';
-    // Event Name
-    html += '<label for="example-text-input" class="col-2 col-form-label">Event Name:</label>';
-    html += '<div class="col-10">';
-    html += '<input class="form-control" type="text" value="' + calEvent.title + '"id="event-name-input">';
-    html += '</div>';
-    // Start Info
-    html += '<label for="example-text-input" class="col-2 col-form-label">Start:</label>';
-    html += '<div class="col-10">';
-    html += '<input class="form-control" type="datetime-local" value="' + calEvent.start.format('YYYY-MM-DD[T]HH:mm') + '"id="start-time-input">';
-    html += '</div>';
-    // End Info
-    html += '<label for="example-text-input" class="col-2 col-form-label">End:</label>';
-    html += '<div class="col-10">';
-    html += '<input class="form-control" type="datetime-local" value="' + calEvent.end.format('YYYY-MM-DD[T]HH:mm') + '"id="end-time-input">';
-    html += '</div>';
-    // Location
-    html += '<label for="example-text-input" class="col-2 col-form-label">Location:</label>';
-    html += '<div class="col-10">';
-    html += '<input class="form-control" type="text" value="' + calEvent.location + '"id="location-input">';
-    html += '</div>';
-    // Description
-    html += '<label for="example-text-input" class="col-2 col-form-label">Description:</label>';
-    html += '<div class="col-10">';
-    html += '<input class="form-control" type="text" value="' + calEvent.description + '"id="description-input">';
-    html += '</div>';
-    html += '</form>';
-    html += '</div>';
-    html += '<a href="' + calEvent.url + '">Click Here to Edit on Google</a>';
-    html += '</div>';
-    html += '<div class="modal-footer">';
-    if (btnText!='') {
-        html += '<span class="btn btn-success"';
-        html += ' onClick="'+strSubmitFunc+'">'+btnText;
-        html += '</span>';
-    }
-    html += '<span class="btn" data-dismiss="modal">';
-    html += '</span>'; // close button
-    html += '</div>';  // footer
-    html += '</div>';  // content
-    html += '</div>';  // dialog
-    html += '</div>';  // modalWindow
-    $("#"+placementId).html(html);
+    $('#event-name-input').val(calEvent.title);
+    $('#start-time-input').val(calEvent.start.format('YYYY-MM-DD[T]HH:mm'));
+    $('#end-time-input').val(calEvent.end.format('YYYY-MM-DD[T]HH:mm'));
+    $('#location-input').val(calEvent.location);
+    $('#description-input').val(calEvent.description);
+
     $("#modalWindow").modal();
     $("#dynamicModal").modal('show');
 }

@@ -37,7 +37,40 @@
     <body>
 
         <!--Modal for editing events-->
-        <div id="eventModal"></div>
+        <div id="eventModal">
+            <div id="modalWindow" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="confirm-modal" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <a class="close" data-dismiss="modal">x</a>
+                            <h4>Edit Event</h4>
+                        </div>
+                        <div class="modal-body">
+                            <form class="form-inline">
+                                <div class="form-group">
+                                    <label for="example-text-input" class="col-2 col-form-label">Event Name:</label>
+                                    <div class="col-10"><input class="form-control" type="text" value="" id="event-name-input"></div>
+                                    <label for="example-text-input" class="col-2 col-form-label">Start:</label>
+                                    <div class="col-10"><input class="form-control" type="datetime-local" value="" id="start-time-input"></div>
+                                    <label for="example-text-input" class="col-2 col-form-label">End:</label>
+                                    <div class="col-10"><input class="form-control" type="datetime-local" value="" id="end-time-input"></div>
+                                    <label for="example-text-input" class="col-2 col-form-label">Location:</label>
+                                    <div class="col-10"><input class="form-control" type="text" value="" id="location-input"> </div>
+                                    <label for="example-text-input" class="col-2 col-form-label">Description:</label>
+                                    <div class="col-10"><input class="form-control" type="text" value="" id="description-input"> </div>
+
+                                </div></form>
+                        </div>
+                        <a href="">More Options</a>
+                        <div class="modal-footer"><span class="btn btn-success" onclick="saveChanges()">Save Changes</span>
+                    </div>
+                    
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
 
         <div class="navbar navbar-inverse navbar-fixed-left">
             <ul class="nav navbar-nav">
@@ -69,7 +102,7 @@
 
                 </div>
                 <div class="col-md-4">
-                    
+
                     <button id="signout-button" style="display: none;">Sign Out</button>
                 </div>
 
