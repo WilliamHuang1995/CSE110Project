@@ -45,7 +45,9 @@ $(document).ready(function() {
 
             if (!confirm("is this okay?")) {
                 revertFunc();
+                return;
             }
+            console.log(event.start.format('YYYY-MM-DD[T] HH:mm:ss.SSS'));
             gapi.client.init({
                 discoveryDocs: DISCOVERY_DOCS,
                 clientId: CLIENT_ID,
@@ -53,24 +55,20 @@ $(document).ready(function() {
             });
             var gevent = {
                 'start': {
-                    'dateTime': event.start.format(),
+                    'dateTime': event.start.format('YYYY-MM-DD[T]HH:mm:ss.SSS'),
                     'timeZone': 'America/Los_Angeles'
                 },
                 'end': {
-                    'dateTime': event.end.format(),
+                    'dateTime': event.end.format('YYYY-MM-DD[T]HH:mm:ss.SSS'),
                     'timeZone': 'America/Los_Angeles'
                 }
             };
-            $.ajax({
-                url: "https://www.googleapis.com/calendar/v3/calendars/" + 'primary' + "/events/" + event.id,
-                method: "PUT",
-                data: gevent
-            });
-            /*gapi.client.calendar.events.update({
+         
+            gapi.client.calendar.events.update({
                 'calendarId': 'primary',
                 'eventId': event.id,
                 'resource': gevent
-            }).execute();*/
+            }).execute();
         },
 
 
@@ -78,6 +76,7 @@ $(document).ready(function() {
         // this allows things to be dropped onto the calendar
         droppable: true, 
         slotLabelFormat:"HH:mm",
+        //if you drop an external event, it removes the original
         drop: function() {
             $(this).remove();
         },
@@ -100,6 +99,7 @@ $(document).ready(function() {
         //By Daniel Keirouz. When you click on an event. 
         eventClick: function(calEvent, jsEvent, view) {
             changedEvent = calEvent;
+            id=calEvent.id;
             var header = "Event: " + calEvent.title;
             var content = "Date: " + calEvent.start.toLocaleString();
             var strSubmitFunc = "saveChanges()";
@@ -121,6 +121,7 @@ var id;
 function saveChanges() {
     //init THIS IS NEEDED TO MAKE API CALLS
     changedEvent.start=$('#start-time-input').val();
+    changedEvent.end=$('#end-time-input').val();
     $('#calendar').fullCalendar('updateEvent', changedEvent);
     gapi.client.init({
         discoveryDocs: DISCOVERY_DOCS,
@@ -159,13 +160,28 @@ function saveChanges() {
 
 function createModal(placementId, calEvent, strSubmitFunc, btnText) {
     id=calEvent.id;
-    console.log(calEvent.start.format('YYYY-MM-DD[T]HH:mm:ss.ms'));
-    console.log(calEvent.end.format('YYYY-MM-DD[T]HH:mm:ss.ms'));
+    console.log(calEvent.id);
+    //If event is generated from Our domain instead of GCal
+    if(calEvent.id==undefined){
+        if (calEvent==undefined){
+            $('h4.eventType').text('Add to Google');
+        } else{
+            $('h4.eventType').text('Create Event');
+        }
+    }else{
+        $('h4.eventType').text('Edit Event');
+    }
+    
+    
+    try{
     $('#event-name-input').val(calEvent.title);
     $('#start-time-input').val(calEvent.start.format('YYYY-MM-DD[T]HH:mm'));
     $('#end-time-input').val(calEvent.end.format('YYYY-MM-DD[T]HH:mm'));
     $('#location-input').val(calEvent.location);
     $('#description-input').val(calEvent.description);
+    }catch(e){
+        
+        }
 
     $("#modalWindow").modal();
     $("#dynamicModal").modal('show');
