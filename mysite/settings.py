@@ -25,7 +25,7 @@ SECRET_KEY = '-h&pur-*9(^f#7ffhc9gtkpa_#@t4e%)07p^b0u41^hs-#b%qt'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = [u'secret-bastion-66008.herokuapp.com', u'localhost']
+ALLOWED_HOSTS = [u'secret-bastion-66008.herokuapp.com', u'localhost', u'www.calen-do.com']
 
 
 # Application definition
