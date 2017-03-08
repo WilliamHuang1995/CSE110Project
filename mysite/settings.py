@@ -139,3 +139,5 @@ EMAIL_HOST_USER = 'apikey'
 EMAIL_HOST_PASSWORD = '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'
 EMAIL_USE_SSL = True
 CSRF_USE_SESSIONS = True
+
+STATICFILES_STORAGE = 'whitenoise.django.GzipManifestStaticFilesStorage'
