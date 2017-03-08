@@ -63,7 +63,7 @@ $(document).ready(function() {
                     'timeZone': 'America/Los_Angeles'
                 }
             };
-         
+
             gapi.client.calendar.events.update({
                 'calendarId': 'primary',
                 'eventId': event.id,
@@ -80,22 +80,20 @@ $(document).ready(function() {
         drop: function(event) {
             $(this).remove();
             var strSubmitFunc = "saveChanges()";
-            var btnText = "Save Changes";
-            createModal('eventModal', event, strSubmitFunc, btnText);    
+            createModal(event, strSubmitFunc, "Save Changes");    
         },
 
 
         //when you click on the day.
-        dayClick: function(date, jsEvent, view) {
-            if (confirm("yee?")){
-                var audio = document.getElementById("audio");
-                audio.play();
-            }
+        dayClick: function(date, jsEvent, view) {            
             if(date.format("MM:DD")==="04:20"){
                 //easter egg
                 var win = window.open("https://www.youtube.com/watch?v=XtECttp9WUk", '_blank');
                 win.focus();
-            }
+            } 
+            createModal(undefined, "createEvent", "Create Event")
+
+
 
         },
 
@@ -107,7 +105,7 @@ $(document).ready(function() {
             var content = "Date: " + calEvent.start.toLocaleString();
             var strSubmitFunc = "saveChanges()";
             var btnText = "Save Changes";
-            createModal('eventModal', calEvent, strSubmitFunc, btnText);
+            createModal(calEvent, strSubmitFunc, btnText);
             return false;
         },
 
@@ -125,6 +123,11 @@ function saveChanges() {
     //init THIS IS NEEDED TO MAKE API CALLS
     changedEvent.start=$('#start-time-input').val();
     changedEvent.end=$('#end-time-input').val();
+    var newTitle = $('#event-name-input').val()
+    
+    
+    changedEvent.title = newTitle==""?"(No Title)":newTitle;
+    
     $('#calendar').fullCalendar('updateEvent', changedEvent);
     gapi.client.init({
         discoveryDocs: DISCOVERY_DOCS,
@@ -161,30 +164,38 @@ function saveChanges() {
     }).execute();
 }
 
-function createModal(placementId, calEvent, strSubmitFunc, btnText) {
-    id=calEvent.id;
-    console.log(calEvent.id);
+function createModal(calEvent, strSubmitFunc, eventType) {
     //If event is generated from Our domain instead of GCal
-    if(calEvent.id==undefined){
-        if (calEvent==undefined){
+    if (eventType=="Create Event"){
+        $('h4.eventType').text('Create Event');
+        $('.confirmation-button').text('Create');
+    } else{
+        if(calEvent.id==undefined){
+            //means that you don't assign id if you're creating event locally
             $('h4.eventType').text('Add to Google');
-        } else{
-            $('h4.eventType').text('Create Event');
         }
-    }else{
-        $('h4.eventType').text('Edit Event');
+        else{
+            //set global var to remember the GCal ID
+            id=calEvent.id;
+            console.log(id);
+            //Case where it already exists on Google Calendar
+            $('h4.eventType').text('Edit Event');
+        }
     }
-    
-    
+
+
+
+
+
     try{
-    $('#event-name-input').val(calEvent.title);
-    $('#start-time-input').val(calEvent.start.format('YYYY-MM-DD[T]HH:mm'));
-    $('#end-time-input').val(calEvent.end.format('YYYY-MM-DD[T]HH:mm'));
-    $('#location-input').val(calEvent.location);
-    $('#description-input').val(calEvent.description);
+        $('#event-name-input').val(calEvent.title);
+        $('#start-time-input').val(calEvent.start.format('YYYY-MM-DD[T]HH:mm'));
+        $('#end-time-input').val(calEvent.end.format('YYYY-MM-DD[T]HH:mm'));
+        $('#location-input').val(calEvent.location);
+        $('#description-input').val(calEvent.description);
     }catch(e){
-        
-        }
+
+    }
 
     $("#modalWindow").modal();
     $("#dynamicModal").modal('show');
