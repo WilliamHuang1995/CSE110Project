@@ -19,7 +19,7 @@ class User(models.Model):
 		('T', 'Three-Day'),
 		('M', 'Month')
 	)
-	Email = models.CharField(max_length=30)
+	email = models.CharField(max_length=30)
 	Password = models.CharField(max_length=20)
 	NotificationsFreq = models.BooleanField(default=False)
 	ColorScheme = models.IntegerField()
