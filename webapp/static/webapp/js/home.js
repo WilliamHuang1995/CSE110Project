@@ -7,7 +7,7 @@ var DISCOVERY_DOCS = ["https://www.googleapis.com/discovery/v1/apis/calendar/v3/
 // Authorization scopes required by the API; multiple scopes can be
 // included, separated by spaces.
 var SCOPES = "https://www.googleapis.com/auth/calendar";
-
+var changedEvent;
 $(document).ready(function() {
     //By Eric Sen. Draggable Events
     $('#external-events .fc-event').each(function() {
@@ -99,7 +99,7 @@ $(document).ready(function() {
 
         //By Daniel Keirouz. When you click on an event. 
         eventClick: function(calEvent, jsEvent, view) {
-
+            changedEvent = calEvent;
             var header = "Event: " + calEvent.title;
             var content = "Date: " + calEvent.start.toLocaleString();
             var strSubmitFunc = "saveChanges()";
@@ -117,26 +117,29 @@ $(document).ready(function() {
 
 //this is aids. please refactor for later
 var id;
+
 function saveChanges() {
     //init THIS IS NEEDED TO MAKE API CALLS
+    changedEvent.start=$('#start-time-input').val();
+    $('#calendar').fullCalendar('updateEvent', changedEvent);
     gapi.client.init({
         discoveryDocs: DISCOVERY_DOCS,
         clientId: CLIENT_ID,
         scope: SCOPES
     });
 
-    alert(id);
+    console.log($('#end-time-input').val());
     console.log($('#event-name-input').val());
     var event = {
         'summary': $('#event-name-input').val(),
         'location': $('#location-input').val(),
         'description': $('#description-input').val(),
         'start': {
-            'dateTime': $('#start-time-input').val(),
+            'dateTime': $('#start-time-input').val()+':00.00',
             'timeZone': 'America/Los_Angeles'
         },
         'end': {
-            'dateTime': $('#end-time-input').val(),
+            'dateTime': $('#end-time-input').val()+':00.00'            ,
             'timeZone': 'America/Los_Angeles'
         },
         'reminders': {
@@ -155,58 +158,15 @@ function saveChanges() {
 }
 
 function createModal(placementId, calEvent, strSubmitFunc, btnText) {
-    html =  '<div id="modalWindow" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="confirm-modal" aria-hidden="true">';
-    html += '<div class="modal-dialog">';
-    html += '<div class="modal-content">';
-    html += '<div class="modal-header">';
-    html += '<a class="close" data-dismiss="modal">×</a>';
-    html += '<h4>Edit Event</h4>';
-    html += '</div>';
-    html += '<div class="modal-body">';
-    html += '<form class="form-inline">';
-    html += '<div class="form-group">';
-    // Event Name
-    html += '<label for="example-text-input" class="col-2 col-form-label">Event Name:</label>';
-    html += '<div class="col-10">';
-    html += '<input class="form-control" type="text" value="' + calEvent.title + '"id="event-name-input">';
-    html += '</div>';
-    // Start Info
-    html += '<label for="example-text-input" class="col-2 col-form-label">Start:</label>';
-    html += '<div class="col-10">';
-    html += '<input class="form-control" type="datetime-local" value="' + calEvent.start.format('YYYY-MM-DD[T]hh:mm:ss.ms') + '"id="start-time-input">';
-    html += '</div>';
-    // End Info
-    html += '<label for="example-text-input" class="col-2 col-form-label">End:</label>';
-    html += '<div class="col-10">';
-    html += '<input class="form-control" type="datetime-local" value="' + calEvent.end.format('YYYY-MM-DD[T]hh:mm:ss.ms') + '"id="end-time-input">';
-    html += '</div>';
-    // Location
-    html += '<label for="example-text-input" class="col-2 col-form-label">Location:</label>';
-    html += '<div class="col-10">';
-    html += '<input class="form-control" type="text" value="' + calEvent.location + '"id="location-input">';
-    html += '</div>';
-    // Description
-    html += '<label for="example-text-input" class="col-2 col-form-label">Description:</label>';
-    html += '<div class="col-10">';
-    html += '<input class="form-control" type="text" value="' + calEvent.description + '"id="description-input">';
-    html += '</div>';
-    html += '</form>';
-    html += '</div>';
-    html += '<a href="' + calEvent.url + '">Click Here to Edit on Google</a>';
-    html += '</div>';
-    html += '<div class="modal-footer">';
-    if (btnText!='') {
-        html += '<span class="btn btn-success"';
-        html += ' onClick="'+strSubmitFunc+'">'+btnText;
-        html += '</span>';
-    }
-    html += '<span class="btn" data-dismiss="modal">';
-    html += '</span>'; // close button
-    html += '</div>';  // footer
-    html += '</div>';  // content
-    html += '</div>';  // dialog
-    html += '</div>';  // modalWindow
-    $("#"+placementId).html(html);
+    id=calEvent.id;
+    console.log(calEvent.start.format('YYYY-MM-DD[T]HH:mm:ss.ms'));
+    console.log(calEvent.end.format('YYYY-MM-DD[T]HH:mm:ss.ms'));
+    $('#event-name-input').val(calEvent.title);
+    $('#start-time-input').val(calEvent.start.format('YYYY-MM-DD[T]HH:mm'));
+    $('#end-time-input').val(calEvent.end.format('YYYY-MM-DD[T]HH:mm'));
+    $('#location-input').val(calEvent.location);
+    $('#description-input').val(calEvent.description);
+
     $("#modalWindow").modal();
     $("#dynamicModal").modal('show');
 }
