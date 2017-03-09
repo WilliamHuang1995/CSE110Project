@@ -84,8 +84,9 @@ function appendPre(message) {
        * appropriate message is printed.
        */
 function listUpcomingEvents() {
-    alert("HEY THAT'S PRETTY GAY");
     gapi.client.calendar.events.list({
+        singleEvents: true,
+        maxResults: 9999,
         'calendarId': 'primary',
     }).then(function(response) {
         var eventsList = [];
@@ -95,10 +96,6 @@ function listUpcomingEvents() {
         $.each(response.result.items, function(i, entry)
                {
             var url = entry.htmlLink;
-            //SOLOMON LOOK HERE! str is the recurrence rule without the RRULE: from the beginning
-            if(entry.recurrence!== undefined){
-                var str= entry.recurrence+""
-                console.log(str.replace("RRULE:",""));}
             console.log(entry.summary);
             eventsList.push({
                 id:entry.id,
