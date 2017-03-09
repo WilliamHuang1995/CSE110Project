@@ -31,7 +31,7 @@ function initClient() {
 
         // Handle the initial sign-in state.
         updateSigninStatus(gapi.auth2.getAuthInstance().isSignedIn.get());
-        
+
         //Assign the onclick functionality
         authorizeButton.onclick = handleAuthClick;
         signoutButton.onclick = handleSignoutClick;
@@ -85,6 +85,9 @@ function appendPre(message) {
        */
 function listUpcomingEvents() {
     gapi.client.calendar.events.list({
+        //Whether or not to expand recurring events as instance
+        singleEvents: true,
+        maxResults: 9999,
         'calendarId': 'primary',
     }).then(function(response) {
         var eventsList = [];
@@ -94,7 +97,7 @@ function listUpcomingEvents() {
         $.each(response.result.items, function(i, entry)
                {
             var url = entry.htmlLink;
-            ;
+            console.log(entry.summary);
             eventsList.push({
                 id:entry.id,
                 title: entry.summary, 
