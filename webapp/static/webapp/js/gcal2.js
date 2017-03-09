@@ -85,6 +85,7 @@ function appendPre(message) {
        */
 function listUpcomingEvents() {
     gapi.client.calendar.events.list({
+        //Whether or not to expand recurring events as instance
         singleEvents: true,
         maxResults: 9999,
         'calendarId': 'primary',

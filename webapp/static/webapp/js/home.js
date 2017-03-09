@@ -7,7 +7,10 @@ var DISCOVERY_DOCS = ["https://www.googleapis.com/discovery/v1/apis/calendar/v3/
 // Authorization scopes required by the API; multiple scopes can be
 // included, separated by spaces.
 var SCOPES = "https://www.googleapis.com/auth/calendar";
-var changedEvent;
+
+
+
+
 $(document).ready(function() {
     //By Eric Sen. Draggable Events
     $('#external-events .fc-event').each(function() {
@@ -82,6 +85,36 @@ $(document).ready(function() {
             var strSubmitFunc = "saveChanges()";
             createModal(event, strSubmitFunc, "Save Changes");    
         },
+        //when you drag'n'drop within calendar 
+        //working as intended.
+        eventDrop: function(event, delta, revertFunc) {
+            //initialize client
+            gapi.client.init({
+                discoveryDocs: DISCOVERY_DOCS,
+                clientId: CLIENT_ID,
+                scope: SCOPES
+            });
+            alert(event.title + " was dropped on " + event.start.format());
+            if(event.id!==undefined){
+                var toPushEvent = {
+                    'start': {
+                        'dateTime': event.start.format(),
+                        'timeZone': 'America/Los_Angeles'
+                    },
+                    'end': {
+                        'dateTime': event.end.format(),
+                        'timeZone': 'America/Los_Angeles'
+                    }
+                };  
+                gapi.client.calendar.events.update({
+                    'calendarId': 'primary',
+                    'eventId': event.id,
+                    'resource': toPushEvent
+                }).execute();
+            }
+            alert("succ");
+
+        },
 
 
         //when you click on the day.
@@ -116,27 +149,30 @@ $(document).ready(function() {
     });
 });
 
-//this is aids. please refactor for later
+//googleCalendarId
 var id;
-
+var changedEvent;
 function saveChanges() {
-    //init THIS IS NEEDED TO MAKE API CALLS
+    //save local title, start, end time.
     changedEvent.start=$('#start-time-input').val();
     changedEvent.end=$('#end-time-input').val();
-    var newTitle = $('#event-name-input').val()
-    
-    
+    var newTitle = $('#event-name-input').val();
     changedEvent.title = newTitle==""?"(No Title)":newTitle;
-    
+    //save local description
+    changedEvent.description = $('#description-input').val()
+    //save local location
+    changedEvent.location = $('#location-input').val()
+
+    //update event
     $('#calendar').fullCalendar('updateEvent', changedEvent);
+
+    //initialize client
     gapi.client.init({
         discoveryDocs: DISCOVERY_DOCS,
         clientId: CLIENT_ID,
         scope: SCOPES
     });
 
-    console.log($('#end-time-input').val());
-    console.log($('#event-name-input').val());
     var event = {
         'summary': $('#event-name-input').val(),
         'location': $('#location-input').val(),
@@ -162,39 +198,54 @@ function saveChanges() {
         'eventId':id,
         'resource': event
     }).execute();
+    //close the modal window after completion
+    $("#modalWindow").modal('hide');
 }
 
 function createModal(calEvent, strSubmitFunc, eventType) {
-    //If event is generated from Our domain instead of GCal
-    if (eventType=="Create Event"){
+    //Creating a Calendo Event
+    if (eventType==="Create Event"){
         $('h4.eventType').text('Create Event');
         $('.confirmation-button').text('Create');
+
+        //Create Empty Body
+        $('#event-name-input').val('');
+        //TODO: check if start time is indicated
+        $('#start-time-input').val('');
+        $('#end-time-input').val('');
+        $('#location-input').val('');
+        $('#description-input').val('');
     } else{
+        //Calendo Event
         if(calEvent.id==undefined){
-            //means that you don't assign id if you're creating event locally
-            $('h4.eventType').text('Add to Google');
+
+            $('h4.eventType').text('Add to Calendar');
+            $('.confirmation-button').text('Add');
+
+            //Body
+            $('#event-name-input').val(calEvent.title);
+            //TODO: check if start time is indicated
+            $('#start-time-input').val('');
+            $('#end-time-input').val('');
+            $('#location-input').val(calEvent.location);
+            $('#description-input').val(calEvent.description);
         }
+        //Google Calendar Event
         else{
             //set global var to remember the GCal ID
             id=calEvent.id;
             console.log(id);
             //Case where it already exists on Google Calendar
             $('h4.eventType').text('Edit Event');
+            $('.confirmation-button').text('Save Changes');
+
+            //Body
+            $('#event-name-input').val(calEvent.title);
+            $('#start-time-input').val(calEvent.start.format('YYYY-MM-DD[T]HH:mm'));
+            $('#end-time-input').val(calEvent.end.format('YYYY-MM-DD[T]HH:mm'));
+            $('#location-input').val(calEvent.location);
+            $('#description-input').val(calEvent.description);
         }
-    }
-
-
-
-
-
-    try{
-        $('#event-name-input').val(calEvent.title);
-        $('#start-time-input').val(calEvent.start.format('YYYY-MM-DD[T]HH:mm'));
-        $('#end-time-input').val(calEvent.end.format('YYYY-MM-DD[T]HH:mm'));
-        $('#location-input').val(calEvent.location);
-        $('#description-input').val(calEvent.description);
-    }catch(e){
-
     }
 
     $("#modalWindow").modal();
