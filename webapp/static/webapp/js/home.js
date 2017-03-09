@@ -55,38 +55,37 @@ $(document).ready(function() {
         //When event is resized not on Month view
         eventResize: function(event, delta, revertFunc) {
 
-
-            //initialize client
-            gapi.client.init({
-                discoveryDocs: DISCOVERY_DOCS,
-                clientId: CLIENT_ID,
-                scope: SCOPES
-            });
-            alert(event.title + " end is now " + event.end.format());
-            if (!confirm("is this okay?")) {
-                revertFunc();
-                return;
+            try{
+                //initialize client
+                gapi.client.init({
+                    discoveryDocs: DISCOVERY_DOCS,
+                    clientId: CLIENT_ID,
+                    scope: SCOPES
+                });
+                //If event is a GCal Event.
+                if(event.id!==undefined){
+                    var toPushEvent = {
+                        'start': {
+                            'dateTime': event.start.format(),
+                            'timeZone': 'America/Los_Angeles'
+                        },
+                        'end': {
+                            'dateTime': event.end.format(),
+                            'timeZone': 'America/Los_Angeles'
+                        }
+                    };  
+                    gapi.client.calendar.events.update({
+                        'calendarId': 'primary',
+                        'eventId': event.id,
+                        'resource': toPushEvent
+                    }).execute();
+                }
+                //display success message
+                $("#event-resize-success").slideDown();
+            }catch(e){
+                console.log(e);
+                $("#event-failure").slideDown();
             }
-            //If event is a GCal Event.
-            if(event.id!==undefined){
-                var toPushEvent = {
-                    'start': {
-                        'dateTime': event.start.format(),
-                        'timeZone': 'America/Los_Angeles'
-                    },
-                    'end': {
-                        'dateTime': event.end.format(),
-                        'timeZone': 'America/Los_Angeles'
-                    }
-                };  
-                gapi.client.calendar.events.update({
-                    'calendarId': 'primary',
-                    'eventId': event.id,
-                    'resource': toPushEvent
-                }).execute();
-            }
-            //display success message
-            $("#event-add-success").slideDown();
 
 
         },
@@ -98,7 +97,6 @@ $(document).ready(function() {
                 clientId: CLIENT_ID,
                 scope: SCOPES
             });
-            alert(event.title + " was dropped on " + event.start.format());
             if(event.id!==undefined){
                 var toPushEvent = {
                     'start': {
@@ -117,7 +115,7 @@ $(document).ready(function() {
                 }).execute();
             }
             //display success message
-            $("#event-add-success").slideDown();
+            $("#event-move-success").slideDown();
 
         },
         //if you drop an external event, it removes the original
@@ -166,7 +164,7 @@ $(document).ready(function() {
  */
 
 function generateEvent(){
-    alert("generateEvent");
+    //alert("generateEvent");
     try{
         //Since no event exist prior, no need to update event. But need to create event to add to calendar
 
@@ -211,16 +209,16 @@ function generateEvent(){
             'calendarId': 'primary',
             'resource': gCalEvent
         }).execute();
-        
+
         //close the modal window after completion
         $("#modalWindow").modal('hide');
-        
+
         //succuess notification
         $("#event-add-success").slideDown();
     }catch(e){
         console.log(e);
         $("#modalWindow").modal('hide');
-        $("#event-add-failure").slideDown();
+        $("#event-failure").slideDown();
     }
 }
 
@@ -231,8 +229,8 @@ function generateEvent(){
  * Postcondition: event is displayed on calendar and also pushed to GCal (optional?)
  */
 function addToCalendar(){
-    console.log(changedEvent.title);
-    alert("addToCalendar");
+    //console.log(changedEvent.title);
+    //alert("addToCalendar");
     try{
         //save local title, start, end time.
         changedEvent.start=$('#start-time-input').val();
@@ -286,7 +284,7 @@ function addToCalendar(){
     }catch(e){
         console.log(e);
         $("#modalWindow").modal('hide');
-        $("#event-add-failure").slideDown();
+        $("#event-failure").slideDown();
     }
 }
 /** 
@@ -348,19 +346,43 @@ function saveChanges() {
     }catch(e){
         console.log(e);
         $("#modalWindow").modal('hide');
-        $("#event-add-failure").slideDown();
+        $("#event-failure").slideDown();
     }
 }
 
 /*
  * Deletes the Event from Calendo and GCal
  * It does both since most people wouldn't migrate here if it is not synchronized
+ * You can only delete GCal registered events since calendo does not have an id.
  */
 function deleteEvent(){
-    //TODO
-    $("#modalWindow").modal('hide');
-    //display success message
-    $("#event-add-failure").slideDown();
+    console.log("delete");
+    try{
+        
+        //executing google remove first
+        gapi.client.init({
+            discoveryDocs: DISCOVERY_DOCS,
+            clientId: CLIENT_ID,
+            scope: SCOPES
+        });
+        gapi.client.calendar.events.delete({
+            'calendarId': 'primary',
+            'eventId': changedEvent.id,
+        }).execute();
+        //removes from local calendar
+        $('#calendar').fullCalendar('removeEvents', changedEvent.id);
+
+        
+
+
+        $("#modalWindow").modal('hide');
+        //display success message
+        $("#event-remove-success").slideDown();
+    }
+    catch(e){
+        console.log(e);
+        $("event-failure").slideDown();
+    }
 }
 
 /*
@@ -368,7 +390,10 @@ function deleteEvent(){
  */
 function hide(){
     $("#event-add-success").slideUp();
-    $("#event-add-failure").slideUp();
+    $("#event-failure").slideUp();
+    $("#event-remove-success").slideUp();
+    $("#event-move-success").slideUp();
+    $("#event-resize-success").slideUp();
 }
 
 /*
@@ -396,6 +421,7 @@ function createModal(calEvent, strSubmitFunc, eventType) {
         $('#description-input').val('');
         $(".confirmation-button").attr("onclick",strSubmitFunc);
         $("#url").hide();
+        $('.delete-button').hide();
     } else{
         //Calendo Event
         if(calEvent.id==undefined){
@@ -412,6 +438,7 @@ function createModal(calEvent, strSubmitFunc, eventType) {
             $('#description-input').val(calEvent.description);
             $(".confirmation-button").attr("onclick",strSubmitFunc);
             $("#url").hide();
+            $('.delete-button').hide();
         }
         //Google Calendar Event
         else{
@@ -432,6 +459,7 @@ function createModal(calEvent, strSubmitFunc, eventType) {
             console.log(calEvent.url);
             $("#url").attr("href",""+calEvent.url);
             $("#url").show();
+            $('.delete-button').show();
         }
     }
 
