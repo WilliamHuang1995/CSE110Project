@@ -31,7 +31,7 @@ function initClient() {
 
         // Handle the initial sign-in state.
         updateSigninStatus(gapi.auth2.getAuthInstance().isSignedIn.get());
-        
+
         //Assign the onclick functionality
         authorizeButton.onclick = handleAuthClick;
         signoutButton.onclick = handleSignoutClick;
@@ -84,6 +84,7 @@ function appendPre(message) {
        * appropriate message is printed.
        */
 function listUpcomingEvents() {
+    alert("HEY THAT'S PRETTY GAY");
     gapi.client.calendar.events.list({
         'calendarId': 'primary',
     }).then(function(response) {
@@ -94,7 +95,11 @@ function listUpcomingEvents() {
         $.each(response.result.items, function(i, entry)
                {
             var url = entry.htmlLink;
-            ;
+            //SOLOMON LOOK HERE! str is the recurrence rule without the RRULE: from the beginning
+            if(entry.recurrence!== undefined){
+                var str= entry.recurrence+""
+                console.log(str.replace("RRULE:",""));}
+            console.log(entry.summary);
             eventsList.push({
                 id:entry.id,
                 title: entry.summary, 
