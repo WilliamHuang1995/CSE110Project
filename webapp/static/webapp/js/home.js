@@ -26,7 +26,7 @@ $(document).ready(function() {
         $(this).draggable({
             zIndex: 999,
             revert: true,      
-            revertDuration: 0  //  original position after the drag
+            revertDuration: 1000,  //  original position after the drag
         });
 
     });
@@ -82,8 +82,8 @@ $(document).ready(function() {
         //if you drop an external event, it removes the original
         drop: function(event) {
             $(this).remove();
-            var strSubmitFunc = "saveChanges()";
-            createModal(event, strSubmitFunc, "Save Changes");    
+            var strSubmitFunc = "addToCalendar()";
+            createModal(event, strSubmitFunc, "Save Changes");
         },
         //when you drag'n'drop within calendar 
         //working as intended.
@@ -149,9 +149,15 @@ $(document).ready(function() {
     });
 });
 
-//googleCalendarId
+//googleCalendarId and changedEvent
 var id;
 var changedEvent;
+
+/** 
+* Function is only called when event exists on Calendar
+* The event can either be a Calendo Event or a Google Calendar Event.
+* The only difference would be that we refrain from assigning an id to Calendo Events as the ID is how we actually push Calendo Events to Google Calendar.
+*/
 function saveChanges() {
     //save local title, start, end time.
     changedEvent.start=$('#start-time-input').val();
@@ -200,6 +206,22 @@ function saveChanges() {
     }).execute();
     //close the modal window after completion
     $("#modalWindow").modal('hide');
+    //display success message
+    $("#event-add-success").slideDown();
+}
+function deleteEvent(){
+    //TODO
+    $("#modalWindow").modal('hide');
+    //display success message
+    $("#event-add-failure").slideDown();
+}
+
+/*
+ * Hides the alert(s)
+ */
+function hide(){
+    $("#event-add-success").slideUp();
+    $("#event-add-failure").slideUp();
 }
 
 function createModal(calEvent, strSubmitFunc, eventType) {
