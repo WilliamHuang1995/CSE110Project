@@ -99,6 +99,7 @@ $(document).ready(function() {
             });
             if(event.id!==undefined){
                 var toPushEvent = {
+                    summary: event.title,
                     'start': {
                         'dateTime': event.start.format(),
                         'timeZone': 'America/Los_Angeles'
@@ -216,9 +217,10 @@ function generateEvent(){
         //succuess notification
         $("#event-add-success").slideDown();
     }catch(e){
-        console.log(e);
+        
         $("#modalWindow").modal('hide');
         $("#event-failure").slideDown();
+        console.log(e);
     }
 }
 
