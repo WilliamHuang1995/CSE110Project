@@ -144,4 +144,4 @@ CSRF_USE_SESSIONS = True
 
 STATICFILES_STORAGE = 'whitenoise.django.GzipManifestStaticFilesStorage'
 X_FRAME_OPTIONS = 'ALLOW'
-SESSION_COOKIE_DOMAIN = ".calen-do.com"
+SESSION_COOKIE_DOMAIN = "www.calen-do.com"
