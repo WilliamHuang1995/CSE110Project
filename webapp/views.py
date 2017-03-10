@@ -252,6 +252,9 @@ def login_auth(request):
 
 		response = HttpResponse(t.render(c, request))
 		response.set_cookie('calendo_session_token', session_token)
+		
+		print("Cook that was set:")
+		print(session_token)
 		print("OH YES BABY")
 		return response
 
