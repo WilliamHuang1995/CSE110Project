@@ -241,7 +241,7 @@ def login_auth(request):
 	print("X IN LOGIN AUTH41")
 	if(input_password_enc  == userOfInterest.Password): 
 		
-	print("X IN LOGIN AUTH42")
+		print("X IN LOGIN AUTH42")
 		#If still hasnt confrmed password, error it
 		if (not (userOfInterest.isConfirmed)):
 			#TODO let user know they have to confirm their email
