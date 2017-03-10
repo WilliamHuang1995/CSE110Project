@@ -6,6 +6,10 @@
     height: 100%;
 }
 
+#top-content img, a{
+    display:inline;
+}
+
 /* Idk if this does anything yet*/
 .container-fluid{
     /* Current Issue: margin-top: 10px;
