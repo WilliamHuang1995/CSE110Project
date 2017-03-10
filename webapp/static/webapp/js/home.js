@@ -207,10 +207,11 @@ function generateEvent(){
             'calendarId': 'primary',
             'resource': gCalEvent
         }).execute(function(resp){
-            id = resp.id;
-            console.log('inside'+ id);
+            
+            
             var calendoEvent = {
-                id: id,
+                id: resp.id,
+                url: resp.url,
                 title: $('#event-name-input').val(), 
                 start: $('#start-time-input').val(),
                 end: $('#end-time-input').val(),
@@ -291,6 +292,8 @@ function addToCalendar(){
             //save local location
             changedEvent.location = $('#location-input').val()
             //add event
+            changedEvent.url=resp.url;
+            changedEvent.id=resp.id;
             $('#calendar').fullCalendar('addEventSource', changedEvent);
             //render event not sure if I need both
             $('#calendar').fullCalendar('renderEvent', changedEvent,stick=true);
