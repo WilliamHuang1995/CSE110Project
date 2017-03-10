@@ -123,19 +123,20 @@
                 </div>
             </div>
         </div>
-
-
-
-        <div class="navbar navbar-inverse navbar-fixed-left">
+        
+        <!-- nav bar -->
+        <div class="navbar navbar-inverse navbar-fixed-left" role="navigation">
             <ul class="nav navbar-nav">
-                <div class="navbar-fixed-top">
+                <div id="top-content" class="navbar-fixed-top">
                     <li><img src="{% static 'webapp/img/nav_logo.png' %}" class="img-responsive" /></li>
-                    <li><a href=calendar><img src="{% static 'webapp/img/nav_calendar.png' %}" class="img-responsive"/></a></li>
+                    <li><a href=calendar c><img src="{% static 'webapp/img/nav_calendar.png' %}" class="img-responsive"/></a></li>
                     <li><a href=todo><li><img src="{% static 'webapp/img/nav_task1.png' %}" class="img-responsive"/></a></li>
                 </div>
                 <li><a href=settings><img src="{% static 'webapp/img/nav_settings.png' %}" class="img-responsive navbar-fixed-bottom"/></a></li>
             </ul>
         </div>
+        
+        <!-- calendo -->
         <div class="container-fluid" id="calendo">
 
             <div class="alert alert-success alert-dismissable fade in" style="display:none;" id="event-add-success">
@@ -156,7 +157,7 @@
             </div>
             <div class="alert alert-danger alert-dismissable fade in" style="display:none;" id="event-failure">
                 <a href="#" class="close" data-hide="alert" onclick="hide()" aria-label="close">&times;</a>
-                <strong>Failure!</strong> An error has occured, tell William about it!
+                <strong>Failure!</strong> An error has occured, suck William's big black hearthstone deck yea-boiiii!!
             </div>
 
             <div class="row">
@@ -187,6 +188,7 @@
             <!--Debug purposes only-->
             <!--pre id="content"></pre-->
         </div>
+        
         <script type="text/javascript" src='{% static "webapp/js/home.js" %}'></script>
         <script type="text/javascript" src='{% static "webapp/js/gcal2.js" %}'></script>
         <!-- The following has to go with the above script-->

@@ -1,4 +1,11 @@
 /* CSS used here will be applied after bootstrap.css */
+
+#top-content img,
+#top-content a{
+    display:inline;
+
+}
+
 .navbar-fixed-left {
     width: 40px;
     position: fixed;
@@ -14,6 +21,7 @@
     margin-left: 60px;
 
 }
+
 .img-responsive {
     padding: 8px;
     max-width:40px; 
