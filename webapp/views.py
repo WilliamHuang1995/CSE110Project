@@ -261,7 +261,7 @@ def login_auth(request):
 		c = {'userResult':userResult[0]}
 
 		response = HttpResponse(t.render(c, request))
-		response.set_cookie('calendo_session_token', session_token,domain=settings.SESSION_COOKIE_DOMAIN)
+		response.set_cookie('calendo_session_token', session_token)
 		
 		print("Cook that was set:")
 		print("Cook that was set:")
