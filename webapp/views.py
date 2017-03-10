@@ -191,6 +191,8 @@ def register_auth(request):
 	
 def login(request):
 	
+	print("X in login")
+	
 	if(not user_is_auth(request)):
 		print("USER IS NOT AUTH MITHER FUCKER FCU KEM ")
 		return prompt_login(request)
@@ -201,6 +203,7 @@ def login(request):
 
 
 def login_auth(request):
+	print("X IN LOGIN AUTH")
 	if (request.method != 'POST'):
 		return redirect('/login') 
 
@@ -251,8 +254,13 @@ def login_auth(request):
 		c = {'userResult':userResult[0]}
 
 		response = HttpResponse(t.render(c, request))
-		response.set_cookie('calendo_session_token', session_token)
+		response.set_cookie('calendo_session_token', session_token,domain=settings.SESSION_COOKIE_DOMAIN)
 		
+		print("Cook that was set:")
+		print("Cook that was set:")
+		print("Cook that was set:")
+		print("Cook that was set:")
+		print("Cook that was set:")
 		print("Cook that was set:")
 		print(session_token)
 		print("OH YES BABY")
