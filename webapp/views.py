@@ -323,6 +323,14 @@ def login_token_generator(size=25, chars=string.ascii_lowercase + string.digits)
 def user_is_auth(request):
 	calendo_session_token = request.COOKIES.get('calendo_session_token')
 
+	for x in request.COOKIES
+		print("a")
+		print(x)
+
+
+	print("token: ")
+	print(calendo_session_token)
+
 	if(not calendo_session_token):
 		return False
 	
