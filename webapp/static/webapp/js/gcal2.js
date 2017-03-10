@@ -97,7 +97,6 @@ function listUpcomingEvents() {
         $.each(response.result.items, function(i, entry)
                {
             var url = entry.htmlLink;
-            //console.log(entry.summary);
             eventsList.push({
                 id:entry.id,
                 title: entry.summary, 

@@ -17,7 +17,11 @@ var clickedDate;
 
 
 
-
+$("#event-name-input").keyup(function(event){
+    if(event.keyCode == 13){
+        $(".confirmation-button").click();
+    }
+});
 $(document).ready(function() {
     //By Eric Sen. Draggable Events
     $('#external-events .fc-event').each(function() {
@@ -136,7 +140,7 @@ $(document).ready(function() {
             var strSubmitFunc = "generateEvent()";
             clickedDate = date.format('YYYY-MM-DD[T]HH:mm');
             createModal(undefined, strSubmitFunc, "Create Event")
-            
+
         },
 
         //By Daniel Keirouz. When you click on an event. 
@@ -171,15 +175,6 @@ function generateEvent(){
     try{
         //Since no event exist prior, no need to update event. But need to create event to add to calendar
 
-        var calendoEvent = {
-            title: $('#event-name-input').val(), 
-            start: $('#start-time-input').val(),
-            end: $('#end-time-input').val(),
-            location: $('#location-input').val(),
-            description: $('#description-input').val()
-        }
-        //render event
-        $('#calendar').fullCalendar('renderEvent', calendoEvent,stick=true);
         var gCalEvent = {
             'summary': $('#event-name-input').val(),
             'location': $('#location-input').val(),
@@ -211,7 +206,23 @@ function generateEvent(){
         gapi.client.calendar.events.insert({
             'calendarId': 'primary',
             'resource': gCalEvent
-        }).execute();
+        }).execute(function(resp){
+            id = resp.id;
+            console.log('inside'+ id);
+            var calendoEvent = {
+                id: id,
+                title: $('#event-name-input').val(), 
+                start: $('#start-time-input').val(),
+                end: $('#end-time-input').val(),
+                location: $('#location-input').val(),
+                description: $('#description-input').val()
+            }
+            //render event
+            $('#calendar').fullCalendar('renderEvent', calendoEvent,stick=true);
+            $('#calendar').fullCalendar('addEventSource', calendoEvent);
+        })
+
+
 
         //close the modal window after completion
         $("#modalWindow").modal('hide');
@@ -220,7 +231,7 @@ function generateEvent(){
         $("#event-add-success").slideDown();
         setTimeout(function(){ hide();}, 5000);
     }catch(e){
-        
+
         $("#modalWindow").modal('hide');
         $("#event-failure").slideDown();
         console.log(e);
@@ -236,21 +247,9 @@ function generateEvent(){
  */
 function addToCalendar(){
     //console.log(changedEvent.title);
-    //alert("addToCalendar");
+    
     try{
-        //save local title, start, end time.
-        changedEvent.start=$('#start-time-input').val();
-        changedEvent.end=$('#end-time-input').val();
-        var newTitle = $('#event-name-input').val();
-        changedEvent.title = newTitle==""?"(No Title)":newTitle;
-        //save local description
-        changedEvent.description = $('#description-input').val()
-        //save local location
-        changedEvent.location = $('#location-input').val()
-        //add event
-        $('#calendar').fullCalendar('addEventSource', changedEvent);
-        //render event not sure if I need both
-        $('#calendar').fullCalendar('renderEvent', changedEvent,stick=true);
+
         var event = {
             'summary': $('#event-name-input').val(),
             'location': $('#location-input').val(),
@@ -281,7 +280,21 @@ function addToCalendar(){
         gapi.client.calendar.events.insert({
             'calendarId': 'primary',
             'resource': event
-        }).execute();
+        }).execute(function(resp){
+            //save local title, start, end time.
+            changedEvent.start=$('#start-time-input').val();
+            changedEvent.end=$('#end-time-input').val();
+            var newTitle = $('#event-name-input').val();
+            changedEvent.title = newTitle==""?"(No Title)":newTitle;
+            //save local description
+            changedEvent.description = $('#description-input').val()
+            //save local location
+            changedEvent.location = $('#location-input').val()
+            //add event
+            $('#calendar').fullCalendar('addEventSource', changedEvent);
+            //render event not sure if I need both
+            $('#calendar').fullCalendar('renderEvent', changedEvent,stick=true);
+        });
         //close the modal window after completion
         $("#modalWindow").modal('hide');
 
@@ -373,7 +386,7 @@ function deleteEvent(){
     $("#bs-example-modal-sm").modal('hide');
     console.log("delete");
     try{
-        
+
         //executing google remove first
         gapi.client.init({
             discoveryDocs: DISCOVERY_DOCS,
@@ -387,7 +400,7 @@ function deleteEvent(){
         //removes from local calendar
         $('#calendar').fullCalendar('removeEvents', changedEvent.id);
 
-        
+
 
 
         $("#modalWindow").modal('hide');
@@ -433,7 +446,9 @@ function createModal(calEvent, strSubmitFunc, eventType) {
         $('#event-name-input').val('');
         //TODO: check if start time is indicated
         $('#start-time-input').val(clickedDate);
-        $('#end-time-input').val(clickedDate);
+        var endDate = moment(clickedDate).add(1,'hours').format();
+        console.log(endDate);
+        $('#end-time-input').val(moment(endDate).format('YYYY-MM-DD[T]HH:mm'));
         $('#location-input').val('');
         $('#description-input').val('');
         $(".confirmation-button").attr("onclick",strSubmitFunc);
@@ -449,8 +464,8 @@ function createModal(calEvent, strSubmitFunc, eventType) {
             //Body
             $('#event-name-input').val(calEvent.title);
             //TODO: check if start time is indicated
-            $('#start-time-input').val('');
-            $('#end-time-input').val('');
+            $('#start-time-input').val(moment(calEvent.start).format('YYYY-MM-DD[T]HH:mm'));
+            $('#end-time-input').val(moment(calEvent.end).format('YYYY-MM-DD[T]HH:mm'));
             $('#location-input').val(calEvent.location);
             $('#description-input').val(calEvent.description);
             $(".confirmation-button").attr("onclick",strSubmitFunc);
