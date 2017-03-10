@@ -352,12 +352,17 @@ function saveChanges() {
     }
 }
 
+
+function confirmDelete(){
+    $(".bs-example-modal-sm").modal('show');
+}
 /*
  * Deletes the Event from Calendo and GCal
  * It does both since most people wouldn't migrate here if it is not synchronized
  * You can only delete GCal registered events since calendo does not have an id.
  */
 function deleteEvent(){
+    $("#bs-example-modal-sm").modal('hide');
     console.log("delete");
     try{
         
