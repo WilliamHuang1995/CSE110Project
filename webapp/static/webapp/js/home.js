@@ -117,6 +117,7 @@ $(document).ready(function() {
             }
             //display success message
             $("#event-move-success").slideDown();
+            setTimeout(function(){ hide();}, 5000);
 
         },
         //if you drop an external event, it removes the original
@@ -216,11 +217,13 @@ function generateEvent(){
 
         //succuess notification
         $("#event-add-success").slideDown();
+        setTimeout(function(){ hide();}, 5000);
     }catch(e){
         
         $("#modalWindow").modal('hide');
         $("#event-failure").slideDown();
         console.log(e);
+        setTimeout(function(){ hide();}, 5000);
     }
 }
 
@@ -283,10 +286,12 @@ function addToCalendar(){
 
         //success notification
         $("#event-add-success").slideDown();
+        setTimeout(function(){ hide();}, 5000);
     }catch(e){
         console.log(e);
         $("#modalWindow").modal('hide');
         $("#event-failure").slideDown();
+        setTimeout(function(){ hide();}, 5000);
     }
 }
 /** 
@@ -345,14 +350,16 @@ function saveChanges() {
         $("#modalWindow").modal('hide');
         //display success message
         $("#event-add-success").slideDown();
+        setTimeout(function(){ hide();}, 5000);
     }catch(e){
         console.log(e);
         $("#modalWindow").modal('hide');
         $("#event-failure").slideDown();
+        setTimeout(function(){ hide(); }, 5000);
     }
 }
 
-
+//show the confirmation
 function confirmDelete(){
     $(".bs-example-modal-sm").modal('show');
 }
@@ -385,10 +392,12 @@ function deleteEvent(){
         $("#modalWindow").modal('hide');
         //display success message
         $("#event-remove-success").slideDown();
+        setTimeout(function(){ $("#event-remove-success").slideUp(); }, 5000);
     }
     catch(e){
         console.log(e);
         $("event-failure").slideDown();
+        setTimeout(function(){ $("#event-failure").slideUp(); }, 5000);
     }
 }
 
