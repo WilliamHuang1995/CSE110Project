@@ -172,7 +172,7 @@ def register_auth(request):
 		
 		To verify your Calendo account, please click on the link below:\n
 
-		http://127.0.0.1:8000/confirm_email?code=""" + codeGenerated + 
+		www.calendo.com/confirm_email?code=""" + codeGenerated + 
 		
 		"""\n\n
 
@@ -212,6 +212,7 @@ def login_auth(request):
 		return redirect('/login')
 
 	
+	print("X IN LOGIN AUTH2")
 	input_email = request.POST['email']
 	input_password = request.POST['password']
 
@@ -221,6 +222,7 @@ def login_auth(request):
 	#query database for given email
 	userResult = Calendo_User.objects.raw('SELECT * FROM webapp_calendo_user  WHERE "Email"=%s', [request.POST['email']])
 	
+	print("X IN LOGIN AUTH3")
 	#if not exactly 1 row, error
 	if( len(list(userResult)) != 1):
 		print("oh shits")
@@ -229,14 +231,17 @@ def login_auth(request):
 	userOfInterest = userResult[0]
 
 
+	print("X IN LOGIN AUTH4")
 	#Hash given password. Check with database. error back if not right
 	signer = Signer()
 
 	input_password_enc = signer.sign(input_password)
 	input_password_enc = input_password_enc[input_password_enc.find(":")+1:]
 
+	print("X IN LOGIN AUTH41")
 	if(input_password_enc  == userOfInterest.Password): 
 		
+	print("X IN LOGIN AUTH42")
 		#If still hasnt confrmed password, error it
 		if (not (userOfInterest.isConfirmed)):
 			#TODO let user know they have to confirm their email
@@ -244,12 +249,14 @@ def login_auth(request):
 		
 		#create token in database TODO
 		
+		print("X IN LOGIN AUTH5")
 		session_token = login_token_generator()
 		token_death_date = int(time.time()) + 60*2
 
 		insertSessionTokenResult = Session(SessionId=session_token, UserId=userOfInterest.id, UserEmail=userOfInterest.Email, DeathDate=token_death_date)
 		insertSessionTokenResult.save()
 
+		print("X IN LOGIN AUTH6")
 		t = loader.get_template('webapp/home.html')
 		c = {'userResult':userResult[0]}
 
@@ -299,7 +306,7 @@ def confirmEmail(request):
 	
 	givenCode = request.GET['code']
 	
-	codeQueryResult = Confirm_Email.objects.raw('SELECT * FROM webapp_Confirm_Email WHERE "Code"=%s AND "IsConfirmed" = 0',[givenCode])
+	codeQueryResult = Confirm_Email.objects.raw('SELECT * FROM webapp_Confirm_Email WHERE "Code"=%s AND "IsConfirmed" = False',[givenCode])
 	
 	if( len(list(codeQueryResult)) != 1):
 		return render(request, 'webapp/confirm_email.html', {'confirm_status':'fail'})
