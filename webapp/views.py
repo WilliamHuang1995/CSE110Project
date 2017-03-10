@@ -87,7 +87,7 @@ def delete_request(request):
 	#this might need to be changed to id 
 	delete_title = request.POST.get('title');
 
-	#deleteQuery = Todo.objects.raw('DELETE FROM webapp_todo WHERE title = %s', [delete_title])
+	#deleteQuery = Todo.objects.raw('DELETE FROM webapp_todo WHERE "title" = %s', [delete_title])
 	Todo.objects.filter(title=delete_title).delete() 
 
 	return render(request, 'webapp/todo.html')
@@ -133,7 +133,7 @@ def register_auth(request):
 
 	#see if email already exists
 	
-	preExistingUsers = Calendo_User.objects.raw('SELECT * FROM webapp_calendo_user WHERE Email=%s', [input_email])
+	preExistingUsers = Calendo_User.objects.raw('SELECT * FROM webapp_calendo_user WHERE "Email"=%s', [input_email])
 
 	print( len(list(preExistingUsers )))
 	
@@ -292,7 +292,7 @@ def confirmEmail(request):
 	
 	givenCode = request.GET['code']
 	
-	codeQueryResult = Confirm_Email.objects.raw('SELECT * FROM webapp_Confirm_Email WHERE Code=%s AND IsConfirmed = 0',[givenCode])
+	codeQueryResult = Confirm_Email.objects.raw('SELECT * FROM webapp_Confirm_Email WHERE "Code"=%s AND "IsConfirmed" = 0',[givenCode])
 	
 	if( len(list(codeQueryResult)) != 1):
 		return render(request, 'webapp/confirm_email.html', {'confirm_status':'fail'})
@@ -315,7 +315,7 @@ def test(request):
 	alex = 'omgfg'
 
 	#get from database
-	db_result = Todo.objects.raw('SELECT * FROM webapp_todo WHERE id=%s', [request.GET['id']])[0]
+	db_result = Todo.objects.raw('SELECT * FROM webapp_todo WHERE "id"=%s', [request.GET['id']])[0]
 	return render(request, 'webapp/test.html', {'alex':alex, 'dbResult':db_result})
 
 def confirm_code_generator(size=30, chars=string.ascii_uppercase + string.digits):
@@ -330,7 +330,7 @@ def user_is_auth(request):
 	if(not calendo_session_token):
 		return False
 	
-	sessionQueryResult = Session.objects.raw('SELECT * FROM webapp_session WHERE SessionId=%s', [calendo_session_token])
+	sessionQueryResult = Session.objects.raw('SELECT * FROM webapp_session WHERE "SessionId"=%s', [calendo_session_token])
 
 	if( len(list(sessionQueryResult)) != 1):
 		return False

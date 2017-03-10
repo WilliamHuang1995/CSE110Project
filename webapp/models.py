@@ -36,7 +36,7 @@ class Calendo_User(models.Model):
 	)
 	Name = models.CharField(max_length=20, default="")
 	Email = models.CharField(max_length=30)
-	Password = models.CharField(max_length=20)
+	Password = models.CharField(max_length=100)
 	#NotificationsFreq = models.BooleanField(default=False)
 	#ColorScheme = models.IntegerField(default=3)
 	isConfirmed = models.BooleanField(default=False)
