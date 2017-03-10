@@ -27,6 +27,7 @@
         <script src='{% static "webapp/fullcalendar/lib/jquery-ui.min.js"%}'></script>
         <script src='{% static "webapp/fullcalendar/fullcalendar.js" %}'></script>
 
+
         <!-- Latest compiled and minified JavaScript -->
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 
@@ -46,31 +47,84 @@
                             <h4 class="eventType">Edit Event</h4>
                         </div>
                         <div class="modal-body">
-                            <form class="form-inline">
+                            <form class="form-horizontal">
                                 <div class="form-group">
-                                    <label for="example-text-input" class="col-2 col-form-label">Event Name:</label>
-                                    <div class="col-10"><input class="form-control" type="text" value="" id="event-name-input"></div>
-                                    <label for="example-text-input" class="col-2 col-form-label">Start:</label>
-                                    <div class="col-10"><input class="form-control" type="datetime-local" value="" id="start-time-input"></div>
-                                    <label for="example-text-input" class="col-2 col-form-label">End:</label>
-                                    <div class="col-10"><input class="form-control" type="datetime-local" value="" id="end-time-input"></div>
-                                    <label for="example-text-input" class="col-2 col-form-label">Location:</label>
-                                    <div class="col-10"><input class="form-control" type="text" value="" id="location-input"> </div>
-                                    <label for="example-text-input" class="col-2 col-form-label">Description:</label>
-                                    <div class="col-10"><input class="form-control" type="text" value="" id="description-input"> </div>
+                                    <label class="control-label col-sm-2" for="event-name">
+                                        Event:
+                                    </label>
+                                    <div class="col-sm-10">
+                                        <input class="form-control" type="text" placeholder="i.e. Hang out with friends, Complete CSE 110 Project.." value="" id="event-name-input">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label col-sm-2" for="date">
+                                        Start:
+                                    </label>
+                                    <div class="col-sm-10">
+                                        <input class="form-control" name="start-date" placeholder="YYYY/MM/DD" type="datetime-local" id="start-time-input">
+                                    </div>
 
-                                </div></form>
-                        </div>
-                        <a href="" style="margin-left: 30px;">View on Google Calendar</a>
-                        <div class="modal-footer"><span class="btn btn-danger delete-button" onclick="deleteEvent()">Delete Event</span><span class="btn btn-success confirmation-button" onclick="saveChanges()">Save Changes</span>
-                        </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label col-sm-2" for="date">
+                                        End:
+                                    </label>
+                                    <div class="col-sm-10">
+                                        <input class="form-control" name="start-date" placeholder="YYYY/MM/DD" type="datetime-local" id="end-time-input">
+                                    </div>
+                                </div>
 
+
+                                <div class="form-group">
+                                    <label class="control-label col-sm-2">
+                                        Location:
+                                    </label>
+                                    <div class="col-sm-10">
+                                        <input class="form-control" type="text" value="" placeholder="i.e. Geisel Library, Peterson Hall, La Jolla Shores..." id="location-input">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label col-sm-2">
+                                        Description:
+                                    </label>
+                                    <div class="col-sm-10">
+                                        <input class="form-control" type="text" value="" placeholder="Give a brief description about this event" id="description-input" >
+                                    </div>
+                                </div>
+                                <a href="" style="margin-left: 30px;" id="url">
+                                    View on Google Calendar</a>
+                                <div class="modal-footer">
+                                    <span class="btn btn-danger delete-button" onclick="confirmDelete()">Delete Event</span>
+                                    <span class="btn btn-success confirmation-button" onclick="saveChanges()">Save Changes</span>
+                                </div>
+                            </form>
+                        </div>
                     </div>
                 </div>
             </div>
-
-
         </div>
+
+
+        <div class="modal fade bs-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel">
+            <div class="modal-dialog modal-sm" role="document">
+
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4 class="modal-title">Are you sure?</h4>
+                    </div>
+                    <div class="modal-body">
+                        <p>You are about to delete an event!</p>
+                    </div>
+                    <div class="modal-footer">
+                        <span type="button" class="btn btn-danger" data-dismiss="modal" onclick="deleteEvent()">Delete</span>
+                        <span type="button" class="btn btn-default" data-dismiss="modal">Cancel</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
 
         <div class="navbar navbar-inverse navbar-fixed-left">
             <ul class="nav navbar-nav">
@@ -86,12 +140,25 @@
 
             <div class="alert alert-success alert-dismissable fade in" style="display:none;" id="event-add-success">
                 <a href="#" class="close" data-hide="alert" onclick="hide()" aria-label="close">&times;</a>
-                <strong>Success!</strong> Event has been added/created!
+                <strong>Success!</strong> Event has been created!
             </div>
-            <div class="alert alert-danger alert-dismissable fade in" style="display:none;" id="event-add-failure">
+            <div class="alert alert-success alert-dismissable fade in" style="display:none;" id="event-move-success">
                 <a href="#" class="close" data-hide="alert" onclick="hide()" aria-label="close">&times;</a>
-                <strong>Failure!</strong> There was an issue with API call!
+                <strong>Success!</strong> Event has been moved!
             </div>
+            <div class="alert alert-warning alert-dismissable fade in" style="display:none;" id="event-remove-success">
+                <a href="#" class="close" data-hide="alert" onclick="hide()" aria-label="close">&times;</a>
+                <strong>Success!</strong> Event has been removed!
+            </div>
+            <div class="alert alert-success alert-dismissable fade in" style="display:none;" id="event-resize-success">
+                <a href="#" class="close" data-hide="alert" onclick="hide()" aria-label="close">&times;</a>
+                <strong>Success!</strong> Event has been resized!
+            </div>
+            <div class="alert alert-danger alert-dismissable fade in" style="display:none;" id="event-failure">
+                <a href="#" class="close" data-hide="alert" onclick="hide()" aria-label="close">&times;</a>
+                <strong>Failure!</strong> An error has occured, tell William about it!
+            </div>
+
             <div class="row">
                 <div class="col-md-8"><!--Change this to col-md-6 for half view-->
                     <!--this line does the magic-->
@@ -104,15 +171,16 @@
                         <div class='fc-event'>My Event 2</div>
                         <div class='fc-event'>My Event 3</div>
                         <div class='fc-event'>My Event 4</div>
-                        <div class='fc-event'>My Event 5</div>
+                        <div class='fc-event'>😀 😃 😄 😁 😆 </div>
                     </div>
-                    <button id="authorize-button" class="btn btn-primary btn-large btn-block">Sync with Google Calendars</button>
-                    <button id="signout-button" class="btn btn-danger btn-large btn-block">Sign Out</button>
+
 
                 </div>
                 <div class="col-md-4">
-
+                    <button id="authorize-button" class="btn btn-primary btn-large btn-block">Sync with Google Calendars</button>
+                    <button id="signout-button" class="btn btn-danger btn-large btn-block">Sign Out</button>
                     <button id="signout-button" style="display: none;">Sign Out</button>
+                    
                 </div>
 
             </div>
