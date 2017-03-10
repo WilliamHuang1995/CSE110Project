@@ -190,6 +190,12 @@ def register_auth(request):
 	return render(request, 'webapp/register-complete.html', {'email':input_email})
 	
 def login(request):
+	
+	x= 0
+	while(x < 100):
+		x = x + 1
+		print("OHMHHHHHHHH")
+
 	if(not user_is_auth(request)):
 		return prompt_login(request)
 	auth_failed = False
