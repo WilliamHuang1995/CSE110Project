@@ -191,12 +191,8 @@ def register_auth(request):
 	
 def login(request):
 	
-	x= 0
-	while(x < 100):
-		x = x + 1
-		print("OHMHHHHHHHH")
-
 	if(not user_is_auth(request)):
+		print("USER IS NOT AUTH MITHER FUCKER FCU KEM ")
 		return prompt_login(request)
 	auth_failed = False
 	if(request.GET.get('auth_failed') and request.GET['auth_failed'] == 'true'):
