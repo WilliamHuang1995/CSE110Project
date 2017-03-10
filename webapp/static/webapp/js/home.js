@@ -46,8 +46,8 @@ $(document).ready(function() {
         // revert, if let go, will go back to its position
         $(this).draggable({
             zIndex: 999,
-            revert: true,      
-            revertDuration: 1000,  //  original position after the drag
+            revert: false,        //  original position after the drag
+            
         });
 
     });
@@ -61,7 +61,8 @@ $(document).ready(function() {
             right: 'month,agendaWeek,agendaDay,listWeek'
 
         },
-        defaultView: 'month',        
+        defaultView: 'month',   
+        dragRevertDuration: 0,
         editable: true,
         droppable: true, // this allows things to be dropped onto the calendar
         slotLabelFormat:"HH:mm",
@@ -164,6 +165,21 @@ $(document).ready(function() {
             createModal(calEvent, strSubmitFunc, btnText);
             return false;
         },
+        eventDragStop: function(event,jsEvent) {
+            var trashEl = jQuery('#calendarTrash');
+            var ofs = trashEl.offset();
+
+            var x1 = ofs.left;
+            var x2 = ofs.left + trashEl.outerWidth(true);
+            var y1 = ofs.top;
+            var y2 = ofs.top + trashEl.outerHeight(true);
+
+            if (jsEvent.pageX >= x1 && jsEvent.pageX<= x2 &&
+                jsEvent.pageY >= y1 && jsEvent.pageY <= y2) {
+              changedEvent=event;
+              confirmDelete(); 
+            }
+        },
 
         //API key created by William
         googleCalendarApiKey: 'AIzaSyD0XdpABM5YzCNI0QFP_Gm7mgqDuNzqy7M'
@@ -217,8 +233,8 @@ function generateEvent(){
             'calendarId': 'primary',
             'resource': gCalEvent
         }).execute(function(resp){
-            
-            
+
+
             var calendoEvent = {
                 id: resp.id,
                 url: resp.htmlLink,
@@ -258,7 +274,7 @@ function generateEvent(){
  */
 function addToCalendar(){
     //console.log(changedEvent.title);
-    
+
     try{
 
         var event = {
