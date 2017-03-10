@@ -133,7 +133,7 @@ def register_auth(request):
 
 	#see if email already exists
 	
-	preExistingUsers = Calendo_User.objects.raw('SELECT * FROM webapp_calendo_user WHERE Email=%s', [input_email])
+	preExistingUsers = Calendo_User.objects.raw('SELECT * FROM webapp_calendo_user WHERE "Email"=%s', [input_email])
 
 	print( len(list(preExistingUsers )))
 	
