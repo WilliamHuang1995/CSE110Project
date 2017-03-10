@@ -306,7 +306,7 @@ def confirmEmail(request):
 	
 	givenCode = request.GET['code']
 	
-	codeQueryResult = Confirm_Email.objects.raw('SELECT * FROM webapp_Confirm_Email WHERE "Code"=\'%s\' AND "IsConfirmed" = False',[givenCode])
+	codeQueryResult = Confirm_Email.objects.raw('SELECT * FROM webapp_Confirm_Email WHERE "Code"=%s AND "IsConfirmed" = False',[givenCode])
 	
 	if( len(list(codeQueryResult)) != 1):
 		print("SQL QUERY FAILED FIRST")
