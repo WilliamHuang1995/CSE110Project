@@ -22,6 +22,16 @@ $("#event-name-input").keyup(function(event){
         $(".confirmation-button").click();
     }
 });
+$("#location-input").keyup(function(event){
+    if(event.keyCode == 13){
+        $(".confirmation-button").click();
+    }
+});
+$("#description-input").keyup(function(event){
+    if(event.keyCode == 13){
+        $(".confirmation-button").click();
+    }
+});
 $(document).ready(function() {
     //By Eric Sen. Draggable Events
     $('#external-events .fc-event').each(function() {
@@ -211,7 +221,7 @@ function generateEvent(){
             
             var calendoEvent = {
                 id: resp.id,
-                url: resp.url,
+                url: resp.htmlLink,
                 title: $('#event-name-input').val(), 
                 start: $('#start-time-input').val(),
                 end: $('#end-time-input').val(),
@@ -292,7 +302,7 @@ function addToCalendar(){
             //save local location
             changedEvent.location = $('#location-input').val()
             //add event
-            changedEvent.url=resp.url;
+            changedEvent.url=resp.htmlLink;
             changedEvent.id=resp.id;
             $('#calendar').fullCalendar('addEventSource', changedEvent);
             //render event not sure if I need both
