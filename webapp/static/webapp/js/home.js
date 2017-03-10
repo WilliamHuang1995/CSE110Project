@@ -134,8 +134,9 @@ $(document).ready(function() {
                 win.focus();
             } 
             var strSubmitFunc = "generateEvent()";
-            clickedDate = date;
+            clickedDate = date.format('YYYY-MM-DD[T]HH:mm');
             createModal(undefined, strSubmitFunc, "Create Event")
+            
         },
 
         //By Daniel Keirouz. When you click on an event. 
@@ -431,8 +432,8 @@ function createModal(calEvent, strSubmitFunc, eventType) {
         //Create Empty Body
         $('#event-name-input').val('');
         //TODO: check if start time is indicated
-        $('#start-time-input').val('');
-        $('#end-time-input').val('');
+        $('#start-time-input').val(clickedDate);
+        $('#end-time-input').val(clickedDate);
         $('#location-input').val('');
         $('#description-input').val('');
         $(".confirmation-button").attr("onclick",strSubmitFunc);
