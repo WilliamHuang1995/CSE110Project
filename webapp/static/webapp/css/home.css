@@ -36,12 +36,13 @@
     width: 100%;
     float: right;
     padding: 0 10px;
-    margin-top: 69px; /*( ͡° ͜ʖ ͡°)*/
+    margin-top: 62px; /*( ͡° ͜ʖ ͡°)*/
     /*border around the stuff*/
     border: 5px solid #ccc;
-    background: #eef;
+    background: #ffffff;
 }
 #external-events .fc-event {
+    text-align: center;
     width: 160px;
     margin: 10px 0;
     cursor: pointer;
