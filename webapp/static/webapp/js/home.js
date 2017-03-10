@@ -14,6 +14,7 @@ var changedEvent;
 
 //used for generateEvent()
 var clickedDate;
+var endDate;
 
 
 
@@ -47,7 +48,7 @@ $(document).ready(function() {
         $(this).draggable({
             zIndex: 999,
             revert: false,        //  original position after the drag
-            
+
         });
 
     });
@@ -136,10 +137,23 @@ $(document).ready(function() {
 
         },
         //if you drop an external event, it removes the original
-        drop: function(event) {
+        drop: function(date, allDay) {
+
+
+            clickedDate = date.format('YYYY-MM-DD[T]HH:mm');
+            var defaultDuration = moment.duration($('#calendar').fullCalendar('option', 'defaultTimedEventDuration'));
+            endDate = date.clone().add(defaultDuration).format('YYYY-MM-DD[T]HH:mm'); // on drop we only have date given to us
+            changedEvent = $(this).data('event');
+            changedEvent.start = date.format('YYYY-MM-DD[T]HH:mm');
+            changedEvent.end = date.clone().add(defaultDuration).format('YYYY-MM-DD[T]HH:mm');
+            
+            
+            //console.log('start is '+ date.format());
+            //console.log('end is ' + end.format());
+            //console.log(originalEventObject.title);
+            createModal(changedEvent, "addToCalendar()", "Add To Calendar");
+            //remove after
             $(this).remove();
-            changedEvent=event;
-            createModal(event, "addToCalendar()", "Add To Calendar");
         },
         //when you click on the day.
         dayClick: function(date, jsEvent, view) {              //easter egg
@@ -176,8 +190,8 @@ $(document).ready(function() {
 
             if (jsEvent.pageX >= x1 && jsEvent.pageX<= x2 &&
                 jsEvent.pageY >= y1 && jsEvent.pageY <= y2) {
-              changedEvent=event;
-              confirmDelete(); 
+                changedEvent=event;
+                confirmDelete(); 
             }
         },
 
@@ -322,7 +336,7 @@ function addToCalendar(){
             changedEvent.id=resp.id;
             $('#calendar').fullCalendar('addEventSource', changedEvent);
             //render event not sure if I need both
-            $('#calendar').fullCalendar('renderEvent', changedEvent,stick=true);
+            //$('#calendar').fullCalendar('renderEvent', changedEvent,stick=true);
         });
         //close the modal window after completion
         $("#modalWindow").modal('hide');
@@ -493,8 +507,8 @@ function createModal(calEvent, strSubmitFunc, eventType) {
             //Body
             $('#event-name-input').val(calEvent.title);
             //TODO: check if start time is indicated
-            $('#start-time-input').val(moment(calEvent.start).format('YYYY-MM-DD[T]HH:mm'));
-            $('#end-time-input').val(moment(calEvent.end).format('YYYY-MM-DD[T]HH:mm'));
+            $('#start-time-input').val(calEvent.start);
+            $('#end-time-input').val(calEvent.end);
             $('#location-input').val(calEvent.location);
             $('#description-input').val(calEvent.description);
             $(".confirmation-button").attr("onclick",strSubmitFunc);
