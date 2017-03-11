@@ -16,6 +16,10 @@ var changedEvent;
 var clickedDate;
 var endDate;
 
+//constant variable string format
+const ACCEPTED_DATE_FORMAT = 'YYYY-MM-DD[T]HH:mm';
+
+
 
 
 $("#event-name-input").keyup(function(event){
@@ -40,7 +44,8 @@ $(document).ready(function() {
         // store data so the calendar knows to render an event upon drop
         $(this).data('event', {
             title: $.trim($(this).text()), // use the element's text as the event title
-            stick: true // maintain when user navigates (see docs on the renderEvent method)
+            stick: true, // maintain when user navigates (see docs on the renderEvent method)
+            id: 'external-event'
         });
 
         // make the event draggable using jQuery UI
@@ -140,18 +145,18 @@ $(document).ready(function() {
         drop: function(date, allDay) {
 
 
-            clickedDate = date.format('YYYY-MM-DD[T]HH:mm');
+            clickedDate = date.format(ACCEPTED_DATE_FORMAT);
             var defaultDuration = moment.duration($('#calendar').fullCalendar('option', 'defaultTimedEventDuration'));
-            endDate = date.clone().add(defaultDuration).format('YYYY-MM-DD[T]HH:mm'); // on drop we only have date given to us
+            endDate = date.clone().add(defaultDuration).format(ACCEPTED_DATE_FORMAT); // on drop we only have date given to us
             changedEvent = $(this).data('event');
-            changedEvent.start = date.format('YYYY-MM-DD[T]HH:mm');
-            changedEvent.end = date.clone().add(defaultDuration).format('YYYY-MM-DD[T]HH:mm');
-            
+            changedEvent.start = date.format(ACCEPTED_DATE_FORMAT);
+            changedEvent.end = date.clone().add(defaultDuration).format(ACCEPTED_DATE_FORMAT);
             
             //console.log('start is '+ date.format());
             //console.log('end is ' + end.format());
             //console.log(originalEventObject.title);
             createModal(changedEvent, "addToCalendar()", "Add To Calendar");
+            //$("#calendar").fullCalendar('removeEvents', 'external-event');
             //remove after
             $(this).remove();
         },
@@ -163,7 +168,7 @@ $(document).ready(function() {
                 win.focus();
             } 
             var strSubmitFunc = "generateEvent()";
-            clickedDate = date.format('YYYY-MM-DD[T]HH:mm');
+            clickedDate = date.format(ACCEPTED_DATE_FORMAT);
             createModal(undefined, strSubmitFunc, "Create Event")
 
         },
@@ -287,7 +292,9 @@ function generateEvent(){
  * Postcondition: event is displayed on calendar and also pushed to GCal (optional?)
  */
 function addToCalendar(){
-    //console.log(changedEvent.title);
+    console.log(changedEvent.title);
+    console.log(moment(changedEvent.start).format());
+    console.log(moment(changedEvent.end).format());
 
     try{
 
@@ -325,6 +332,8 @@ function addToCalendar(){
             //save local title, start, end time.
             changedEvent.start=$('#start-time-input').val();
             changedEvent.end=$('#end-time-input').val();
+            console.log(changedEvent.start);
+            console.log(changedEvent.end);
             var newTitle = $('#event-name-input').val();
             changedEvent.title = newTitle==""?"(No Title)":newTitle;
             //save local description
@@ -334,9 +343,9 @@ function addToCalendar(){
             //add event
             changedEvent.url=resp.htmlLink;
             changedEvent.id=resp.id;
-            $('#calendar').fullCalendar('addEventSource', changedEvent);
+            //$('#calendar').fullCalendar('addEventSource', changedEvent);
             //render event not sure if I need both
-            //$('#calendar').fullCalendar('renderEvent', changedEvent,stick=true);
+            $('#calendar').fullCalendar('renderEvent', changedEvent,stick=true);
         });
         //close the modal window after completion
         $("#modalWindow").modal('hide');
@@ -491,7 +500,7 @@ function createModal(calEvent, strSubmitFunc, eventType) {
         $('#start-time-input').val(clickedDate);
         var endDate = moment(clickedDate).add(1,'hours').format();
         console.log(endDate);
-        $('#end-time-input').val(moment(endDate).format('YYYY-MM-DD[T]HH:mm'));
+        $('#end-time-input').val(moment(endDate).format(ACCEPTED_DATE_FORMAT));
         $('#location-input').val('');
         $('#description-input').val('');
         $(".confirmation-button").attr("onclick",strSubmitFunc);
@@ -499,7 +508,7 @@ function createModal(calEvent, strSubmitFunc, eventType) {
         $('.delete-button').hide();
     } else{
         //Calendo Event
-        if(calEvent.id==undefined){
+        if(calEvent.id=="external-event"){
 
             $('h4.eventType').text('Add to Calendar');
             $('.confirmation-button').text('Add');
@@ -526,8 +535,8 @@ function createModal(calEvent, strSubmitFunc, eventType) {
 
             //Body
             $('#event-name-input').val(calEvent.title);
-            $('#start-time-input').val(calEvent.start.format('YYYY-MM-DD[T]HH:mm'));
-            $('#end-time-input').val(calEvent.end.format('YYYY-MM-DD[T]HH:mm'));
+            $('#start-time-input').val(calEvent.start.format(ACCEPTED_DATE_FORMAT));
+            $('#end-time-input').val(calEvent.end.format(ACCEPTED_DATE_FORMAT));
             $('#location-input').val(calEvent.location);
             $('#description-input').val(calEvent.description);
             $(".confirmation-button").attr("onclick",strSubmitFunc);
