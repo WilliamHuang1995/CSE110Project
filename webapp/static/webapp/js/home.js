@@ -52,11 +52,11 @@ $(document).ready(function() {
         // revert, if let go, will go back to its position
         $(this).draggable({
             zIndex: 999,
-            revert: false,        //  original position after the drag
-
+            revert: true,        //  original position after the drag
         });
 
     });
+
 
     //By William Huang. Initialize Calendar
     $('#calendar').fullCalendar({
@@ -68,7 +68,7 @@ $(document).ready(function() {
 
         },
         defaultView: 'month',   
-        dragRevertDuration: 0,
+        //dragRevertDuration: 0,
         editable: true,
         droppable: true, // this allows things to be dropped onto the calendar
         slotLabelFormat:"HH:mm",
@@ -155,8 +155,8 @@ $(document).ready(function() {
             //console.log('start is '+ date.format());
             //console.log('end is ' + end.format());
             //console.log(originalEventObject.title);
-            createModal(changedEvent, "addToCalendar()", "Add To Calendar");
-            //$("#calendar").fullCalendar('removeEvents', 'external-event');
+            displayModal(changedEvent, "addToCalendar()", "Add To Calendar");
+            $("#calendar").fullCalendar('removeEvents', 'external-event');
             //remove after
             $(this).remove();
         },
@@ -169,7 +169,7 @@ $(document).ready(function() {
             } 
             var strSubmitFunc = "generateEvent()";
             clickedDate = date.format(ACCEPTED_DATE_FORMAT);
-            createModal(undefined, strSubmitFunc, "Create Event")
+            displayModal(undefined, strSubmitFunc, "Create Event")
 
         },
 
@@ -181,7 +181,7 @@ $(document).ready(function() {
             var content = "Date: " + calEvent.start.toLocaleString();
             var strSubmitFunc = "saveChanges()";
             var btnText = "Save Changes";
-            createModal(calEvent, strSubmitFunc, btnText);
+            displayModal(calEvent, strSubmitFunc, btnText);
             return false;
         },
         eventDragStop: function(event,jsEvent) {
@@ -482,10 +482,10 @@ function hide(){
  * Created by Daniel Keirouz
  * Enhanced by William Huang
  * Description: This should technically no longer be
- * called createModal as the function assigns value to
+ * called displayModal as the function assigns value to
  * different field and displays it
  */
-function createModal(calEvent, strSubmitFunc, eventType) {
+function displayModal(calEvent, strSubmitFunc, eventType) {
     //might wanna autofill the clickedDate for ease of access
     //console.log(clickedDate.format());
 
