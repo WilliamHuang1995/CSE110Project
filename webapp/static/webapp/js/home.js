@@ -19,10 +19,16 @@ var endDate;
 //constant variable string format
 const ACCEPTED_DATE_FORMAT = 'YYYY-MM-DD[T]HH:mm';
 
+//external event
+var todoEvent;
 
-
-
-$("#event-name-input").keyup(function(event){
+//Press Enter when in Modal to Create. EASE OF ACCESS BABY
+$("#modalWindow").keyup(function(event){
+    if(event.keyCode == 13){
+        $(".confirmation-button").click();
+    }
+});
+/*$("#event-name-input").keyup(function(event){
     if(event.keyCode == 13){
         $(".confirmation-button").click();
     }
@@ -36,7 +42,7 @@ $("#description-input").keyup(function(event){
     if(event.keyCode == 13){
         $(".confirmation-button").click();
     }
-});
+});*/
 $(document).ready(function() {
     //By Eric Sen. Draggable Events
     $('#external-events .fc-event').each(function() {
@@ -45,9 +51,11 @@ $(document).ready(function() {
         $(this).data('event', {
             title: $.trim($(this).text()), // use the element's text as the event title
             stick: true, // maintain when user navigates (see docs on the renderEvent method)
-            id: 'external-event'
+            id: 'external-event',
         });
-
+        $(this).click(function(){
+            //can trigger smart scheduling thru here
+        });
         // make the event draggable using jQuery UI
         // revert, if let go, will go back to its position
         $(this).draggable({
@@ -141,24 +149,19 @@ $(document).ready(function() {
             setTimeout(function(){ hide();}, 5000);
 
         },
-        //if you drop an external event, it removes the original
+        //external event droppin
         drop: function(date, allDay) {
-
-
+            
+            todoEvent = $(this);
             clickedDate = date.format(ACCEPTED_DATE_FORMAT);
             var defaultDuration = moment.duration($('#calendar').fullCalendar('option', 'defaultTimedEventDuration'));
             endDate = date.clone().add(defaultDuration).format(ACCEPTED_DATE_FORMAT); // on drop we only have date given to us
             changedEvent = $(this).data('event');
             changedEvent.start = date.format(ACCEPTED_DATE_FORMAT);
             changedEvent.end = date.clone().add(defaultDuration).format(ACCEPTED_DATE_FORMAT);
-            
-            //console.log('start is '+ date.format());
-            //console.log('end is ' + end.format());
-            //console.log(originalEventObject.title);
-            displayModal(changedEvent, "addToCalendar()", "Add To Calendar");
             $("#calendar").fullCalendar('removeEvents', 'external-event');
-            //remove after
-            $(this).remove();
+            displayModal(changedEvent, "addToCalendar()", "Add To Calendar");
+            
         },
         //when you click on the day.
         dayClick: function(date, jsEvent, view) {              //easter egg
@@ -216,7 +219,6 @@ $(document).ready(function() {
  */
 
 function generateEvent(){
-    //alert("generateEvent");
     try{
         //Since no event exist prior, no need to update event. But need to create event to add to calendar
 
@@ -347,6 +349,10 @@ function addToCalendar(){
             //render event not sure if I need both
             $('#calendar').fullCalendar('renderEvent', changedEvent,stick=true);
         });
+        
+        //remove from todolist event 
+        todoEvent.remove();
+        
         //close the modal window after completion
         $("#modalWindow").modal('hide');
 
