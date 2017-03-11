@@ -138,10 +138,18 @@
         
         <!-- calendo -->
         <div class="container-fluid" id="calendo">
-
-            <div class="alert alert-success alert-dismissable fade in" style="display:none;" id="event-add-success">
+            <!-- probably a better way of doing it but yolo -->
+            <div class="alert alert-success alert-dismissable fade in" style="display:none;" id="event-create-success">
                 <a href="#" class="close" data-hide="alert" onclick="hide()" aria-label="close">&times;</a>
                 <strong>Success!</strong> Event has been created!
+            </div>
+            <div class="alert alert-success alert-dismissable fade in" style="display:none;" id="event-add-success">
+                <a href="#" class="close" data-hide="alert" onclick="hide()" aria-label="close">&times;</a>
+                <strong>Success!</strong> To Do has been added to Calendar!
+            </div>
+            <div class="alert alert-success alert-dismissable fade in" style="display:none;" id="event-change-success">
+                <a href="#" class="close" data-hide="alert" onclick="hide()" aria-label="close">&times;</a>
+                <strong>Success!</strong> Event detail has been changed!
             </div>
             <div class="alert alert-success alert-dismissable fade in" style="display:none;" id="event-move-success">
                 <a href="#" class="close" data-hide="alert" onclick="hide()" aria-label="close">&times;</a>
@@ -157,7 +165,7 @@
             </div>
             <div class="alert alert-danger alert-dismissable fade in" style="display:none;" id="event-failure">
                 <a href="#" class="close" data-hide="alert" onclick="hide()" aria-label="close">&times;</a>
-                <strong>Failure!</strong> An error has occured, suck William's big black hearthstone deck yea-boiiii!!
+                <strong>Failure!</strong> An error has occured, please open console to see exact detail!!
             </div>
 
             <div class="row">

@@ -274,7 +274,7 @@ function generateEvent(){
         $("#modalWindow").modal('hide');
 
         //succuess notification
-        $("#event-add-success").slideDown();
+        $("#event-create-success").slideDown();
         setTimeout(function(){ hide();}, 5000);
     }catch(e){
 
@@ -415,7 +415,7 @@ function saveChanges() {
         //close the modal window after completion
         $("#modalWindow").modal('hide');
         //display success message
-        $("#event-add-success").slideDown();
+        $("#event-change-success").slideDown();
         setTimeout(function(){ hide();}, 5000);
     }catch(e){
         console.log(e);
@@ -472,6 +472,8 @@ function deleteEvent(){
  */
 function hide(){
     $("#event-add-success").slideUp();
+    $("#event-create-success").slideUp();
+    $("#event-change-success").slideUp();
     $("#event-failure").slideUp();
     $("#event-remove-success").slideUp();
     $("#event-move-success").slideUp();
