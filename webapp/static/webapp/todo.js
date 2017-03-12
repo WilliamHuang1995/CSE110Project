@@ -88,12 +88,12 @@ function deleteTodo(){
     var i;
     for (i = 0; i < close.length; i++) {
       close[i].onclick = function() {
-        var div = this.parentElement;
+        var div = this;
         console.log(div);
         //var text = div["innerText" in div ? "innerText" : "textContent"]; 
         var text = div.getAttribute('id'); 
         console.log(text);
-        text = text.substring(0, text.length -1); 
+        
         console.log(text);
         deleteRequest(text);   
         div.style.display = "none";
