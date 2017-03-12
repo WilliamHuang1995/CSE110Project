@@ -189,7 +189,7 @@ def register_auth(request):
 		
 		To verify your Calendo account, please click on the link below:\n
 
-		www.calendo.com/confirm_email?code=""" + codeGenerated + 
+		www.calen-do.com/confirm_email?code=""" + codeGenerated + 
 		
 		"""\n\n
 
