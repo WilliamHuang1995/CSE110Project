@@ -91,7 +91,7 @@ function deleteTodo(){
         var div = this.parentElement;
         console.log(div);
         //var text = div["innerText" in div ? "innerText" : "textContent"]; 
-        var text = div.innerText; 
+        var text = div.getAttribute('id'); 
         console.log(text);
         text = text.substring(0, text.length -1); 
         console.log(text);

@@ -40,11 +40,11 @@
 										<span class="glyphicon glyphicon-ok-circle glyphicon-ok-circle-u"></span>
 										
 										<button type="button" class="glyphicon glyphicon-trash glyphicon-trash-u" onclick="deleteTodo()"></button>
-										<span style="display:none">{{todo.id}}</span>
+										
 										
 										<div class="p-2">
 											
-											<p class="mb-1">{{ todo.title}}
+											<p class="mb-1" id= {{todo.id}}>{{ todo.title}}
 												<img style="margin-bottom:3px; margin-left:7px;" src="{% static "webapp/img/Fill 71.png" %}" />
 											</p>
 											
