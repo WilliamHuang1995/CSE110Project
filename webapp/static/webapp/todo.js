@@ -9,7 +9,7 @@ $(document).ready(function() {
   
 });
 
-function getRequest(){
+/*function getRequest(){
 
     $(document).ready(function(){
         var client = new HttpClient();
@@ -49,21 +49,17 @@ function getRequest(){
             anHttpRequest.send( null );
         }
     }
-}
+}*/
 
-function editTodo(){
-    getRequest(); 
-
-    //editRequest(); 
-
-
-
-}
 
 // Create a new list item when clicking on the "Add" button
 function newTodo() {
+    //if statement checking if task has id unsure since it has an id as well
+    //then either edit or post depending on if it has id 
     postRequest();
-		//adding to scheduled div
+	
+
+    	//adding to scheduled div
     //This may be bad practice
 		/*
     var node = document.createElement("LI");
