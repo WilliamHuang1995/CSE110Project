@@ -72,15 +72,16 @@ function postRequest(){
     if (xhr.readyState == 4){
         if (xhr.status == 200){
             var json_data = xhr.responseText;  
+            alert(json_data);
+            console.log(typeof(json_data));
+            console.log(json_data);
+            var temp = JSON.parse(json_data);
+            console.log(temp[0].id); 
+            return temp;
         }
             
     }
-    alert(json_data);
-    console.log(typeof(json_data));
-    console.log(json_data);
-    var temp = JSON.parse(json_data);
-    console.log(temp[0].id); 
-    return temp;
+
 };
 
 //should execute on delete call 
