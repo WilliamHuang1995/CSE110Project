@@ -62,6 +62,12 @@ def post_request(request):
 		return redirect('/todo')
 	
 	print("daddy")
+	
+	userAuth = user_is_auth(request)
+
+	if not userAuth:
+		return redirect('/login.html')
+
 
 	for key, value in request.POST.items():
 		print ("%s %s" ,(key, value))
@@ -76,7 +82,7 @@ def post_request(request):
 	
 	input_title = request.POST.get('title');
 	
-	insertToDoResult = Todo(title=input_title)
+	insertToDoResult = Todo(title=input_title, UserId=userAuth)
 	insertToDoResult.save()
 
 	return render(request, 'webapp/todo.html')
