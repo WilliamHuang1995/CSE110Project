@@ -55,8 +55,8 @@ def get_request(request):
 	#db_result = Todo.objects.raw('SELECT * FROM webapp_todo')
 	#db_json = serializers.serialize('json', db_result, fields=('id', 'title'))
 	#return JsonResponse(db_json, safe=False)
-	queryset = Todo.objects.raw('SELECT * FROM webapp_todo')
-	data = [{'title': item.title, 'id': item.id} for item in queryset]
+	queryset = Todo.objects.raw('SELECT * FROM webapp_todo WHERE id = %s', request.GET.get('id'))
+	data = [{'title': item.title, 'description': item.Description, 'estimateTime': item.EstimateTime, 'dueDate': item.dueDate, 'location': item.location} for item in queryset]
 	return HttpResponse(json.dumps(data),content_type='application/json')
 
 
@@ -90,6 +90,43 @@ def post_request(request):
 	#print("some value")
 	return HttpResponse(json.dumps(insertToDoResult.id),content_type='application/json')
 
+def edit_request(request):
+	if request.method != 'POST':
+			return redirect('/todo')
+	
+	userAuth = user_is_auth(request)
+	if not userAuth:
+		return prompt_login(request)
+
+	#see if all were provided
+	if( not (request.POST.get('title') )):
+		
+		#TODO error handling, give them error messages
+		return redirect('/home')
+
+	
+	input_title = request.POST.get('title')
+	input_description = request.POST.get('description')
+	input_estimatedTime = request.POST.get('estimateTime')
+	input_priority = request.POST.get('priority')
+	input_dueDate = request.POST.get('dueDate')
+	input_location = request.POST.get('location')
+	
+	edit_id = request.POST.get('id')
+	#insertToDoResult = Todo(title=input_title,UserID=userAuth,Description=input_description,EstimateTime=input_estimatedTime,DueDate=input_dueDate, Location=input_location)
+	insertToDoResult = Todo.objects.filter(id=edit_id)
+	insertToDoResult.title = input_title
+	insertToDoResult.Description = input_description
+	insertToDoResult.EstimateTime = input_estimatedTime
+	insertToDoResult.DueDate = input_dueDate
+	insertToDoResult.Location = input_location 
+	insertToDoResult.save()
+
+	#queryset = Todo.objects.raw('SELECT id FROM webapp_todo WHERE UserID=%s',[calendo_session_token])
+	#data = [{'id': item.id} for item in queryset]
+	#print("some value")
+	return render(request, 'webapp/todo-test');
+
 def delete_request(request):
 	if request.method != 'POST':
 		return redirect('/todo')
@@ -102,7 +139,7 @@ def delete_request(request):
 		return redirect('/home')
 
 	#this might need to be changed to id 
-	delete_id = request.POST.get('id');
+	delete_id = request.POST.get('id')
 
 	#deleteQuery = Todo.objects.raw('DELETE FROM webapp_todo WHERE "title" = %s', [delete_title])
 	Todo.objects.filter(id=delete_id).delete() 

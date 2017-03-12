@@ -9,6 +9,56 @@ $(document).ready(function() {
   
 });
 
+function getRequest(){
+
+    $(document).ready(function(){
+        var client = new HttpClient();
+        client.get('/api/get', function(response) {
+        // do something with response
+            var temp = JSON.parse(response); 
+
+            console.log(temp[0].title);
+            console.log(temp.length);    
+            document.getElementById("task").value = temp.title;
+            document.getElementById("loc").value = temp.location;
+            document.getElementById("desc").value = temp.description;
+            document.getElementById('example-date-input').value = temp.dueDate;
+
+            var estimatedTime = inputHours * 60 + inputMins;
+            inputHours = (Number.parseInt(temp.estimatedTime)/60).toString(); 
+            inputMins = (Number.parseInt(temp.estimatedTime)%60).toString(); 
+
+            document.getElementById("numHours").value = inputHours;
+            document.getElementById("numMins").value = inputMins;
+
+
+
+
+            
+        });
+    }); 
+    var HttpClient = function() {
+    this.get = function(aUrl, aCallback) {
+        var anHttpRequest = new XMLHttpRequest();
+        anHttpRequest.onreadystatechange = function() { 
+            if (anHttpRequest.readyState == 4 && anHttpRequest.status == 200)
+                aCallback(anHttpRequest.responseText);
+            }
+
+            anHttpRequest.open( "GET", aUrl, true );            
+            anHttpRequest.send( null );
+        }
+    }
+}
+
+function editTodo(){
+    getRequest(); 
+
+    //editRequest(); 
+
+
+
+}
 
 // Create a new list item when clicking on the "Add" button
 function newTodo() {
@@ -93,8 +143,7 @@ function deleteTodo(){
         //var text = div["innerText" in div ? "innerText" : "textContent"]; 
         var text = div.getAttribute('id'); 
         console.log(text);
-        
-        console.log(text);
+
         deleteRequest(text);   
         div.parentElement.style.display = "none";
       }
