@@ -54,6 +54,7 @@ body{
     margin: 5px 0;
     cursor: pointer;
     background-color: #4990e2;
+    overflow-y:scroll;
 }
 
 #calendarTrash,#calendar-container{
