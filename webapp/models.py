@@ -57,7 +57,7 @@ class Todo(models.Model):
 
 	id = models.AutoField(primary_key=True)
 	title = models.TextField(null=True)
-	#UserID = models.ForeignKey(User) #may need on_delete models.CASCADE
+	UserID = models.IntegerField(default=-1)
 	#title = models.CharField(max_length=40, default="")
 	#description = models.CharField(max_length=160, default="")
 	#EstimateTime = models.IntegerField(default=1)

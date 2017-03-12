@@ -27,7 +27,12 @@ import random
 from django.core.mail import send_mail
 
 def todos_test(request):
-	print('mooooo')
+
+	userAuth = use_is_auth(request)
+
+	if not userAuth:
+		return redirect('/login.html')
+
 	return render(request, 'webapp/todo-test.html', {'todoList': [{'title': "this is title!", 'description':"thi is descrip"}]})
 
 def prompt_login(request):
@@ -344,8 +349,6 @@ def login_token_generator(size=25, chars=string.ascii_lowercase + string.digits)
 
 def user_is_auth(request):
 	calendo_session_token = request.COOKIES.get('calendo_session_token')
-	print("token: ")
-	print(calendo_session_token)
 
 	if(not calendo_session_token):
 		return False
@@ -364,8 +367,8 @@ def user_is_auth(request):
 	
 	#update token for another 10 mins
 	
-	new_death_date = int(time.time()) + 2*60
+	new_death_date = int(time.time()) + 10*60
 	updateDeathDateResult = Session(id=session_record.id, DeathDate=new_death_date)
 	updateDeathDateResult.save(update_fields=['DeathDate'])
 	
-	return True
+	return session_record.UserId
