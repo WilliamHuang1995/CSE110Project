@@ -200,7 +200,7 @@ $(document).ready(function() {
 
         //This is what happens when you click the external event
         $(this).click(function(){
-            //Add your functionality here
+            //alert("EXTERNAL CLICKED");
         });
 
         // make the event draggable using jQuery UI revert, if let go, will go back to its position
