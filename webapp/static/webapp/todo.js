@@ -27,7 +27,7 @@ function newTodo() {
 
 };  
 
-function postRequest(){
+function postRequest(postResponse){
     var inputTitle = document.getElementById("task").value;
     var inputLoc = document.getElementById("loc").value;
     var inputDescrip = document.getElementById("desc").value;
