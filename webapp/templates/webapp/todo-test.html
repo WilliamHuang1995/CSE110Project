@@ -4,7 +4,7 @@
 {% load bootstrap3 %}
 {% load staticfiles %}
 
-{%block title%}To-Do Home{% endblock %}
+{%block title%}To-Do Home <script>alert('asdf')</script>{% endblock %}
 
 {% block content %}
 	<head>
@@ -33,7 +33,7 @@
 								<!-- List group -->
 								<div class="list-group noborder">
 										
-									
+									{% csrf_token %}	
 									{% for todo in todoList %}
 
 									<a href="#" class="list-group-item list-group-item-action list-group-item-unscheduled">

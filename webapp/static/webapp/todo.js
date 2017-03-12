@@ -13,6 +13,7 @@ $(document).ready(function() {
 // Create a new list item when clicking on the "Add" button
 function newTodo() {
     postRequest();
+		//adding to scheduled div
     //This may be bad practice
 		/*
     var node = document.createElement("LI");
@@ -31,16 +32,33 @@ function postRequest(){
     var inputLoc = document.getElementById("loc").value;
     var inputDescrip = document.getElementById("desc").value;
     var inputDate = document.getElementById('example-date-input').value;
+
     var inputHours = document.getElementById("numHours").value;
     var inputMins = document.getElementById("numMins").value;
+
+
+
+
+		inputHours = Number.parseInt(inputHours.split(' ')[0]);
+		inputMins = Number.parseInt(inputMins.split(' ')[0]);
+		
+		var estimatedTime = inputHours * 60 + inputMins;
+
+
     var inputPriority = document.getElementById("priorityOpt").value;
     var csrftoken = jQuery("[name=csrfmiddlewaretoken]").val(); 
+		console.log("crsf token"+ csrftoken);
     var url = "/api/post";
+		var form_data = new FormData();
     
-    var params = inputValue;
-    var form_data = new FormData();
-    form_data.append("title", params); 
-    
+		form_data.append("title", inputTitle);
+		form_data.append("location", inputLoc);
+		form_data.append("description", inputDescrip); 
+		form_data.append("dueDate", inputDate);
+		form_data.append("estimateTime", estimatedTime);
+		form_data.append("priority", inputPriority);
+
+
     var xhr = new XMLHttpRequest();
     xhr.open("POST", url, true);
                 

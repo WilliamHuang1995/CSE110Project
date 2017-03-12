@@ -59,21 +59,14 @@ def get_request(request):
 	data = [{'title': item.title, 'id': item.id} for item in queryset]
 	return HttpResponse(json.dumps(data),content_type='application/json')
 
+
 def post_request(request):
 	if request.method != 'POST':
-		return redirect('/todo')
-	
-	print("daddy")
+			return redirect('/todo')
 	
 	userAuth = user_is_auth(request)
-
 	if not userAuth:
-		return redirect('/login.html')
-
-
-	for key, value in request.POST.items():
-		print ("%s %s" ,(key, value))
-
+		return prompt_login(request)
 
 	#see if all were provided
 	if( not (request.POST.get('title') )):
@@ -82,13 +75,20 @@ def post_request(request):
 		return redirect('/home')
 
 	
-	input_title = request.POST.get('title');
+	input_title = request.POST.get('title')
+	input_description = request.POST.get('description')
+	input_estimatedTime = request.POST.get('estimateTime')
+	input_priority = request.POST.get('priority')
+	input_dueDate = request.POST.get('dueDate')
+	input_location = request.POST.get('location')
 	
-	print("userAuth", userAuth)
-	insertToDoResult = Todo(title=input_title, UserID=userAuth)
+	insertToDoResult = Todo(title=input_title,UserID=userAuth,Description=input_description,EstimateTime=input_estimatedTime,DueDate=input_dueDate, Location=input_location)
 	insertToDoResult.save()
 
-	return render(request, 'webapp/todo.html')
+	#queryset = Todo.objects.raw('SELECT id FROM webapp_todo WHERE UserID=%s',[calendo_session_token])
+	#data = [{'id': item.id} for item in queryset]
+	
+	return HttpResponse(json.dumps(insertToDoResult.id),content_type='application/json')
 
 def delete_request(request):
 	if request.method != 'POST':
