@@ -70,6 +70,7 @@ function postRequest(){
     console.log("sent params");
 
     temp = postResponse(xhr);  
+    console.log("ASDFADFAGARGARGES");
     
 
 };
