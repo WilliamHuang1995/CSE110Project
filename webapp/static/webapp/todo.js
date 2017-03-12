@@ -68,7 +68,37 @@ function postRequest(){
 
     xhr.send(form_data);
     console.log("sent params");
+
+    if (xhr.readyState == 4){
+        if (xhr.status == 200){
+            var json_data = xhr.responseText;  
+        }
+            
+    }
+    var temp = JSON.parse(json_data);
+    console.log(temp.id); 
+    return temp;
 }
+
+//should execute on delete call 
+function delete(){
+    var close = document.getElementsByClassName("close");
+    var i;
+    for (i = 0; i < close.length; i++) {
+      close[i].onclick = function() {
+        var div = this.parentElement;
+        console.log(div);
+        //var text = div["innerText" in div ? "innerText" : "textContent"]; 
+        var text = div.innerText; 
+        console.log(text);
+        text = text.substring(0, text.length -1); 
+        console.log(text);
+        deleteRequest(text);   
+        div.style.display = "none";
+      }
+    }    
+}
+
 
 function deleteRequest(someValue){
     var inputValue = someValue;
@@ -77,7 +107,7 @@ function deleteRequest(someValue){
     
     var params = inputValue;
     var form_data = new FormData();
-    form_data.append("title", params); 
+    form_data.append("id", params); 
     
     var xhr = new XMLHttpRequest();
     xhr.open("POST", url, true);
