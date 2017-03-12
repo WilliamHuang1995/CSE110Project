@@ -26,6 +26,9 @@ import random
 
 from django.core.mail import send_mail
 
+def todos_test(request):
+	print('mooooo')
+	return render(request, 'webapp/todo-test.html', {'todoList': [{'title': "this is title!", 'description':"thi is descrip"}]})
 
 def prompt_login(request):
 	t = loader.get_template('webapp/login.html')
