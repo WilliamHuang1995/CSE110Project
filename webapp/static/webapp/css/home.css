@@ -5,7 +5,14 @@
     display:inline;
 
 }
+body{
+    font-family: lato;
+    height: 100%
+}
 
+::-webkit-scrollbar { 
+     display: none; 
+ }
 .navbar-fixed-left {
     width: 40px;
     position: fixed;
@@ -19,6 +26,7 @@
     Will screw up the navbar as well. Need to fix.
     */
     margin-left: 60px;
+    height:100%;
 
 }
 
@@ -35,20 +43,23 @@
 
     width: 100%;
     float: right;
-    padding: 0 10px;
-    margin-top: 62px; /*( ͡° ͜ʖ ͡°)*/
+    padding: 0 40px;
     /*border around the stuff*/
-    border: 5px solid #ccc;
     background: #ffffff;
 }
 #external-events .fc-event {
     text-align: center;
-    width: 160px;
-    margin: 10px 0;
+    height: 20px;
+    width: 100%;
+    margin: 5px 0;
     cursor: pointer;
+    background-color: #4990e2;
 }
+
+
 #authorize-button {
     margin-top: 10px;
+    
 }
 #signout-button {
     margin-top: 10px;
