@@ -75,7 +75,7 @@ function postRequest(){
 
 };
 
-function postResponse(var someXhr){
+function postResponse(someXhr){
     var json_data = xhr.responseText;  
     alert(json_data);
     console.log(typeof(json_data));
