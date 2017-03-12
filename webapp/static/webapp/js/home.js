@@ -229,6 +229,7 @@ $(document).ready(function() {
         //API key created by William
         googleCalendarApiKey: 'AIzaSyD0XdpABM5YzCNI0QFP_Gm7mgqDuNzqy7M',
         eventColor: '#4990e2',
+        height: 'parent',
 
         /*****************************************************************
          * Event Resize
