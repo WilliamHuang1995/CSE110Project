@@ -4,12 +4,6 @@
 
 
 {% block content %}
-
-	{% load staticfiles %}
-        <!--Import Bootstrap-->
-        <link rel="icon" 
-              type="image/png" 
-              href='{% static "webapp/img/site_favicon2.png" %}'>
 	
 	{% if auth_failed == True %}
 		<div class="alert alert-danger" role="alert">
