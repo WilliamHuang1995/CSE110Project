@@ -27,7 +27,7 @@ function newTodo() {
 
 };  
 
-function postRequest(postResponse){
+function postRequest(){
     var inputTitle = document.getElementById("task").value;
     var inputLoc = document.getElementById("loc").value;
     var inputDescrip = document.getElementById("desc").value;
@@ -69,26 +69,22 @@ function postRequest(postResponse){
     xhr.send(form_data);
     console.log("sent params");
 
-    temp = postResponse(xhr);  
-    console.log("ASDFADFAGARGARGES");
-    return temp; 
-
-};
-
-function postResponse(someXhr){
-    var json_data = xhr.responseText;  
+   /* var json_data = xhr.responseText;  
     alert(json_data);
     console.log(typeof(json_data));
     console.log(json_data);
     var temp = JSON.parse(json_data);
     console.log(temp[0].id); 
     return temp;    
+    */
 
-}
+};
+
+
 
 //should execute on delete call 
 function deleteTodo(){
-    var close = document.getElementsByClassName("close");
+    var close = document.getElementsByClassName("glyphicon glyphicon-trash glyphicon-trash-u");
     var i;
     for (i = 0; i < close.length; i++) {
       close[i].onclick = function() {
