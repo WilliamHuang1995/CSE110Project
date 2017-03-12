@@ -71,7 +71,7 @@ function postRequest(){
 
     temp = postResponse(xhr);  
     console.log("ASDFADFAGARGARGES");
-    
+    return temp; 
 
 };
 
