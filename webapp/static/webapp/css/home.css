@@ -3,18 +3,14 @@
 #top-content img,
 #top-content a{
     display:inline;
-}
 
-html, body {height: 100%;}
+}
 
 .navbar-fixed-left {
     width: 40px;
     position: fixed;
     border-radius: 0;
     height: 100%;
-}
-::-webkit-scrollbar { 
-    display: none; 
 }
 
 /* Idk if this does anything yet*/
@@ -35,25 +31,21 @@ html, body {height: 100%;}
 #calendar{
     padding-top: 10px;
 }
-
-#external-events h2 {
-    margin-top: 5px;
-}
 #external-events {
+
     width: 100%;
     float: right;
+    padding: 0 10px;
+    margin-top: 62px; /*( ͡° ͜ʖ ͡°)*/
     /*border around the stuff*/
+    border: 5px solid #ccc;
     background: #ffffff;
-    height: 300px;
-    overflow-y: scroll;
 }
 #external-events .fc-event {
     text-align: center;
-    height: 40px;
-    width: 100%;
-    margin: 10px 0 20px;
+    width: 160px;
+    margin: 10px 0;
     cursor: pointer;
-    background-color:#4990e2; 
 }
 #authorize-button {
     margin-top: 10px;
