@@ -81,7 +81,7 @@ function postRequest(){
 };
 
 //should execute on delete call 
-function delete(){
+function deleteTodo(){
     var close = document.getElementsByClassName("close");
     var i;
     for (i = 0; i < close.length; i++) {
