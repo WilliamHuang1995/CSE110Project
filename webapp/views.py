@@ -96,16 +96,16 @@ def delete_request(request):
 
 	print("dropping")
 
-	if( not (request.POST.get('title') )):
+	if( not (request.POST.get('id') )):
 		
 		#TODO error handling, give them error messages
 		return redirect('/home')
 
 	#this might need to be changed to id 
-	delete_title = request.POST.get('title');
+	delete_id = request.POST.get('id');
 
 	#deleteQuery = Todo.objects.raw('DELETE FROM webapp_todo WHERE "title" = %s', [delete_title])
-	Todo.objects.filter(title=delete_title).delete() 
+	Todo.objects.filter(id=delete_id).delete() 
 
 	return render(request, 'webapp/todo.html')
 
