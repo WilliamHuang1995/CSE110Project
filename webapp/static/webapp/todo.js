@@ -96,7 +96,7 @@ function deleteTodo(){
         
         console.log(text);
         deleteRequest(text);   
-        div.style.display = "none";
+        div.parent.style.display = "none";
       }
     }    
 };
