@@ -84,27 +84,6 @@ function appendPre(message) {
        * appropriate message is printed.
        */
 function listUpcomingEvents() {
-  // For todays date;
-Date.prototype.today = function () { 
-  return ((this.getDate() < 10)?"0":"") + this.getDate() +"/"+(((this.getMonth()+1) < 10)?"0":"") + (this.getMonth()+1) +"/"+ this.getFullYear();
-}
-
-// For the time now
-Date.prototype.timeNow = function () {
-     return ((this.getHours() < 10)?"0":"") + this.getHours() +":"+ ((this.getMinutes() < 10)?"0":"") + this.getMinutes() +":"+ ((this.getSeconds() < 10)?"0":"") + this.getSeconds();
-}
-//You can then simply retrieve the date and time by doing the following:
-
-var newDate = new Date();
-var datetime = "LastSync: " + newDate.today() + " @ " + newDate.timeNow();
-console.log(newDate, datetime);
-var d = new Date();
-var currentMonth = d.getMonth()+ 1;
-var currentDate = d.getDate();
-var currentHour = d.getHours();
-var currentMinute = d.getMinutes();
-var currentYear = d.getFullYear();
-
     gapi.client.calendar.events.list({
         //Whether or not to expand recurring events as instance
         singleEvents: true,
@@ -115,68 +94,8 @@ var currentYear = d.getFullYear();
         var successArgs;
         var successRes;
         var events = response.result.items;
-        var totalBlocks = 14*24*60;
-        // 14 days * 24 hours * 60 1-minute blocks
-        var freeTime = new Array(totalBlocks);
-        for(i = 0; i < totalBlocks; i++)
-          {
-            freeTime[i] = 0;
-          }
-        // initialize element to 0, free
-
         $.each(response.result.items, function(i, entry)
                {
-                var date = new Date(entry.start.dateTime);
-                var entryMonthStart = date.getMonth() + 1;
-                var entryDateStart = date.getDate();
-                var entryHourStart = date.getHours();
-                var entryMinuteStart = date.getMinutes();
-                var entryYearStart = date.getFullYear();
-
-                var dateEnd = new Date(entry.end.dateTime);
-                var entryMonthEnd = dateEnd.getMonth() + 1;
-                var entryDateEnd = dateEnd.getDate();
-                var entryHourEnd = dateEnd.getHours();
-                var entryMinuteEnd = dateEnd.getMinutes();
-                var entryYearEnd = dateEnd.getFullYear();
-
-                var DurationMonth = entryMonthEnd - entryMonthStart;
-                var DurationDate = entryDateEnd - entryDateStart;
-                var DurationHour = entryHourEnd - entryHourStart;
-                var DurationMinute = entryMinuteEnd - entryMinuteStart;
-                var DurationYear = entryYearEnd - entryYearStart;
-
-                var StartMonth = entryMonthStart - currentMonth;
-                var StartDate = entryDateStart - currentDate;
-                var StartHour = entryHourStart - currentHour;
-                var StartMinute = entryMinuteStart - currentMinute;
-                var StartYear = entryYearStart - currentYear;
-
-                var DurationBlocks = DurationDate*24*60 + DurationHour*60 + DurationMinute; 
-                
-                if (StartYear == 0)
-                {
-
-                  if (StartMonth == 0)
-                  {
-                    
-                    if (StartDate >= 0)
-                    {
-                      for(i = (StartDate*24*60 + StartHour*60 + StartMinute); i < (StartDate*24*60 + StartHour*60 + StartMinute)+ DurationBlocks; i++)
-                      {
-
-                        freeTime[i] = 1;
-                        // 1 is busy, 0 is free
-                      }
-                    }
-                  }
-                }
-
-                // console.log(currentMonth);
-                // console.log(currentDate);
-                // console.log(currentHour);
-                // console.log(currentMinute);
-
             var url = entry.htmlLink;
             eventsList.push({
                 id:entry.id,
@@ -185,47 +104,9 @@ var currentYear = d.getFullYear();
                 end: entry.end.dateTime || entry.end.date,
                 url: url,
                 location: entry.location,
-                description: entry.description,
-                
-           
+                description: entry.description
             });
-            
         });
-        var ConsecBlocks = 0;
-
-        // find free blocks
-        for(i = 0; i < totalBlocks; i++)
-          {
-            //console.log(freeTime[i]);
-            if (freeTime[i] == 0)
-              // if free increment free consec minutes
-              {
-                ConsecBlocks++;
-              }
-            else if (ConsecBlocks > 0)
-              {
-                var currentBlocks = currentDate*60*24 + currentHour*60 + currentMinute;
-
-                var startBlocks = currentBlocks + i - ConsecBlocks;
-                var endBlocks = startBlocks + ConsecBlocks;
-
-
-                var FreeDateStart = Math.floor(startBlocks/(24*60));
-                var FreeHourStart = (Math.floor(startBlocks/60))%(24);
-                var FreeMinuteStart = startBlocks%60;
-
-                var FreeDateEnd = Math.floor(endBlocks/(24*60));
-                var FreeHourEnd = (Math.floor(endBlocks/60))%(24);
-                var FreeMinuteEnd = endBlocks%60;
-
-                console.log(FreeDateStart, FreeHourStart, FreeMinuteStart);
-                console.log(FreeDateEnd, FreeHourEnd, FreeMinuteEnd);
-                ConsecBlocks = 0;
-              }
-          }
-          console.log(9999999999);
-
-
 
         successArgs = [ eventsList].concat(Array.prototype.slice.call(arguments, 1));
         successRes = $.fullCalendar.applyAll(true, this, successArgs);
