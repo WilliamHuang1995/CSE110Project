@@ -220,7 +220,7 @@
 					<span class="input-group-addon">	
 						<span class="glyphicon glyphicon-hourglass"></span>
 					</span>
-					<select class="form-control input-lg">
+					<select id ="numHours" class="form-control input-lg">
 						<option>Hours</option>
 						<option>1 hour</option>
 						<option>2 hours</option>
@@ -239,7 +239,7 @@
 					<span class="input-group-addon">	
 						<span class="glyphicon glyphicon-hourglass glyphicon-hourglass-u"></span>
 					</span>
-					<select class="form-control input-lg">
+					<select id="numMins" class="form-control input-lg">
 						<option>Minutes</option>
 						<option>0 min</option>
 						<option>5 min</option>
@@ -259,12 +259,14 @@
 				<span class="input-group-addon">	
 					<span class="glyphicon glyphicon-bell"></span>
 				</span>
-				<select class="form-control input-lg">
+				<select id="priorityOpt" class="form-control input-lg">
 					<option>Priority</option>
 					<option>Normal</option>
 					<option>High</option>
 				</select>
 			</div>
+		
+			<button type="button" class="btn btn-primary" onclick="newTodo()">Primary</button>
 			
 		</form>		
 		

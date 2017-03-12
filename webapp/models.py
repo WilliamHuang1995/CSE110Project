@@ -58,10 +58,13 @@ class Todo(models.Model):
 	id = models.AutoField(primary_key=True)
 	title = models.TextField(null=True)
 	UserID = models.IntegerField(default=-1)
-	#title = models.CharField(max_length=40, default="")
-	#description = models.CharField(max_length=160, default="")
-	#EstimateTime = models.IntegerField(default=1)
-	#DueDate = models.DateField()
+	Description = models.CharField(max_length=160, default="")
+	EstimateTime = models.IntegerField(default=1)
+	DueDate = models.DateField(null=True)
+	Location = models.TextField(null=True)
+	StartTime = models.TimeField(null=True)
+	EndTime = models.TimeField(null=True)
+	
 
 	def __str__(self):
 			return self.title

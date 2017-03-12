@@ -28,12 +28,14 @@ from django.core.mail import send_mail
 
 def todos_test(request):
 
-	userAuth = use_is_auth(request)
+	userAuth = user_is_auth(request)
 
 	if not userAuth:
 		return redirect('/login.html')
-
-	return render(request, 'webapp/todo-test.html', {'todoList': [{'title': "this is title!", 'description':"thi is descrip"}]})
+	
+	userTodosQuery = Todo.objects.raw('SELECT * FROM webapp_todo WHERE "UserID"=%s', [userAuth])
+	userTodos = [{'title': todo.title, 'id': todo.id} for todo in userTodosQuery]
+	return render(request, 'webapp/todo-test.html', {'todoList': userTodos})
 
 def prompt_login(request):
 	t = loader.get_template('webapp/login.html')
@@ -82,7 +84,8 @@ def post_request(request):
 	
 	input_title = request.POST.get('title');
 	
-	insertToDoResult = Todo(title=input_title, UserId=userAuth)
+	print("userAuth", userAuth)
+	insertToDoResult = Todo(title=input_title, UserID=userAuth)
 	insertToDoResult.save()
 
 	return render(request, 'webapp/todo.html')
