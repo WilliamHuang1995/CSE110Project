@@ -87,7 +87,7 @@ def post_request(request):
 
 	#queryset = Todo.objects.raw('SELECT id FROM webapp_todo WHERE UserID=%s',[calendo_session_token])
 	#data = [{'id': item.id} for item in queryset]
-	
+	print("some value")
 	return HttpResponse(json.dumps(insertToDoResult.id),content_type='application/json')
 
 def delete_request(request):
