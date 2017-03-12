@@ -38,13 +38,10 @@
 
 									<a href="#" class="list-group-item list-group-item-action list-group-item-unscheduled">
 										<span class="glyphicon glyphicon-ok-circle glyphicon-ok-circle-u"></span>
-										<!--<span class="glyphicon glyphicon-trash glyphicon-trash-u"></span>-->
+										<span class="glyphicon glyphicon-trash glyphicon-trash-u"></span>
 										<div class="p-2">
 											<p class="mb-1">{{ todo.title}}
 												<img style="margin-bottom:3px; margin-left:7px;" src="{% static "webapp/img/Fill 71.png" %}" />
-												<button type="button" class="glyphicon glyphicon-ok-circle glyphicon-ok-circle-u" onclick="delete()">
-													
-												</button>
 											</p>
 										</div>
 									</a>
@@ -269,7 +266,7 @@
 				</select>
 			</div>
 		
-			<button type="button" class="btn btn-primary" onclick="newTodo()">Submit</button>
+			<button type="button" class="btn btn-primary" onclick="newTodo()">Primary</button>
 			
 		</form>		
 		

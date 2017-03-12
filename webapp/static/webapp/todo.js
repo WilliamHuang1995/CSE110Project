@@ -78,7 +78,7 @@ function postRequest(){
     var temp = JSON.parse(json_data);
     console.log(temp.id); 
     return temp;
-}
+};
 
 //should execute on delete call 
 function delete(){
@@ -97,7 +97,7 @@ function delete(){
         div.style.display = "none";
       }
     }    
-}
+};
 
 
 function deleteRequest(someValue){
