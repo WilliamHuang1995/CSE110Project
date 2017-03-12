@@ -75,10 +75,11 @@ function postRequest(){
         }
             
     }
+    alert(json_data);
     console.log(typeof(json_data));
     console.log(json_data);
     var temp = JSON.parse(json_data);
-    console.log(temp.id); 
+    console.log(temp[0].id); 
     return temp;
 };
 

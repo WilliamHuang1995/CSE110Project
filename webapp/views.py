@@ -85,10 +85,10 @@ def post_request(request):
 	insertToDoResult = Todo(title=input_title,UserID=userAuth,Description=input_description,EstimateTime=input_estimatedTime,DueDate=input_dueDate, Location=input_location)
 	insertToDoResult.save()
 
-	queryset = Todo.objects.raw('SELECT id FROM webapp_todo WHERE UserID=%s',[calendo_session_token])
-	data = [{'id': item.id} for item in queryset]
-	print("some value")
-	return HttpResponse(json.dumps(data),content_type='application/json')
+	#queryset = Todo.objects.raw('SELECT id FROM webapp_todo WHERE UserID=%s',[calendo_session_token])
+	#data = [{'id': item.id} for item in queryset]
+	#print("some value")
+	return HttpResponse(json.dumps(insertToDoResult.id),content_type='application/json')
 
 def delete_request(request):
 	if request.method != 'POST':
