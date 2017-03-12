@@ -129,7 +129,7 @@
                 </div>
             </div>
         </div>
-        
+
         <!-- nav bar -->
         <div class="navbar navbar-inverse navbar-fixed-left" role="navigation">
             <ul class="nav navbar-nav">
@@ -141,7 +141,7 @@
                 <li><a href=settings><img src="{% static 'webapp/img/nav_settings.png' %}" class="img-responsive navbar-fixed-bottom"/></a></li>
             </ul>
         </div>
-        
+
         <!-- calendo -->
         <div class="container-fluid" id="calendo">
             <!-- probably a better way of doing it but yolo -->
@@ -175,16 +175,14 @@
             </div>
 
             <div class="row">
-                <div class="col-md-8"><!--Change this to col-md-6 for half view-->
-                    <!--this line does the magic-->
-                    <div id='calendar' class='cal'></div>
-                </div>
-                <div class="col-md-4">
+
+                <div class="col-md-4" id="calendarTrash">
+                    <h3>To Do List</h3>
                     <div id='external-events'>
-                        <h4>To Dos</h4>
+
                         <div class='fc-event'>Tasty Pot</div>
                         <div class='fc-event'>Little Fat Sheep</div>
-                        <div class='fc-event'>Vallertas</div>
+                        <div class='fc-event'>Vallerta's</div>
                         <div class='fc-event'>In 'n' Out</div>
                         <div class='fc-event'>😀 😃 😄 😁 😆 </div>
                         <div class='fc-event'>😀 😃 😄 😁 </div>
@@ -193,20 +191,23 @@
                         <div class='fc-event'>😀 </div>
                     </div>
 
+                    <div class="button-group">
+                        <button id="authorize-button" class="btn btn-primary btn-large btn-block">Sync with Google Calendars</button>
+                        <button id="signout-button" class="btn btn-danger btn-large btn-block">Sign Out</button>
+                        <button id="signout-button" style="display: none;">Sign Out</button>
+                    </div>
+
 
                 </div>
-                <div class="col-md-4">
-                    <button id="authorize-button" class="btn btn-primary btn-large btn-block">Sync with Google Calendars</button>
-                    <button id="signout-button" class="btn btn-danger btn-large btn-block">Sign Out</button>
-                    <button id="signout-button" style="display: none;">Sign Out</button>
-                    <div id="calendarTrash" class="calendar-trash"><img style="max-width: 150px; max-height: 150px;" src="{% static 'webapp/img/trashcan.png' %}" /></div>
+                <div class="col-md-8" id='calendar-container'><!--Change this to col-md-6 for half view-->
+                    <!--this line does the magic-->
+                    <div id='calendar' class='cal'></div>
                 </div>
+
 
             </div>
-            <!--Debug purposes only-->
-            <!--pre id="content"></pre-->
         </div>
-        
+
         <script type="text/javascript" src='{% static "webapp/js/home.js" %}'></script>
         <script type="text/javascript" src='{% static "webapp/js/gcal2.js" %}'></script>
         <!-- The following has to go with the above script-->
