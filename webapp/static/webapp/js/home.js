@@ -351,7 +351,7 @@ $(document).ready(function() {
             //easter egg
             if(date.format("MM:DD")==="04:20"){
 
-                var win = window.open("https://www.youtube.com/watch?v=dQw4w9WgXcQ", '_blank');
+                var win = window.open("https://www.youtube.com/watch?v=KlujizeNNQM", '_blank');
                 win.focus();
             } 
             startDate = date.format(ACCEPTED_DATE_FORMAT);
