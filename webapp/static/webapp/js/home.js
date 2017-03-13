@@ -217,7 +217,7 @@ function displayError(){
  *****************************************************************/
 $(document).ready(function() {
     //External Events
-    $('#external-events .fc-event').each(function() {
+    $('.fc-event').each(function() {
         //Initializing external event.
         $(this).data('event', {
             title: $.trim($(this).text()), // use the element's text as the event title

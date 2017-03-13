@@ -50,7 +50,7 @@ body{
     padding: 0 40px;
     /*border around the stuff*/
     background: #ffffff;    
-    overflow-x: auto;
+    
 }
 #external-events .fc-event {
     text-align: center;
