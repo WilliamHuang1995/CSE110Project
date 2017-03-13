@@ -225,35 +225,35 @@ var currentYear = d.getFullYear();
                   switch(rainbowCounter%7)
                   {
                     case 0:
-                    rainbowColor = 'red'
+                    rainbowColor = 'gray'
                     break;
 
                     case 1:
-                    rainbowColor = 'blue'
+                    rainbowColor = 'orange'
                     break;
 
                     case 2:
-                    rainbowColor = 'darkslategrey'
+                    rainbowColor = 'lightsslategrey'
                     break;
 
                     case 3:
-                    rainbowColor = 'darkslateblue'
+                    rainbowColor = 'goldenrod'
                     break;
 
                     case 4:
-                    rainbowColor = 'saddlebrown'
+                    rainbowColor = 'gold'
                     break;
 
                     case 5:
-                    rainbowColor = 'steelblue'
+                    rainbowColor = 'gainsboro'
                     break;
 
                     case 6:
-                    rainbowColor = 'seagreen'
+                    rainbowColor = 'darkorange'
                     break;
 
                     case 7:
-                    rainbowCounter = 'yellowgreen'
+                    rainbowCounter = 'orangered'
                     break;
                   }
                   rainbowCounter++;
