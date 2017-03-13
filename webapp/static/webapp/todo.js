@@ -123,7 +123,12 @@ function postRequest(){
                 </div>\
             </a>');
             
-
+        document.getElementById("task").value = "";
+        document.getElementById("loc").value = "";
+        document.getElementById("desc").value = "";
+        document.getElementById('example-date-input').value = "";
+        document.getElementById("numHours").value = "";
+        document.getElementById("numMins").value = "";
 
 
             
