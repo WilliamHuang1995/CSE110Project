@@ -91,25 +91,39 @@ h3{
 #signout-button {
     margin-top: 10px;
 }
+<<<<<<< HEAD
+
+
+
+
+=======
+>>>>>>> 73a783c5c1c9decee3687dd4e96011eccc7e7735
 .btn-primary {
     color: #fff;
     background-color: #4990e2;
     border-color: #4990e2; /*set the color you want here*/
 }
+<<<<<<< HEAD
+=======
 
 #id{
     color: #4990e2;
 }
 
+>>>>>>> 73a783c5c1c9decee3687dd4e96011eccc7e7735
 .btn-primary:hover, .btn-primary:focus, .btn-primary:active, .btn-primary.active, .open>.dropdown-toggle.btn-primary {
     color: #fff;
     background-color: #3A73B5;
     border-color: #3A73B5; /*set the color you want here*/
 }
 
+<<<<<<< HEAD
+
+=======
 .modal-content{
     padding: 5%;
 }
+>>>>>>> 73a783c5c1c9decee3687dd4e96011eccc7e7735
 .modal-header {
 	border-bottom: 0px;
 	padding: 20px;
@@ -128,8 +142,11 @@ h3{
 	text-align: left !important;
 }
 
+<<<<<<< HEAD
+=======
 
 
+>>>>>>> 73a783c5c1c9decee3687dd4e96011eccc7e7735
 /* Label ------------------------------- */
 
 
