@@ -129,9 +129,18 @@ function postRequest(){
         document.getElementById('example-date-input').value = "";
         document.getElementById("numHours").value = "";
         document.getElementById("numMins").value = "";
-        $('input').blur(function() {
-            $("label[for='"+$(this).attr('id')+"']").removeClass('used');
-        });   
+        $(document).ready(function() {
+
+            $('input').blur(function() {
+            if ($(this).val())
+                $("label[for='"+$(this).attr('id')+"']").addClass('used');
+            else
+                $("label[for='"+$(this).attr('id')+"']").removeClass('used');
+        }
+  });
+  
+});
+        
     });
 }
 // Create a new list item when clicking on the "Add" button
