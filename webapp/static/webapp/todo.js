@@ -109,8 +109,8 @@ function postRequest(){
     client.post('/api/post', function(response) {
         // do something with response
         var temp = JSON.parse(response); 
-
-        console.log(temp[0].id);
+        console.log(temp); 
+        console.log(temp.id);
             
 
 
