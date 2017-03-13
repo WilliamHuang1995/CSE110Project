@@ -48,8 +48,36 @@ var todoEvent;
  * Allows user to press enter to complete form.
  *****************************************************************/
 $("#modalWindow").keyup(function(event){
-    if(event.keyCode == 13){
+    if(event.keyCode == 13 && $('#modalWindow').hasClass('in')){   
+        alert('oops');
         $(".confirmation-button").click();
+    }
+});
+
+/*****************************************************************
+ * Allows user to quick add a todo
+ *****************************************************************/
+$('#quick-add').keyup(function (e) {
+    if (e.keyCode == 13) {
+        if($(this).val()!==''){
+            var val = $(this).val();
+            var div = document.createElement('div');
+            div.className = 'fc-event';
+            div.textContent = val;
+            $(div).data('event', {
+                title: val,
+                stick: true, 
+                id: 'external-event',
+            })
+            $(div).draggable({
+                zindex:999,
+                revert: true,
+            });
+            $( "#external-events" ).append(div);
+            $(this).val('');
+            
+        }
+        return false;    //<---- Add this line
     }
 });
 
@@ -190,7 +218,6 @@ function displayError(){
 $(document).ready(function() {
     //External Events
     $('#external-events .fc-event').each(function() {
-
         //Initializing external event.
         $(this).data('event', {
             title: $.trim($(this).text()), // use the element's text as the event title
@@ -505,14 +532,14 @@ function addToCalendar(){
 function saveChanges() {
     try{
         initializeClient();
-        
+
         changedEvent.start=$('#start-time-input').val();
         changedEvent.end=$('#end-time-input').val();
         var newTitle = $('#event-name-input').val();
         changedEvent.title = newTitle==""?"(No Title)":newTitle;
         changedEvent.description = $('#description-input').val()
         changedEvent.location = $('#location-input').val()
-        
+
         $('#calendar').fullCalendar('updateEvent', changedEvent);
 
         var gCalEvent = {
@@ -535,7 +562,7 @@ function saveChanges() {
                 ]
             }
         };
-        
+
 
         gapi.client.calendar.events.update({
             'calendarId': 'primary',

@@ -13,6 +13,9 @@ body{
 ::-webkit-scrollbar { 
      display: none; 
  }
+*:focus {
+    outline: none;
+}
 .navbar-fixed-left {
     width: 40px;
     position: fixed;
@@ -26,7 +29,7 @@ body{
     Will screw up the navbar as well. Need to fix.
     */
     margin-left: 60px;
-    height:100%;
+    height:100vh;
 
 }
 
@@ -42,10 +45,12 @@ body{
 #external-events {
 
     width: 100%;
+    height: 50%;
     float: right;
     padding: 0 40px;
     /*border around the stuff*/
-    background: #ffffff;
+    background: #ffffff;    
+    overflow-x: auto;
 }
 #external-events .fc-event {
     text-align: center;
@@ -54,7 +59,7 @@ body{
     margin: 5px 0;
     cursor: pointer;
     background-color: #4990e2;
-    overflow-y:scroll;
+    
 }
 
 #calendarTrash,#calendar-container{
@@ -67,6 +72,9 @@ body{
 
 h3{
     text-align:center;
+}
+#quick-add{
+    
 }
 
 .button-group{
