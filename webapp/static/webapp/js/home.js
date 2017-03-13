@@ -3,7 +3,10 @@
  *  These three variables are what is needed for each API call
  *
  *****************************************************************/
-var CLIENT_ID = '617019221248-anpai3721kguigchcufa4emvq19o7bmn.apps.googleusercontent.com';
+/*var CLIENT_ID = '617019221248-anpai3721kguigchcufa4emvq19o7bmn.apps.googleusercontent.com';
+var DISCOVERY_DOCS = ["https://www.googleapis.com/discovery/v1/apis/calendar/v3/rest"];
+var SCOPES = "https://www.googleapis.com/auth/calendar";*/
+var CLIENT_ID = '947982621174-fu19m3vg1dvnqo3sleg72dik9mt72el3.apps.googleusercontent.com';
 var DISCOVERY_DOCS = ["https://www.googleapis.com/discovery/v1/apis/calendar/v3/rest"];
 var SCOPES = "https://www.googleapis.com/auth/calendar";
 
