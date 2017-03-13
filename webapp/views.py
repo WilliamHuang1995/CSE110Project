@@ -324,7 +324,7 @@ def login_auth(request):
 		insertSessionTokenResult.save()
 
 		print("X IN LOGIN AUTH6")
-		t = loader.get_template('webapp/home.html')
+		t = loader.get_template('webapp/home_redirect.html')
 		c = {'userResult':userResult[0]}
 
 		response = HttpResponse(t.render(c, request))
@@ -364,6 +364,7 @@ def todos(request):
 	userAuth = user_is_auth(request)
 
 	if not userAuth:
+		print("TODOS USER IS NOT AUTH")
 		return redirect('/login.html')
 	
 	userTodosQuery = Todo.objects.raw('SELECT * FROM webapp_todo WHERE "UserID"=%s', [userAuth])
