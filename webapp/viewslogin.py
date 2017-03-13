@@ -12,6 +12,10 @@ from .models import Calendo_User
 import json
 import time
 import math
+import viewstest
+import viewsapi
+import viewshtml
+
 
 from .models import Confirm_Email
 from .models import Session
@@ -26,156 +30,6 @@ import random
 
 
 from django.core.mail import send_mail
-
-def todos_test(request):
-
-	userAuth = user_is_auth(request)
-
-	if not userAuth:
-		return redirect('/login.html')
-	
-	userTodosQuery = Todo.objects.raw('SELECT * FROM webapp_todo WHERE "UserID"=%s', [userAuth])
-	userTodos = [{'title': todo.title, 'id': todo.id} for todo in userTodosQuery]
-	return render(request, 'webapp/todo-test.html', {'todoList': userTodos})
-
-def prompt_login(request):
-	t = loader.get_template('webapp/login.html')
-	c = {}
-
-	response = HttpResponse(t.render(c, request))
-	response.delete_cookie('calendo_session_token')
-	return response
-
-def alex_test(request):
-	if(not user_is_auth(request)):
-		return prompt_login(request)
-
-	return render(request, 'webapp/home.alex.html')
-
-def get_request(request):
-	#db_result = Todo.objects.raw('SELECT * FROM webapp_todo')
-	#db_json = serializers.serialize('json', db_result, fields=('id', 'title'))
-	#return JsonResponse(db_json, safe=False)
-	queryset = Todo.objects.raw('SELECT * FROM webapp_todo WHERE id = %s', request.GET.get('id'))
-	data = [{'title': item.title, 'description': item.Description, 'estimateTime': item.EstimateTime, 'dueDate': item.dueDate, 'location': item.location} for item in queryset]
-	return HttpResponse(json.dumps(data),content_type='application/json')
-
-
-def post_request(request):
-	if request.method != 'POST':
-			return redirect('/todo')
-	
-	userAuth = user_is_auth(request)
-	if not userAuth:
-		return prompt_login(request)
-
-	#see if all were provided
-	if( not (request.POST.get('title') )):
-		
-		#TODO error handling, give them error messages
-		return redirect('/home')
-
-	
-	input_title = request.POST.get('title')
-	input_description = request.POST.get('description')
-	input_estimatedTime = request.POST.get('estimateTime')
-	input_priority = request.POST.get('priority')
-	input_dueDate = request.POST.get('dueDate')
-	input_location = request.POST.get('location')
-	
-	#print(type(input_estimatedTime))
-	#if type(input_estimatedTime) == str or math.isnan(input_estimatedTime):
-	#	print("asdfasdf")
-	#	input_estimatedTime = 0
-	
-	insertToDoResult = Todo(title=input_title,UserID=userAuth,Description=input_description,EstimateTime=input_estimatedTime,DueDate=input_dueDate, Location=input_location)
-	insertToDoResult.save()
-
-	#queryset = Todo.objects.raw('SELECT id FROM webapp_todo WHERE UserID=%s',[calendo_session_token])
-	#data = [{'id': item.id} for item in queryset]
-	#print("some value")
-	return HttpResponse(json.dumps(insertToDoResult.id),content_type='application/json')
-
-def edit_request(request):
-	if request.method != 'POST':
-			return redirect('/todo')
-	
-	userAuth = user_is_auth(request)
-	if not userAuth:
-		return prompt_login(request)
-
-	#see if all were provided
-	if( not (request.POST.get('title') )):
-		
-		#TODO error handling, give them error messages
-		return redirect('/home')
-
-	
-	input_title = request.POST.get('title')
-	input_description = request.POST.get('description')
-	input_estimatedTime = request.POST.get('estimateTime')
-	input_priority = request.POST.get('priority')
-	input_dueDate = request.POST.get('dueDate')
-	input_location = request.POST.get('location')
-	
-	edit_id = request.POST.get('id')
-	#insertToDoResult = Todo(title=input_title,UserID=userAuth,Description=input_description,EstimateTime=input_estimatedTime,DueDate=input_dueDate, Location=input_location)
-	insertToDoResult = Todo.objects.filter(id=edit_id)
-	insertToDoResult.title = input_title
-	insertToDoResult.Description = input_description
-	insertToDoResult.EstimateTime = input_estimatedTime
-	insertToDoResult.DueDate = input_dueDate
-	insertToDoResult.Location = input_location 
-	insertToDoResult.save()
-
-	#queryset = Todo.objects.raw('SELECT id FROM webapp_todo WHERE UserID=%s',[calendo_session_token])
-	#data = [{'id': item.id} for item in queryset]
-	#print("some value")
-	return render(request, 'webapp/todo-test');
-
-def delete_request(request):
-	if request.method != 'POST':
-		return redirect('/todo')
-
-	print("dropping")
-
-	if( not (request.POST.get('id') )):
-		
-		#TODO error handling, give them error messages
-		return redirect('/home')
-
-	#this might need to be changed to id 
-	delete_id = request.POST.get('id')
-
-	#deleteQuery = Todo.objects.raw('DELETE FROM webapp_todo WHERE "title" = %s', [delete_title])
-	Todo.objects.filter(id=delete_id).delete() 
-
-	return render(request, 'webapp/todo.html')
-
-
-
-
-
-
-
-
-def index(request):
-	#insert into database
-	userAuth = user_is_auth(request)
-
-	if not userAuth:
-		return redirect('/login.html')
-	
-	userTodosQuery = Todo.objects.raw('SELECT * FROM webapp_todo WHERE "UserID"=%s', [userAuth])
-	userTodos = [{'title': todo.title, 'id': todo.id,'location':todo.Location,'description':todo.Description} for todo in userTodosQuery]
-	print(len(userTodos))
-	for x in userTodos:
-		print(x)
-	return render(request, 'webapp/home.html',{'todoList': userTodos})
-
-def register(request):
-	return render(request, 'webapp/register.html')
-
 def register_auth(request):
 	if request.method != 'POST':
 		return redirect('/register')
@@ -255,19 +109,6 @@ def register_auth(request):
 
 	#render response
 	return render(request, 'webapp/register-complete.html', {'email':input_email})
-	
-def login(request):
-	
-	print("X in login")
-	
-	if(not user_is_auth(request)):
-		print("USER IS NOT AUTH MITHER FUCKER FCU KEM ")
-		return prompt_login(request)
-	auth_failed = False
-	if(request.GET.get('auth_failed') and request.GET['auth_failed'] == 'true'):
-		auth_failed = True
-	return render(request, 'webapp/login.html', {'auth_failed':auth_failed})
-
 
 def login_auth(request):
 	print("X IN LOGIN AUTH")
@@ -354,24 +195,6 @@ def confirm_email(request):
 	#use database to check and update confirmID
 	return render(request, 'webapp/confirmEmail_succ.html', {'email':email})
 
-def calendar(request):
-	if(not user_is_auth(request)):
-		return prompt_login(request)
-	return render(request, 'webapp/login.html');
-
-
-def todos(request):
-	userAuth = user_is_auth(request)
-
-	if not userAuth:
-		print("TODOS USER IS NOT AUTH")
-		return redirect('/login.html')
-	
-	userTodosQuery = Todo.objects.raw('SELECT * FROM webapp_todo WHERE "UserID"=%s', [userAuth])
-	userTodos = [{'title': todo.title, 'id': todo.id} for todo in userTodosQuery]
-	return render(request, 'webapp/todo-test.html', {'todoList': userTodos})
-
-
 def confirmEmail(request):
 	
 	if( not request.GET.get('code')):
@@ -396,15 +219,6 @@ def confirmEmail(request):
 	userUpdateResult.save(update_fields=['isConfirmed'])
 
 	return render(request, 'webapp/confirm_email.html', {'confirm_status':'success', 'email':emailToConfirm});
-
-def test(request):
-	if(not user_is_auth(request)):
-		return prompt_login(request)
-	alex = 'omgfg'
-
-	#get from database
-	db_result = Todo.objects.raw('SELECT * FROM webapp_todo WHERE "id"=%s', [request.GET['id']])[0]
-	return render(request, 'webapp/test.html', {'alex':alex, 'dbResult':db_result})
 
 def confirm_code_generator(size=30, chars=string.ascii_uppercase + string.digits):
     return ''.join(random.SystemRandom().choice(string.ascii_uppercase + string.digits) for _ in range(size))
