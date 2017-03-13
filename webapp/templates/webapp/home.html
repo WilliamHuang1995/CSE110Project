@@ -13,8 +13,6 @@
               href='{% static "webapp/img/site_favicon2.png" %}'>
         <link rel="stylesheet" href="{% static 'webapp/css/bootstrap.min.css' %}" type = "text/css"/>
         <link rel="stylesheet" href="{% static 'webapp/css/home.css' %}" type="text/css"/>
-			
-				<link rel="stylesheet" href="{% static 'webapp/css/fullcalendar-custom.css' %}" type="text/css"/>
 
         <!--Not sure what this one does, too afraid to remove-->
         <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -28,7 +26,7 @@
         <script src='{% static "webapp/fullcalendar/lib/moment.min.js" %}'></script>
         <script src='{% static "webapp/fullcalendar/lib/jquery-ui.min.js"%}'></script>
         <script src='{% static "webapp/fullcalendar/fullcalendar.js" %}'></script>
-		
+
 
         <!-- Latest compiled and minified JavaScript -->
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
@@ -38,6 +36,45 @@
 
 
     <body>
+
+        <!-- Modal for settings-->
+        <div id="settingsModal" class="modal fade" role="dialog">
+            <div class="modal-dialog">
+                <!-- Modal content-->
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h3 class="eventType">Settings</h3>
+                    </div>
+                    <div class="modal-body">
+                        <form class="form-inline">
+                            <div id="start-time-input-div" class="form-group">
+                                <label class="control-label col-sm-2" for="active-start-time-input">
+                                    Active Hours:
+                                </label>
+                                <div class="col-sm-10">
+                                    <input class="form-control" name="start-date" placeholder="YYYY/MM/DD" type="time" id="active-start-time-input">
+                                </div>
+                            </div>
+                            <div id="end-time-input-div" class="form-group">
+                                <label class="control-label col-sm-2" for="active-end-time-input">
+                                    To:
+                                </label>
+                                <div class="col-sm-10">
+                                    <input class="form-control" name="start-date" placeholder="YYYY/MM/DD" type="time" id="active-end-time-input">
+                                </div>
+                            </div>
+                        </form>
+                        <button id="logout-button" class="btn btn-danger btn-large btn-block">Log Out</button>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Save Changes</button>
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                    </div>
+                </div>
+
+            </div>
+        </div>
 
         <!--Modal for editing events-->
         <div id="eventModal">
@@ -56,7 +93,7 @@
                                     </label>
                                     <div class="col-sm-10">
                                         <input class="form-control" type="text" placeholder="i.e. Hang out with friends, Complete CSE 110 Project.." value="" id="event-name-input">
-																				<span class="bar"></span>
+                                        <span class="bar"></span>
                                     </div>
                                 </div>
                                 <div id="start-time-input-div" class="form-group">
@@ -67,19 +104,18 @@
                                         <input class="form-control" name="start-date" placeholder="YYYY/MM/DD" type="datetime-local" id="start-time-input">
                                         <p id="start-time-input-help" class="help-block" style="display: none;"></p>
                                     </div>
-
                                 </div>
+
                                 <div id="end-time-input-div" class="form-group">
                                     <label class="control-label col-sm-2" for="date">
                                         End:
                                     </label>
-																	
+
                                     <div class="col-sm-10">
                                         <input class="form-control" name="start-date" placeholder="YYYY/MM/DD" type="datetime-local" id="end-time-input">
                                         <p id="end-time-input-help" class="help-block" style="display: none;"></p>
                                     </div>
                                 </div>
-
 
                                 <div class="form-group">
                                     <label class="control-label col-sm-2">
@@ -87,7 +123,7 @@
                                     </label>
                                     <div class="col-sm-10">
                                         <input class="form-control" type="text" value="" placeholder="i.e. Geisel Library, Peterson Hall, La Jolla Shores..." id="location-input">
-																				<span class="bar"></span>
+                                        <span class="bar"></span>
                                     </div>
                                 </div>
                                 <div class="form-group">
@@ -95,8 +131,8 @@
                                         Description:
                                     </label>
                                     <div class="col-sm-10">
-                                            <input class="form-control" type="text" value="" placeholder="Give a brief description about this event" id="description-input" >
-                                                                                    <span class="bar"></span>
+                                        <input class="form-control" type="text" value="" placeholder="Give a brief description about this event" id="description-input" >
+                                        <span class="bar"></span>
                                     </div>
                                 </div>
                                 <a href="" target="_blank" style="margin-left: 0px; color: #4990e2" id="url">
@@ -140,7 +176,7 @@
                     <li><a href=#><img src="{% static 'webapp/img/nav_calendar.png' %}" class="img-responsive"/></a></li>
                     <li><a href=/todo><li><img src="{% static 'webapp/img/nav_task1.png' %}" class="img-responsive"/></a></li>
                 </div>
-                <li><a href=settings><img src="{% static 'webapp/img/nav_settings.png' %}" class="img-responsive navbar-fixed-bottom"/></a></li>
+                <li><img src="{% static 'webapp/img/nav_settings.png' %}" class="img-responsive navbar-fixed-bottom" data-toggle="modal" data-target="#settingsModal" style="cursor:pointer;"/></li>
             </ul>
         </div>
 
@@ -153,7 +189,7 @@
             </div>
             <div class="alert alert-success alert-dismissable fade in" style="display:none;" id="event-add-success">
                 <a href="#" class="close" data-hide="alert" onclick="hide()" aria-label="close">&times;</a>
-                <strong>Success!</strong> To Do has been added to Calendar!
+                <strong>Success!</strong> To-do has been added to Calendar!
             </div>
             <div class="alert alert-success alert-dismissable fade in" style="display:none;" id="event-change-success">
                 <a href="#" class="close" data-hide="alert" onclick="hide()" aria-label="close">&times;</a>
@@ -179,46 +215,66 @@
             <div class="row">
 
                 <div class="col-md-4" id="calendarTrash">
-                    <h3>To Do List</h3>
+
+
+
+                    <h2>To-Do List</h2>
+
+
+                    <div class="input-group quick-add" id='form-container'>
+                        <span class="input-group-addon">	
+                            <span class="glyphicon glyphicon-plus"></span>
+                        </span>
+                        <input class="form-control" type="text" value="" placeholder="Quick Add To-Do" id="quick-add">
+                    </div>
+
                     <div id='external-events'>
 												{%csrf_token%}
 
+<<<<<<< HEAD
 												{% for todo in todoList %}
                         <div data-todoDesc="{{todo.description}}" data-todoLoc="{{todo.location}}" class='fc-event'>{{todo.title}}</div>
 												{% endfor %}
+=======
+                        <div class='fc-event'>Submit status report before customer meeting</div>
+                        <div class='fc-event'>Make project video</div>
+                        <div class='fc-event'>Print lecture notes</div>
+                        <div class='fc-event'>This to-do is way too long this to-do is way too long this to-do is way too long</div>
+                        <div class='fc-event'>😀 😃 😄 😁 😆 </div>
+                        <div class='fc-event'>😀 😃 😄 😁 </div>
+                        <div class='fc-event'>😀 😃 😄 </div>
+                        <div class='fc-event'>😀 😃 </div>
+                        <div class='fc-event'>😀 </div>
+>>>>>>> 7b006ab93589a6244842e144da3156bb4925445f
                     </div>
 
-                    <div id = 'form-container'>
-                        <input class="form-control" type="text" value="" placeholder="Quick Add To-Do" id="quick-add">
-                    </div> 
-
-                    <div class="button-group">
-                        <button id="authorize-button" class="btn btn-primary btn-large btn-block">Sync with Google Calendars</button>
-                        <button id="signout-button" class="btn btn-danger btn-large btn-block">Sign Out</button>
-                        <button id="signout-button" style="display: none;">Sign Out</button>
-                    </div>
-
-
-                </div>
-                <div class="col-md-8" id='calendar-container'><!--Change this to col-md-6 for half view-->
-                    <!--this line does the magic-->
-                    <div id='calendar' class='cal'></div>
+                <div class="button-group">
+                    <button id="authorize-button" class="btn btn-primary btn-large btn-block">Sync with Google Calendars</button>
+                    <button id="signout-button" class="btn btn-danger btn-large btn-block">Sign Out</button>
+                    <button id="signout-button" style="display: none;">Sign Out</button>
                 </div>
 
 
             </div>
+            <div class="col-md-8" id='calendar-container'><!--Change this to col-md-6 for half view-->
+                <!--this line does the magic-->
+                <div id='calendar' class='cal'></div>
+            </div>
+
+
+        </div>
         </div>
 
-        <script type="text/javascript" src='{% static "webapp/js/home.js" %}'></script>
-        <script type="text/javascript" src='{% static "webapp/js/gcal2.js" %}'></script>
-        <!-- The following has to go with the above script-->
-        <script async defer src="https://apis.google.com/js/api.js"
-                onload="this.onload=function(){};handleClientLoad()"
-                onreadystatechange="if (this.readyState === 'complete') this.onload()">
-        </script>
-        <!--The following script is a script that is used to get public google calendars. But we don't want that -->
-        <script type='text/javascript' src='{% static "webapp/fullcalendar/gcal.js" %}'></script>
-        <audio id="audio" src="{% static 'webapp/1.mp3' %}" ></audio><!--yee-->
+    <script type="text/javascript" src='{% static "webapp/js/home.js" %}'></script>
+    <script type="text/javascript" src='{% static "webapp/js/gcal2.js" %}'></script>
+    <!-- The following has to go with the above script-->
+    <script async defer src="https://apis.google.com/js/api.js"
+            onload="this.onload=function(){};handleClientLoad()"
+            onreadystatechange="if (this.readyState === 'complete') this.onload()">
+    </script>
+    <!--The following script is a script that is used to get public google calendars. But we don't want that -->
+    <script type='text/javascript' src='{% static "webapp/fullcalendar/gcal.js" %}'></script>
+    <audio id="audio" src="{% static 'webapp/1.mp3' %}" ></audio><!--yee-->
     </body>
 </html>
 
