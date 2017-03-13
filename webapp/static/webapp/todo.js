@@ -9,6 +9,11 @@ $(document).ready(function() {
   
 });
 
+function showExtraSettings() {
+	$('#smart-schedule-form').slideToggle();
+	$('#smart-schedule-priority').slideToggle();
+}
+
 /*function getRequest(){
 
     $(document).ready(function(){
