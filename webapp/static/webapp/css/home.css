@@ -5,7 +5,14 @@
     display:inline;
 
 }
+body{
+    font-family:  lato;
+    height: 100%
+}
 
+::-webkit-scrollbar { 
+     display: none; 
+ }
 .navbar-fixed-left {
     width: 40px;
     position: fixed;
@@ -19,6 +26,7 @@
     Will screw up the navbar as well. Need to fix.
     */
     margin-left: 60px;
+    height:100%;
 
 }
 
@@ -35,21 +43,150 @@
 
     width: 100%;
     float: right;
-    padding: 0 10px;
-    margin-top: 62px; /*( ͡° ͜ʖ ͡°)*/
+    padding: 0 40px;
     /*border around the stuff*/
-    border: 5px solid #ccc;
     background: #ffffff;
 }
 #external-events .fc-event {
     text-align: center;
-    width: 160px;
-    margin: 10px 0;
+    height: 20px;
+    width: 100%;
+    margin: 5px 0;
     cursor: pointer;
+    background-color: #4990e2;
+    overflow-y:scroll;
 }
+
+#calendarTrash,#calendar-container{
+    height:100vh;
+    position:relative
+}
+
+h3{
+    text-align:center;
+}
+
+.button-group{
+    position: absolute;
+    bottom:0;
+    width: 100%;
+    padding-right: 40px;
+}
+
 #authorize-button {
-    margin-top: 10px;
+    margin-top: 0px;
+    
 }
 #signout-button {
     margin-top: 10px;
+}
+.btn-primary {
+    color: #fff;
+    background-color: #4990e2;
+    border-color: #4990e2; /*set the color you want here*/
+}
+
+#id{
+    color: #4990e2;
+}
+
+.btn-primary:hover, .btn-primary:focus, .btn-primary:active, .btn-primary.active, .open>.dropdown-toggle.btn-primary {
+    color: #fff;
+    background-color: #3A73B5;
+    border-color: #3A73B5; /*set the color you want here*/
+}
+
+.modal-content{
+    padding: 5%;
+}
+.modal-header {
+	border-bottom: 0px;
+	padding: 20px;
+}
+
+.modal-footer {
+	border-top: 0px;
+}
+
+.form-horizontal {
+	padding-right: 25px;
+	padding-left: 20px;
+}
+
+.form-horizontal, .control-label {
+	text-align: left !important;
+}
+
+
+
+/* Label ------------------------------- */
+
+
+.form-control {
+	background-color: transparent;
+	border-top: 1px;
+	border-left: 1px;
+	border-right: 1px;
+	box-shadow: none;
+	font-size: 18px;
+	color: #979797;
+	border-radius: 0px;
+}
+
+.form-control:focus ~ label {
+	outline: none !important;
+}
+
+/* Bottom bars ------------------------------- */
+
+.bar  { position:relative; display:block; width:100%; }
+.bar:before, .bar:after   {
+  content:'';
+  height:3px; 
+  width:0;
+  bottom:0px; 
+  position:absolute;
+  background:#4990e2; 
+  transition:0.2s ease all; 
+}
+.bar:before {
+  left:50%;
+}
+.bar:after {
+  right:50%; 
+}
+
+/* active state */
+input:focus ~ .bar:before, input:focus ~ .bar:after {
+  width:50%;
+}
+
+
+
+/* Form styling ------------------------------- */
+
+.input-group        { 
+  position:relative; 
+  margin-bottom:45px; 
+	width: 100%;
+}
+input         {
+  font-size:20px;
+  padding:10px 10px 10px 5px;
+  display:block;
+  width:100%;
+  border:none;
+  border-bottom:1px solid #979797;
+	background: transparent;
+}
+input:focus     { outline:none !important; }
+
+.input-time {
+	padding-top: 70px;
+}
+
+.input-group-addon {
+	background-color: transparent; 
+	border: 0px; 
+	border-radius: 0px; 
 }
