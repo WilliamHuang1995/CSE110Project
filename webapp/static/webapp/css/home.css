@@ -44,11 +44,13 @@ body{
 }
 #external-events {
 
-    width: 100%;
+    width: auto;
     height: 50%;
     float: right;
-		padding-left: 40px;
+    padding-left: 40px;
     padding-right: 40px;
+    overflow-y: scroll;
+    overflow-x: hidden;
     /*border around the stuff*/
     
 }
@@ -121,6 +123,12 @@ h2 {
 
 
 
+.quick-add {
+	padding-top: 25px;
+	padding-left: 45px;
+	padding-right: 40px;
+	padding-bottom: 15px;
+}
 
 .btn-primary:hover, .btn-primary:focus, .btn-primary:active, .btn-primary.active, .open>.dropdown-toggle.btn-primary {
     color: #fff;
@@ -197,7 +205,6 @@ input:focus ~ .bar:before, input:focus ~ .bar:after {
 
 .input-group        { 
   position:relative; 
-  margin-bottom:45px; 
 	width: 100%;
 }
 input         {

@@ -215,7 +215,19 @@
             <div class="row">
 
                 <div class="col-md-4" id="calendarTrash">
+
+
+
                     <h2>To-Do List</h2>
+
+
+                    <div class="input-group quick-add" id='form-container'>
+                        <span class="input-group-addon">	
+                            <span class="glyphicon glyphicon-plus"></span>
+                        </span>
+                        <input class="form-control" type="text" value="" placeholder="Quick Add To-Do" id="quick-add">
+                    </div>
+
                     <div id='external-events'>
 
                         <div class='fc-event'>Submit status report before customer meeting</div>
@@ -229,36 +241,33 @@
                         <div class='fc-event'>😀 </div>
                     </div>
 
-
-
-                    <div class="button-group">
-                        <div id = 'form-container'>
-                            <input class="form-control" type="text" value="" placeholder="Quick Add To-Do" id="quick-add">
-                        </div>
-
-                    </div>
-
-
-                </div>
-                <div class="col-md-8" id='calendar-container'><!--Change this to col-md-6 for half view-->
-                    <!--this line does the magic-->
-                    <div id='calendar' class='cal'></div>
+                <div class="button-group">
+                    <button id="authorize-button" class="btn btn-primary btn-large btn-block">Sync with Google Calendars</button>
+                    <button id="signout-button" class="btn btn-danger btn-large btn-block">Sign Out</button>
+                    <button id="signout-button" style="display: none;">Sign Out</button>
                 </div>
 
 
             </div>
+            <div class="col-md-8" id='calendar-container'><!--Change this to col-md-6 for half view-->
+                <!--this line does the magic-->
+                <div id='calendar' class='cal'></div>
+            </div>
+
+
+        </div>
         </div>
 
-        <script type="text/javascript" src='{% static "webapp/js/home.js" %}'></script>
-        <script type="text/javascript" src='{% static "webapp/js/gcal2.js" %}'></script>
-        <!-- The following has to go with the above script-->
-        <script async defer src="https://apis.google.com/js/api.js"
-                onload="this.onload=function(){};handleClientLoad()"
-                onreadystatechange="if (this.readyState === 'complete') this.onload()">
-        </script>
-        <!--The following script is a script that is used to get public google calendars. But we don't want that -->
-        <script type='text/javascript' src='{% static "webapp/fullcalendar/gcal.js" %}'></script>
-        <audio id="audio" src="{% static 'webapp/1.mp3' %}" ></audio><!--yee-->
+    <script type="text/javascript" src='{% static "webapp/js/home.js" %}'></script>
+    <script type="text/javascript" src='{% static "webapp/js/gcal2.js" %}'></script>
+    <!-- The following has to go with the above script-->
+    <script async defer src="https://apis.google.com/js/api.js"
+            onload="this.onload=function(){};handleClientLoad()"
+            onreadystatechange="if (this.readyState === 'complete') this.onload()">
+    </script>
+    <!--The following script is a script that is used to get public google calendars. But we don't want that -->
+    <script type='text/javascript' src='{% static "webapp/fullcalendar/gcal.js" %}'></script>
+    <audio id="audio" src="{% static 'webapp/1.mp3' %}" ></audio><!--yee-->
     </body>
 </html>
 
