@@ -14,7 +14,7 @@ body{
      display: none; 
  }
 *:focus {
-    outline: none;
+    outline: none !important;
 }
 .navbar-fixed-left {
     width: 40px;
@@ -47,19 +47,32 @@ body{
     width: 100%;
     height: 50%;
     float: right;
-    padding: 0 40px;
+		padding-left: 40px;
+    padding-right: 40px;
     /*border around the stuff*/
-    background: #ffffff;    
     
 }
 #external-events .fc-event {
-    text-align: center;
-    height: 20px;
+    text-align: left;
     width: 100%;
-    margin: 5px 0;
+		margin: 4px;
+	  font-size: 16px;
+		margin-left: 5px;
+		padding-top: 3%;
+		padding-bottom: 3%;
+    padding-left: 20px;
+		padding-right: 20px;
+		border-radius: 6px;
     cursor: pointer;
-    background-color: #4990e2;
-    
+    background-color: #4990e2; 
+}
+
+.col-md-4 {
+	right: 18px;
+}
+
+#external-events .fc-event:hover, .fc-event:focus, .fc-event:active {
+		background-color: #3A73B5; 
 }
 
 #calendarTrash,#calendar-container{
@@ -70,16 +83,18 @@ body{
     padding: 10px 15px 20px 0;
 }
 
-h3{
-    text-align:center;
+h3 {
+	text-align:center;
 }
-#quick-add{
-    
+h2 {
+	text-align:center;
+	padding-bottom:18px;
 }
+
 
 .button-group{
     position: absolute;
-    bottom:0;
+    bottom: 20px;
     width: 100%;
     padding-right: 40px;
 }
@@ -91,39 +106,32 @@ h3{
 #signout-button {
     margin-top: 10px;
 }
-<<<<<<< HEAD
 
 
-
-
-=======
->>>>>>> 73a783c5c1c9decee3687dd4e96011eccc7e7735
 .btn-primary {
     color: #fff;
     background-color: #4990e2;
     border-color: #4990e2; /*set the color you want here*/
 }
-<<<<<<< HEAD
-=======
 
 #id{
     color: #4990e2;
 }
 
->>>>>>> 73a783c5c1c9decee3687dd4e96011eccc7e7735
+
+
+
+
 .btn-primary:hover, .btn-primary:focus, .btn-primary:active, .btn-primary.active, .open>.dropdown-toggle.btn-primary {
     color: #fff;
     background-color: #3A73B5;
     border-color: #3A73B5; /*set the color you want here*/
 }
 
-<<<<<<< HEAD
-
-=======
 .modal-content{
     padding: 5%;
 }
->>>>>>> 73a783c5c1c9decee3687dd4e96011eccc7e7735
+
 .modal-header {
 	border-bottom: 0px;
 	padding: 20px;
@@ -142,11 +150,6 @@ h3{
 	text-align: left !important;
 }
 
-<<<<<<< HEAD
-=======
-
-
->>>>>>> 73a783c5c1c9decee3687dd4e96011eccc7e7735
 /* Label ------------------------------- */
 
 
@@ -157,12 +160,12 @@ h3{
 	border-right: 1px;
 	box-shadow: none;
 	font-size: 18px;
-	color: #979797;
 	border-radius: 0px;
 }
 
-.form-control:focus ~ label {
+.form-control:focus {
 	outline: none !important;
+	-webkit-box-shadow: none;
 }
 
 /* Bottom bars ------------------------------- */
@@ -190,7 +193,6 @@ input:focus ~ .bar:before, input:focus ~ .bar:after {
 }
 
 
-
 /* Form styling ------------------------------- */
 
 .input-group        { 
@@ -207,7 +209,10 @@ input         {
   border-bottom:1px solid #979797;
 	background: transparent;
 }
-input:focus     { outline:none !important; }
+
+input:focus { 
+	outline:none !important; 
+}
 
 .input-time {
 	padding-top: 70px;
@@ -218,3 +223,4 @@ input:focus     { outline:none !important; }
 	border: 0px; 
 	border-radius: 0px; 
 }
+

@@ -13,8 +13,7 @@
               href='{% static "webapp/img/site_favicon2.png" %}'>
         <link rel="stylesheet" href="{% static 'webapp/css/bootstrap.min.css' %}" type = "text/css"/>
         <link rel="stylesheet" href="{% static 'webapp/css/home.css' %}" type="text/css"/>
-			
-				<link rel="stylesheet" href="{% static 'webapp/css/fullcalendar-custom.css' %}" type="text/css"/>
+
 
         <!--Not sure what this one does, too afraid to remove-->
         <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -153,7 +152,7 @@
             </div>
             <div class="alert alert-success alert-dismissable fade in" style="display:none;" id="event-add-success">
                 <a href="#" class="close" data-hide="alert" onclick="hide()" aria-label="close">&times;</a>
-                <strong>Success!</strong> To Do has been added to Calendar!
+                <strong>Success!</strong> To-do has been added to Calendar!
             </div>
             <div class="alert alert-success alert-dismissable fade in" style="display:none;" id="event-change-success">
                 <a href="#" class="close" data-hide="alert" onclick="hide()" aria-label="close">&times;</a>
@@ -179,13 +178,13 @@
             <div class="row">
 
                 <div class="col-md-4" id="calendarTrash">
-                    <h3>To Do List</h3>
+                    <h2>To-Do List</h2>
                     <div id='external-events'>
 
-                        <div class='fc-event'>Tasty Pot</div>
-                        <div class='fc-event'>Little Fat Sheep</div>
-                        <div class='fc-event'>Vallerta's</div>
-                        <div class='fc-event'>In 'n' Out</div>
+                        <div class='fc-event'>Submit status report before customer meeting</div>
+                        <div class='fc-event'>Make project video</div>
+                        <div class='fc-event'>Print lecture notes</div>
+                        <div class='fc-event'>This to-do is way too long this to-do is way too long this to-do is way too long</div>
                         <div class='fc-event'>😀 😃 😄 😁 😆 </div>
                         <div class='fc-event'>😀 😃 😄 😁 </div>
                         <div class='fc-event'>😀 😃 😄 </div>
@@ -193,11 +192,12 @@
                         <div class='fc-event'>😀 </div>
                     </div>
 
-                    <div id = 'form-container'>
-                        <input class="form-control" type="text" value="" placeholder="Quick Add To-Do" id="quick-add">
-                    </div> 
+                     
 
                     <div class="button-group">
+											<div id = 'form-container'>
+                        <input class="form-control" type="text" value="" placeholder="Quick Add To-Do" id="quick-add">
+                    </div>
                         <button id="authorize-button" class="btn btn-primary btn-large btn-block">Sync with Google Calendars</button>
                         <button id="signout-button" class="btn btn-danger btn-large btn-block">Sign Out</button>
                         <button id="signout-button" style="display: none;">Sign Out</button>
