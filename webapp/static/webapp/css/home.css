@@ -7,7 +7,7 @@
 }
 body{
     font-family:  lato;
-    height: 100%
+    height: 100vh;
 }
 
 ::-webkit-scrollbar { 
@@ -60,6 +60,9 @@ body{
 #calendarTrash,#calendar-container{
     height:100vh;
     position:relative
+}
+#calendar-container{
+    padding: 10px 15px 20px 0;
 }
 
 h3{
