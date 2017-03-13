@@ -26,7 +26,7 @@
         <script src='{% static "webapp/fullcalendar/lib/moment.min.js" %}'></script>
         <script src='{% static "webapp/fullcalendar/lib/jquery-ui.min.js"%}'></script>
         <script src='{% static "webapp/fullcalendar/fullcalendar.js" %}'></script>
-		
+
 
         <!-- Latest compiled and minified JavaScript -->
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
@@ -54,7 +54,7 @@
                                     </label>
                                     <div class="col-sm-10">
                                         <input class="form-control" type="text" placeholder="i.e. Hang out with friends, Complete CSE 110 Project.." value="" id="event-name-input">
-																				<span class="bar"></span>
+                                        <span class="bar"></span>
                                     </div>
                                 </div>
                                 <div id="start-time-input-div" class="form-group">
@@ -71,7 +71,7 @@
                                     <label class="control-label col-sm-2" for="date">
                                         End:
                                     </label>
-																	
+
                                     <div class="col-sm-10">
                                         <input class="form-control" name="start-date" placeholder="YYYY/MM/DD" type="datetime-local" id="end-time-input">
                                         <p id="end-time-input-help" class="help-block" style="display: none;"></p>
@@ -85,7 +85,7 @@
                                     </label>
                                     <div class="col-sm-10">
                                         <input class="form-control" type="text" value="" placeholder="i.e. Geisel Library, Peterson Hall, La Jolla Shores..." id="location-input">
-																				<span class="bar"></span>
+                                        <span class="bar"></span>
                                     </div>
                                 </div>
                                 <div class="form-group">
@@ -93,8 +93,8 @@
                                         Description:
                                     </label>
                                     <div class="col-sm-10">
-                                            <input class="form-control" type="text" value="" placeholder="Give a brief description about this event" id="description-input" >
-                                                                                    <span class="bar"></span>
+                                        <input class="form-control" type="text" value="" placeholder="Give a brief description about this event" id="description-input" >
+                                        <span class="bar"></span>
                                     </div>
                                 </div>
                                 <a href="" target="_blank" style="margin-left: 0px; color: #4990e2" id="url">
@@ -177,7 +177,7 @@
             <div class="row">
 
                 <div class="col-md-4" id="calendarTrash">
-                    <h2>To-Do List</h2>
+                    <div id='to-do-header'><h2>To-Do List</h2></div>
                     <div id='external-events'>
 
                         <div class='fc-event'>Submit status report before customer meeting</div>
@@ -191,12 +191,12 @@
                         <div class='fc-event'>😀 </div>
                     </div>
 
-                     
+
 
                     <div class="button-group">
-											<div id = 'form-container'>
-                        <input class="form-control" type="text" value="" placeholder="Quick Add To-Do" id="quick-add">
-                    </div>
+                        <div id = 'form-container'>
+                            <input class="form-control" type="text" value="" placeholder="Quick Add To-Do" id="quick-add">
+                        </div>
                         <button id="authorize-button" class="btn btn-primary btn-large btn-block">Sync with Google Calendars</button>
                         <button id="signout-button" class="btn btn-danger btn-large btn-block">Sign Out</button>
                         <button id="signout-button" style="display: none;">Sign Out</button>
