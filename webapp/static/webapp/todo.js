@@ -112,7 +112,7 @@ function postRequest(){
         console.log(temp); 
         console.log(temp.id);
 
-        $("#unscheduled").append('
+        $("#unscheduled").append('\
             <a href="#" class="list-group-item list-group-item-action list-group-item-unscheduled">\
                 <span class="glyphicon glyphicon-ok-circle glyphicon-ok-circle-u"></span>\
                 <button type="button" class="glyphicon glyphicon-trash glyphicon-trash-u" id= ' + temp + 'onclick="deleteTodo()"></button>\
