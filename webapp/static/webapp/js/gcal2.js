@@ -46,7 +46,7 @@ function updateSigninStatus(isSignedIn) {
     if (isSignedIn) {
         $("#calendar").fullCalendar('removeEvents');
         $("#calendar").show();
-        
+
         authorizeButton.style.display = 'none';
         signoutButton.style.display = 'block';
         listUpcomingEvents();
@@ -54,7 +54,7 @@ function updateSigninStatus(isSignedIn) {
         //Remove All Events.
         $("#calendar").fullCalendar('removeEvents');
         $("#calendar").hide();
-        
+
         authorizeButton.style.display = 'block';
         signoutButton.style.display = 'none';
     }
@@ -267,9 +267,48 @@ function listUpcomingEvents() {
                     }
                     rainbowCounter++;
                 }
-                existingEvent = false;
-
             }
+            if (existingEvent == false)
+            {
+                switch(rainbowCounter%7)
+                {
+                    case 0:
+                        rainbowColor = 'gray'
+                        break;
+
+                    case 1:
+                        rainbowColor = 'orange'
+                        break;
+
+                    case 2:
+                        rainbowColor = 'lightsslategrey'
+                        break;
+
+                    case 3:
+                        rainbowColor = 'goldenrod'
+                        break;
+
+                    case 4:
+                        rainbowColor = 'gold'
+                        break;
+
+                    case 5:
+                        rainbowColor = 'gainsboro'
+                        break;
+
+                    case 6:
+                        rainbowColor = 'darkorange'
+                        break;
+
+                    case 7:
+                        rainbowCounter = 'orangered'
+                        break;
+                }
+                rainbowCounter++;
+            }
+            existingEvent = false;
+
+
             eventsList.push({
                 id:entry.id,
                 title: entry.summary, 
