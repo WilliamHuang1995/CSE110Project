@@ -179,16 +179,10 @@
                 <div class="col-md-4" id="calendarTrash">
                     <h3>To Do List</h3>
                     <div id='external-events'>
-
-                        <div class='fc-event'>Tasty Pot</div>
-                        <div class='fc-event'>Little Fat Sheep</div>
-                        <div class='fc-event'>Vallerta's</div>
-                        <div class='fc-event'>In 'n' Out</div>
-                        <div class='fc-event'>😀 😃 😄 😁 😆 </div>
-                        <div class='fc-event'>😀 😃 😄 😁 </div>
-                        <div class='fc-event'>😀 😃 😄 </div>
-                        <div class='fc-event'>😀 😃 </div>
-                        <div class='fc-event'>😀 </div>
+												
+												{% for todo in todoList %}
+                        <div class='fc-event'>{{todo.title}}</div>
+												{% endfor %}
                     </div>
 
                     <div id = 'form-container'>

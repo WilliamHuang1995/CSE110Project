@@ -155,10 +155,14 @@ def delete_request(request):
 
 def index(request):
 	#insert into database
-	if (request.GET.get('boop')):
-		testPlzSave = Todo(title=request.GET['boop'])
-		testPlzSave.save()
-	return render(request, 'webapp/home.html')
+	userAuth = user_is_auth(request)
+
+	if not userAuth:
+		return redirect('/login.html')
+	
+	userTodosQuery = Todo.objects.raw('SELECT * FROM webapp_todo WHERE "UserID"=%s', [userAuth])
+	userTodos = [{'title': todo.title, 'id': todo.id} for todo in userTodosQuery]
+	return render(request, 'webapp/home.html',{'todoList': userTodos})
 
 def register(request):
 	return render(request, 'webapp/register.html')
