@@ -34,7 +34,7 @@
 						
 							<div class="panel-body">
 								<!-- List group -->
-								<div class="list-group noborder">
+								<div class="list-group noborder" id="unscheduledDiv">
 										
 									{% csrf_token %}	
 									{% for todo in todoList %}
@@ -57,7 +57,7 @@
 									{% endfor %}
 									
 									
-							</div>
+								</div>
 							</div>
 						</div>
 					</div>
