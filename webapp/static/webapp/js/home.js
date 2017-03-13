@@ -49,7 +49,6 @@ var todoEvent;
  *****************************************************************/
 $("#modalWindow").keyup(function(event){
     if(event.keyCode == 13 && $('#modalWindow').hasClass('in')){   
-        alert('oops');
         $(".confirmation-button").click();
     }
 });
@@ -102,7 +101,6 @@ function displayModal(calEvent, strSubmitFunc, eventType) {
         $('#event-name-input').val('');
         $('#start-time-input').val(startDate);
         var endDate = moment(startDate).add(1,'hours').format();
-        console.log(endDate);
         $('#end-time-input').val(moment(endDate).format(ACCEPTED_DATE_FORMAT));
         $('#location-input').val('');
         $('#description-input').val('');
@@ -353,7 +351,7 @@ $(document).ready(function() {
             //easter egg
             if(date.format("MM:DD")==="04:20"){
 
-                var win = window.open("https://www.youtube.com/watch?v=XtECttp9WUk", '_blank');
+                var win = window.open("https://www.youtube.com/watch?v=KlujizeNNQM", '_blank');
                 win.focus();
             } 
             startDate = date.format(ACCEPTED_DATE_FORMAT);
@@ -647,6 +645,7 @@ function validateEvent(startTime, endTime) {
 
     return true;
 }
+
 
 function clearModalErrors() {
     $('#start-time-input-div').removeClass('has-error');
