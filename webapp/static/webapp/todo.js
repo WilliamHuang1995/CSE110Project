@@ -51,26 +51,7 @@ $(document).ready(function() {
     }
 }*/
 //trying a callback post request :) 
-// Create a new list item when clicking on the "Add" button
-function newTodo() {
-    //if statement checking if task has id unsure since it has an id as well
-    //then either edit or post depending on if it has id 
-    postRequest();
-    
 
-        //adding to scheduled div
-    //This may be bad practice
-        /*
-    var node = document.createElement("LI");
-    var newValue = document.getElementById("myInput").value;
-    var textnode = document.createTextNode(newValue);
-    node.appendChild(textnode);
-    document.getElementById("myUL").appendChild(node);
-    appendClose();
-    //window.location.reload(true);
-        */
-
-}; 
 
 
 
@@ -139,7 +120,26 @@ function postRequest(){
         }
     }
 }
+// Create a new list item when clicking on the "Add" button
+function newTodo() {
+    //if statement checking if task has id unsure since it has an id as well
+    //then either edit or post depending on if it has id 
+    postRequest();
+    
 
+        //adding to scheduled div
+    //This may be bad practice
+        /*
+    var node = document.createElement("LI");
+    var newValue = document.getElementById("myInput").value;
+    var textnode = document.createTextNode(newValue);
+    node.appendChild(textnode);
+    document.getElementById("myUL").appendChild(node);
+    appendClose();
+    //window.location.reload(true);
+        */
+
+}; 
  
 
 /*function postRequest(){
