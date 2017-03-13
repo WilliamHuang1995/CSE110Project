@@ -161,7 +161,10 @@ def index(request):
 		return redirect('/login.html')
 	
 	userTodosQuery = Todo.objects.raw('SELECT * FROM webapp_todo WHERE "UserID"=%s', [userAuth])
-	userTodos = [{'title': todo.title, 'id': todo.id} for todo in userTodosQuery]
+	userTodos = [{'title': todo.title, 'id': todo.id,'location':todo.Location,'description':todo.Description} for todo in userTodosQuery]
+	print(len(userTodos))
+	for x in userTodos:
+		print(x)
 	return render(request, 'webapp/home.html',{'todoList': userTodos})
 
 def register(request):
@@ -352,9 +355,14 @@ def calendar(request):
 
 
 def todos(request):
-	#if(not user_is_auth(request)):
-		#return prompt_login(request)
-	return render(request, 'webapp/todo.html');
+	userAuth = user_is_auth(request)
+
+	if not userAuth:
+		return redirect('/login.html')
+	
+	userTodosQuery = Todo.objects.raw('SELECT * FROM webapp_todo WHERE "UserID"=%s', [userAuth])
+	userTodos = [{'title': todo.title, 'id': todo.id} for todo in userTodosQuery]
+	return render(request, 'webapp/todo-test.html', {'todoList': userTodos})
 
 
 def confirmEmail(request):

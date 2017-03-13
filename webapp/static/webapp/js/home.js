@@ -221,6 +221,8 @@ $(document).ready(function() {
         //Initializing external event.
         $(this).data('event', {
             title: $.trim($(this).text()), // use the element's text as the event title
+            location: $(this).attr('data-todoloc'),
+            description: $(this).attr('data-tododesc'),
             stick: true, // maintain when user navigates (see docs on the renderEvent method)
             id: 'external-event', //give the event id so that it gets removed 
         });
@@ -334,6 +336,7 @@ $(document).ready(function() {
             var defaultDuration = moment.duration($('#calendar').fullCalendar('option', 'defaultTimedEventDuration'));
             endDate = date.clone().add(defaultDuration).format(ACCEPTED_DATE_FORMAT); 
             changedEvent = $(this).data('event');
+						console.log(changedEvent);
             changedEvent.start = date.format(ACCEPTED_DATE_FORMAT);
             changedEvent.end = date.clone().add(defaultDuration).format(ACCEPTED_DATE_FORMAT);
             $("#calendar").fullCalendar('removeEvents', 'external-event');

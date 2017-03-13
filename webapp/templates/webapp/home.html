@@ -179,9 +179,10 @@
                 <div class="col-md-4" id="calendarTrash">
                     <h3>To Do List</h3>
                     <div id='external-events'>
-												
+												{%csrf_token%}
+
 												{% for todo in todoList %}
-                        <div class='fc-event'>{{todo.title}}</div>
+                        <div data-todoDesc="{{todo.description}}" data-todoLoc="{{todo.location}}" class='fc-event'>{{todo.title}}</div>
 												{% endfor %}
                     </div>
 
