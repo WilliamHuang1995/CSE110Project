@@ -143,7 +143,7 @@ var currentYear = d.getFullYear();
           }
           for (j = FreeEnd * minutesOneHour; j < 24 * minutesOneHour; j++)
           {
-            if(i+k*hoursOneDay*minutesOneHour+Offset >= 0)
+            if(j+k*hoursOneDay*minutesOneHour+Offset >= 0)
               freeTime[j+k*hoursOneDay*minutesOneHour+Offset] = 1;
           }
         }
