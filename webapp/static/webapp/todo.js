@@ -118,7 +118,7 @@ function postRequest(){
                 <button type="button" class="glyphicon glyphicon-trash glyphicon-trash-u" id= ' + temp + 'onclick="deleteTodo()"></button>\
                 <div class="p-2">\
                     <p class="mb-1" id=' + temp + '> ' + document.getElementById("task").value +'\
-                        <img style="margin-bottom:3px; margin-left:7px;" src="{% static "webapp/img/Fill 71.png" %}" />\
+                        <img style="margin-bottom:3px; margin-left:7px;" src="/static/webapp/img/Fill 71.png" />\
                     </p>\
                 </div>\
             </a>');
