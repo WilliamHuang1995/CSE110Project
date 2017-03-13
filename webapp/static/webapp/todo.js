@@ -110,12 +110,12 @@ function postRequest(){
         // do something with response
         var temp = JSON.parse(response); 
         console.log(temp); 
-        console.log(temp.id);
+        
 
         $("#unscheduledDiv").append('\
             <a href="#" class="list-group-item list-group-item-action list-group-item-unscheduled">\
                 <span class="glyphicon glyphicon-ok-circle glyphicon-ok-circle-u"></span>\
-                <button type="button" class="glyphicon glyphicon-trash glyphicon-trash-u" id= ' + temp + 'onclick="deleteTodo()"></button>\
+                <button type="button" class="glyphicon glyphicon-trash glyphicon-trash-u" id= ' + temp + ' onclick="deleteTodo()"></button>\
                 <div class="p-2">\
                     <p class="mb-1" id=' + temp + '> ' + document.getElementById("task").value +'\
                         <img style="margin-bottom:3px; margin-left:7px;" src="/static/webapp/img/Fill 71.png" />\
