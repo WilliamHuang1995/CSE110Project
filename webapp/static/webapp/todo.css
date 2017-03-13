@@ -12,6 +12,11 @@ html, body {
     border-radius: 0;
     height: 100%;
 }
+.img-responsive {
+    padding: 6px;
+    max-width:40px; 
+    max-height:40px
+}
 
 html {
 	padding: 2%;
