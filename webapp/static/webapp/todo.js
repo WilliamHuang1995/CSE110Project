@@ -76,7 +76,7 @@ function newTodo() {
 
 function postRequest(){
 
-    //$(document).ready(function(){
+    $(document).ready(function(){
         var client = new HttpClient();
         client.get('/api/post', function(response) {
         // do something with response
@@ -88,8 +88,8 @@ function postRequest(){
 
 
             
-        });
-   // }); 
+        })
+    }); 
     var HttpClient = function() {
         this.get = function(aUrl, aCallback) {
             var inputTitle = document.getElementById("task").value;
