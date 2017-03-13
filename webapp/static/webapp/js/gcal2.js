@@ -229,39 +229,40 @@ function listUpcomingEvents() {
                         break;
                     }
                 }
+            }
 
             if (existingEvent == false)
             {
                 switch(rainbowCounter%7)
                 {
                     case 0:
-                    rainbowColor = '#FF5722'
-                    break;
-											
-										case 1:
-                    rainbowColor = '#4990E2'
-                    break;
-								
-										case 2:
-                    rainbowColor = '#673ABC'
-                    break;
-											
-                   	case 3:
-                    rainbowColor = '#3F51B5'
-                    break;
-				
-										case 4:
-                    rainbowColor = '#FF9800'
-                    break;
-											
-										case 5:
-                    rainbowColor = '#E91E63'
-                    break;	
+                        rainbowColor = '#FF5722'
+                        break;
 
-                  }
-                  rainbowCounter++;
-						}
-						existingEvent = false;
+                    case 1:
+                        rainbowColor = '#4990E2'
+                        break;
+
+                    case 2:
+                        rainbowColor = '#673ABC'
+                        break;
+
+                    case 3:
+                        rainbowColor = '#3F51B5'
+                        break;
+
+                    case 4:
+                        rainbowColor = '#FF9800'
+                        break;
+
+                    case 5:
+                        rainbowColor = '#E91E63'
+                        break;	
+
+                }
+                rainbowCounter++;
+            }
+            existingEvent = false;
 
 
 
