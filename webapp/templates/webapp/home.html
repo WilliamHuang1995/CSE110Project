@@ -13,6 +13,8 @@
               href='{% static "webapp/img/site_favicon2.png" %}'>
         <link rel="stylesheet" href="{% static 'webapp/css/bootstrap.min.css' %}" type = "text/css"/>
         <link rel="stylesheet" href="{% static 'webapp/css/home.css' %}" type="text/css"/>
+			
+				<link rel="stylesheet" href="{% static 'webapp/css/fullcalendar-custom.css' %}" type="text/css"/>
 
         <!--Not sure what this one does, too afraid to remove-->
         <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -26,7 +28,7 @@
         <script src='{% static "webapp/fullcalendar/lib/moment.min.js" %}'></script>
         <script src='{% static "webapp/fullcalendar/lib/jquery-ui.min.js"%}'></script>
         <script src='{% static "webapp/fullcalendar/fullcalendar.js" %}'></script>
-
+		
 
         <!-- Latest compiled and minified JavaScript -->
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
@@ -41,10 +43,10 @@
         <div id="eventModal">
             <div id="modalWindow" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="confirm-modal" aria-hidden="true">
                 <div class="modal-dialog">
-                    <div class="modal-content">
+                    <div class="modal-content" style="padding: 5%">
                         <div class="modal-header">
                             <a class="close" data-dismiss="modal">x</a>
-                            <h4 class="eventType">Edit Event</h4>
+                            <h3 class="eventType"></h3>
                         </div>
                         <div class="modal-body">
                             <form class="form-horizontal">
@@ -54,23 +56,27 @@
                                     </label>
                                     <div class="col-sm-10">
                                         <input class="form-control" type="text" placeholder="i.e. Hang out with friends, Complete CSE 110 Project.." value="" id="event-name-input">
+																				<span class="bar"></span>
                                     </div>
                                 </div>
-                                <div class="form-group">
+                                <div id="start-time-input-div" class="form-group">
                                     <label class="control-label col-sm-2" for="date">
                                         Start:
                                     </label>
                                     <div class="col-sm-10">
                                         <input class="form-control" name="start-date" placeholder="YYYY/MM/DD" type="datetime-local" id="start-time-input">
+                                        <p id="start-time-input-help" class="help-block" style="display: none;"></p>
                                     </div>
 
                                 </div>
-                                <div class="form-group">
+                                <div id="end-time-input-div" class="form-group">
                                     <label class="control-label col-sm-2" for="date">
                                         End:
                                     </label>
+																	
                                     <div class="col-sm-10">
                                         <input class="form-control" name="start-date" placeholder="YYYY/MM/DD" type="datetime-local" id="end-time-input">
+                                        <p id="end-time-input-help" class="help-block" style="display: none;"></p>
                                     </div>
                                 </div>
 
@@ -81,6 +87,7 @@
                                     </label>
                                     <div class="col-sm-10">
                                         <input class="form-control" type="text" value="" placeholder="i.e. Geisel Library, Peterson Hall, La Jolla Shores..." id="location-input">
+																				<span class="bar"></span>
                                     </div>
                                 </div>
                                 <div class="form-group">
@@ -88,14 +95,15 @@
                                         Description:
                                     </label>
                                     <div class="col-sm-10">
-                                        <input class="form-control" type="text" value="" placeholder="Give a brief description about this event" id="description-input" >
+                                            <input class="form-control" type="text" value="" placeholder="Give a brief description about this event" id="description-input" >
+                                                                                    <span class="bar"></span>
                                     </div>
                                 </div>
-                                <a href="" target="_blank" style="margin-left: 30px;" id="url">
+                                <a href="" target="_blank" style="margin-left: 0px; color: #4990e2" id="url">
                                     View on Google Calendar</a>
                                 <div class="modal-footer">
                                     <span class="btn btn-danger delete-button" onclick="confirmDelete()">Delete Event</span>
-                                    <span class="btn btn-success confirmation-button" onclick="saveChanges()" type="submit">Save Changes</span>
+                                    <span class="btn btn-primary confirmation-button" onclick="saveChanges()" type="submit">Save Changes</span>
                                 </div>
                             </form>
                         </div>
@@ -184,6 +192,10 @@
                         <div class='fc-event'>😀 😃 </div>
                         <div class='fc-event'>😀 </div>
                     </div>
+
+                    <div id = 'form-container'>
+                        <input class="form-control" type="text" value="" placeholder="Quick Add To-Do" id="quick-add">
+                    </div> 
 
                     <div class="button-group">
                         <button id="authorize-button" class="btn btn-primary btn-large btn-block">Sync with Google Calendars</button>
