@@ -56,21 +56,7 @@ $(document).ready(function() {
 
 
 function postRequest(){
-
-    $(document).ready(function(){
-        var client = new HttpClient();
-        client.post('/api/post', function(response) {
-        // do something with response
-            var temp = JSON.parse(response); 
-
-            console.log(temp[0].id);
-            
-
-
-
-            
-        })
-    }); 
+     
     var HttpClient = function() {
         this.post = function(aUrl, aCallback) {
             var inputTitle = document.getElementById("task").value;
@@ -119,6 +105,18 @@ function postRequest(){
             console.log("sent params");
         }
     }
+    var client = new HttpClient();
+    client.post('/api/post', function(response) {
+        // do something with response
+        var temp = JSON.parse(response); 
+
+        console.log(temp[0].id);
+            
+
+
+
+            
+    });
 }
 // Create a new list item when clicking on the "Add" button
 function newTodo() {
