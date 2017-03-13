@@ -90,7 +90,7 @@ $('#quick-add').keyup(function (e) {
 function displayModal(calEvent, strSubmitFunc, eventType) {
     //Creating a Calendo Event
     if (eventType==="Create Event"){
-        $('h4.eventType').text('Create Event');
+        $('h3.eventType').text('Create Event');
         $('.confirmation-button').text('Create');
 
         //Create Empty Body
@@ -109,7 +109,7 @@ function displayModal(calEvent, strSubmitFunc, eventType) {
         //Calendo Event
         if(calEvent.id=="external-event"){
 
-            $('h4.eventType').text('Add to Calendar');
+            $('h3.eventType').text('Add to Calendar');
             $('.confirmation-button').text('Add');
 
             //Body
@@ -129,7 +129,7 @@ function displayModal(calEvent, strSubmitFunc, eventType) {
             id=calEvent.id;
             console.log(id);
             //Case where it already exists on Google Calendar
-            $('h4.eventType').text('Edit Event');
+            $('h3.eventType').text('Edit Event');
             $('.confirmation-button').text('Save Changes');
 
             //Body
