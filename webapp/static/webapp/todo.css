@@ -6,6 +6,13 @@ html, body {
 	background-color: #F6F7F7;
 }
 
+.navbar-fixed-left {
+    width: 40px;
+    position: fixed;
+    border-radius: 0;
+    height: 100%;
+}
+
 html {
 	padding: 2%;
 }
