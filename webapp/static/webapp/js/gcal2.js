@@ -115,14 +115,39 @@ var currentYear = d.getFullYear();
         var successArgs;
         var successRes;
         var events = response.result.items;
-        var totalBlocks = 14*24*60;
+        var daysTwoWeeks = 14;
+        var minutesOneHour = 60;
+        var hoursOneDay = 24;
+        var totalBlocks = daysTwoWeeks*hoursOneDay*minutesOneHour;
         // 14 days * 24 hours * 60 1-minute blocks
+
         var freeTime = new Array(totalBlocks);
-        for(i = 0; i < totalBlocks; i++)
+        for (i = 0; i < totalBlocks; i++)
           {
             freeTime[i] = 0;
           }
         // initialize element to 0, free
+
+        var FreeStart = 8;  // Default start of free time 8:00
+        var FreeEnd = 17;   // Default end of free time 17:00
+
+        var Offset = -(currentHour * minutesOneHour + currentMinute);
+
+
+        for(k = 0; k <= daysTwoWeeks; k++)
+        {
+          for (i = 0; i < FreeStart * minutesOneHour; i++)
+          {
+            if(i+k*hoursOneDay*minutesOneHour+Offset >= 0)
+              freeTime[i+k*hoursOneDay*minutesOneHour+Offset] = 1;
+          }
+          for (j = FreeEnd * minutesOneHour; j < 24 * minutesOneHour; j++)
+          {
+            if(i+k*hoursOneDay*minutesOneHour+Offset >= 0)
+              freeTime[j+k*hoursOneDay*minutesOneHour+Offset] = 1;
+          }
+        }
+
 
         $.each(response.result.items, function(i, entry)
                {
@@ -197,7 +222,7 @@ var currentYear = d.getFullYear();
         for(i = 0; i < totalBlocks; i++)
           {
             //console.log(freeTime[i]);
-            if (freeTime[i] == 0)
+            if (freeTime[i] == 0 && i != totalBlocks - 1)
               // if free increment free consec minutes
               {
                 ConsecBlocks++;
@@ -208,7 +233,6 @@ var currentYear = d.getFullYear();
 
                 var startBlocks = currentBlocks + i - ConsecBlocks;
                 var endBlocks = startBlocks + ConsecBlocks;
-
 
                 var FreeDateStart = Math.floor(startBlocks/(24*60));
                 var FreeHourStart = (Math.floor(startBlocks/60))%(24);
@@ -223,7 +247,7 @@ var currentYear = d.getFullYear();
                 ConsecBlocks = 0;
               }
           }
-          console.log(9999999999);
+          console.log("end");
 
 
 
