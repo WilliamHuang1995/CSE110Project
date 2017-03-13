@@ -143,6 +143,6 @@ EMAIL_USE_SSL = True
 CSRF_USE_SESSIONS = True
 
 STATICFILES_STORAGE = 'whitenoise.django.GzipManifestStaticFilesStorage'
-#X_FRAME_OPTIONS = 'ALLOWALL'
+X_FRAME_OPTIONS = 'DENY'
 SESSION_COOKIE_DOMAIN = "www.calen-do.com"
 #CORS_ORIGIN_ALLOW_ALL = true 
