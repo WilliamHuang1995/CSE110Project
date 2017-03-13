@@ -49,10 +49,8 @@ body{
     float: right;
     padding-left: 40px;
     padding-right: 40px;
-    overflow-y: scroll;
-    overflow-x: hidden;
+    overflow:scroll;
     /*border around the stuff*/
-    
 }
 #external-events .fc-event {
     text-align: left;
@@ -79,7 +77,8 @@ body{
 
 #calendarTrash,#calendar-container{
     height:100vh;
-    position:relative
+    position:relative;
+    z-index: 0;
 }
 #calendar-container{
     padding: 10px 15px 20px 0;

@@ -234,8 +234,10 @@ $(document).ready(function() {
 
         // make the event draggable using jQuery UI revert, if let go, will go back to its position
         $(this).draggable({
-            zIndex: 999,
+            clone: this,
+            zIndex: 9999999999,
             revert: true,
+            scroll: false
         });
 
     });
