@@ -129,9 +129,9 @@ function postRequest(){
         document.getElementById('example-date-input').value = "";
         document.getElementById("numHours").value = "";
         document.getElementById("numMins").value = "";
-
-
-            
+        $('input').blur(function() {
+            $("label[for='"+$(this).attr('id')+"']").removeClass('used');
+        });   
     });
 }
 // Create a new list item when clicking on the "Add" button
