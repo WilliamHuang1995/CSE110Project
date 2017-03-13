@@ -49,7 +49,6 @@ var todoEvent;
  *****************************************************************/
 $("#modalWindow").keyup(function(event){
     if(event.keyCode == 13 && $('#modalWindow').hasClass('in')){   
-        alert('oops');
         $(".confirmation-button").click();
     }
 });
@@ -88,6 +87,10 @@ $('#quick-add').keyup(function (e) {
  * This is done by setting the strSubmitFunc
  *****************************************************************/
 function displayModal(calEvent, strSubmitFunc, eventType) {
+
+    // Get rid of errors whenever a new modal is made
+    clearModalErrors();
+
     //Creating a Calendo Event
     if (eventType==="Create Event"){
         $('h3.eventType').text('Create Event');
@@ -98,7 +101,6 @@ function displayModal(calEvent, strSubmitFunc, eventType) {
         $('#event-name-input').val('');
         $('#start-time-input').val(startDate);
         var endDate = moment(startDate).add(1,'hours').format();
-        console.log(endDate);
         $('#end-time-input').val(moment(endDate).format(ACCEPTED_DATE_FORMAT));
         $('#location-input').val('');
         $('#description-input').val('');
@@ -402,12 +404,15 @@ $(document).ready(function() {
  * Called by DayClick
  * Trigger: User wants to create an event and clicks on Day
  * Precondition: No events exist, no field is filled
- * Postcondition: Event Created on both Calendar
+ * Postcondition: Event Created on both Calendars
  * Uses Google Calendar API
  *****************************************************************/
 function generateEvent(){
     try{
         initializeClient();
+        if (!validateEvent($('#start-time-input').val(), $('#end-time-input').val())) {
+            return false;
+        }
         var gCalEvent = {
             'summary': $('#event-name-input').val(),
             'location': $('#location-input').val(),
@@ -471,6 +476,11 @@ function generateEvent(){
 function addToCalendar(){
     try{
         initializeClient();
+
+        if (!validateEvent($('#start-time-input').val(), $('#end-time-input').val())) {
+            return false;
+        }
+
         var gCalEvent = {
             'summary': $('#event-name-input').val(),
             'location': $('#location-input').val(),
@@ -536,12 +546,16 @@ function saveChanges() {
     try{
         initializeClient();
 
+        if (!validateEvent($('#start-time-input').val(), $('#end-time-input').val())) {
+            return false;
+        }
+
         changedEvent.start=$('#start-time-input').val();
         changedEvent.end=$('#end-time-input').val();
         var newTitle = $('#event-name-input').val();
         changedEvent.title = newTitle==""?"(No Title)":newTitle;
-        changedEvent.description = $('#description-input').val()
-        changedEvent.location = $('#location-input').val()
+        changedEvent.description = $('#description-input').val();
+        changedEvent.location = $('#location-input').val();
 
         $('#calendar').fullCalendar('updateEvent', changedEvent);
 
@@ -584,10 +598,61 @@ function saveChanges() {
 }
 
 
+// Returns true if no errors, else false
+// Expects strings for start and end times in format:
+// YYYY-MM-DD[T]HH:mm
+function validateEvent(startTime, endTime) {
+    //console.log('In validateEvent()');
+    //console.log(startTime);
+    //console.log(endTime);
+    var error = false;
+    var start = moment(startTime, "YYYY-MM-DD[T]HH:mm");
+    var end = moment(endTime, "YYYY-MM-DD[T]HH:mm");
 
-	  $('input').blur(function() {
-    if ($(this).val())
-      $("label[for='"+$(this).attr('id')+"']").addClass('used');
-    else
-      $("label[for='"+$(this).attr('id')+"']").removeClass('used');
-  });
+    if (!start.isValid()) {
+        $('#start-time-input-div').addClass('has-error');
+        console.log('No start time');
+        $('#start-time-input-help').text('Start time is a required field');
+        $('#start-time-input-help').show();
+        error = true;
+    }
+    else {
+        $('#start-time-input-div').removeClass('has-error');
+        $('#start-time-input-help').hide();
+    }
+
+    if (!end.isValid()) {
+        console.log('No end time');
+        $('#end-time-input-div').addClass('has-error');
+        $('#end-time-input-help').text('End time is a required field');
+        $('#end-time-input-help').show();
+        error = true;
+    }
+    else {
+        $('#end-time-input-div').removeClass('has-error');
+        $('#end-time-input-help').hide();
+    }
+
+    if (error) {
+        return false;
+    }
+
+    if (start >= end) {
+        console.log('Ends before start')
+        $('#start-time-input-div').addClass('has-error');
+        $('#end-time-input-div').addClass('has-error');
+        $('#end-time-input-help').text('End time must be after start time');
+        $('#end-time-input-help').show();
+        return false;
+    }
+
+    return true;
+}
+
+
+function clearModalErrors() {
+    $('#start-time-input-div').removeClass('has-error');
+    $('#end-time-input-div').removeClass('has-error');
+    $('#start-time-input-help').hide();
+    $('#end-time-input-help').hide();
+}

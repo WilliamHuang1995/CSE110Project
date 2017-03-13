@@ -133,7 +133,6 @@ var currentYear = d.getFullYear();
 
         var Offset = -(currentHour * minutesOneHour + currentMinute);
 
-
         for(k = 0; k <= daysTwoWeeks; k++)
         {
           for (i = 0; i < FreeStart * minutesOneHour; i++)
@@ -148,6 +147,12 @@ var currentYear = d.getFullYear();
           }
         }
 
+        var rainbowEffect = true;
+        var rainbowCounter = 0;
+        var rainbowColor = 'cornflowerBlue';
+        var colorCount = 8; // 8 different colors for different events
+        var rainbowEvent = new Array(colorCount);
+        var existingEvent = false;
 
         $.each(response.result.items, function(i, entry)
                {
@@ -199,6 +204,63 @@ var currentYear = d.getFullYear();
 
 
             var url = entry.htmlLink;
+
+            if(rainbowEffect)
+            {
+              console.log(rainbowCounter);
+              for(i = 0; i < eventsList.length; i++)
+              {
+
+                if(entry.summary == eventsList[i].title)
+                {
+                  console.log(entry.summary);
+                  console.log(eventsList[i].title);
+                  rainbowColor = eventsList[i].color;
+                  existingEvent = true;
+                  break;
+                }
+              }
+              if (existingEvent == false)
+              {
+                  switch(rainbowCounter%7)
+                  {
+                    case 0:
+                    rainbowColor = 'red'
+                    break;
+
+                    case 1:
+                    rainbowColor = 'blue'
+                    break;
+
+                    case 2:
+                    rainbowColor = 'darkslategrey'
+                    break;
+
+                    case 3:
+                    rainbowColor = 'darkslateblue'
+                    break;
+
+                    case 4:
+                    rainbowColor = 'saddlebrown'
+                    break;
+
+                    case 5:
+                    rainbowColor = 'steelblue'
+                    break;
+
+                    case 6:
+                    rainbowColor = 'seagreen'
+                    break;
+
+                    case 7:
+                    rainbowCounter = 'yellowgreen'
+                    break;
+                  }
+                  rainbowCounter++;
+              }
+              existingEvent = false;
+
+            }
             eventsList.push({
                 id:entry.id,
                 title: entry.summary, 
@@ -207,8 +269,8 @@ var currentYear = d.getFullYear();
                 url: url,
                 location: entry.location,
                 description: entry.description,
-                
-           
+                color: rainbowColor
+
             });
             
         });
@@ -257,18 +319,19 @@ var currentYear = d.getFullYear();
                 FreeEventEnd.setMinutes(FreeMinuteEnd);
 
                 ConsecBlocks = 0;
-
                 //console.log(FreeEventStart);
                 //console.log(FreeEventEnd);
 
+                /*
                 eventsList.push({
                 title: 'Free Time', 
                 start: FreeEventStart,
                 end: FreeEventEnd,
-                color: 'red'
+                color: 'DeepSkyBlue'
                 
            
                 });
+                */
               }
           }
           console.log("end");
