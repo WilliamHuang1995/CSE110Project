@@ -99,7 +99,7 @@ var newDate = new Date();
 var datetime = "LastSync: " + newDate.today() + " @ " + newDate.timeNow();
 console.log(newDate, datetime);
 var d = new Date();
-var currentMonth = d.getMonth()+ 1;
+var currentMonth = d.getMonth() + 1;
 var currentDate = d.getDate();
 var currentHour = d.getHours();
 var currentMinute = d.getMinutes();
@@ -128,8 +128,8 @@ var currentYear = d.getFullYear();
           }
         // initialize element to 0, free
 
-        var FreeStart = 8;  // Default start of free time 8:00
-        var FreeEnd = 17;   // Default end of free time 17:00
+        var FreeStart = 6;  // Default start of free time 8:00
+        var FreeEnd = 21;   // Default end of free time 17:00
 
         var Offset = -(currentHour * minutesOneHour + currentMinute);
 
@@ -197,10 +197,6 @@ var currentYear = d.getFullYear();
                   }
                 }
 
-                // console.log(currentMonth);
-                // console.log(currentDate);
-                // console.log(currentHour);
-                // console.log(currentMinute);
 
             var url = entry.htmlLink;
             eventsList.push({
@@ -232,7 +228,7 @@ var currentYear = d.getFullYear();
                 var currentBlocks = currentDate*60*24 + currentHour*60 + currentMinute;
 
                 var startBlocks = currentBlocks + i - ConsecBlocks;
-                var endBlocks = startBlocks + ConsecBlocks;
+                var endBlocks = startBlocks + ConsecBlocks - 1;
 
                 var FreeDateStart = Math.floor(startBlocks/(24*60));
                 var FreeHourStart = (Math.floor(startBlocks/60))%(24);
@@ -244,7 +240,35 @@ var currentYear = d.getFullYear();
 
                 console.log(FreeDateStart, FreeHourStart, FreeMinuteStart);
                 console.log(FreeDateEnd, FreeHourEnd, FreeMinuteEnd);
+
+                var FreeEventStart = new Date();
+                var FreeEventEnd = new Date();
+
+                FreeEventStart.setMonth(currentMonth - 1);
+                // need to change current month
+                FreeEventStart.setDate(FreeDateStart);
+                FreeEventStart.setHours(FreeHourStart);
+                FreeEventStart.setMinutes(FreeMinuteStart);
+
+                FreeEventEnd.setMonth(currentMonth - 1);
+                // need to change current month
+                FreeEventEnd.setDate(FreeDateEnd);
+                FreeEventEnd.setHours(FreeHourEnd);
+                FreeEventEnd.setMinutes(FreeMinuteEnd);
+
                 ConsecBlocks = 0;
+
+                //console.log(FreeEventStart);
+                //console.log(FreeEventEnd);
+
+                eventsList.push({
+                title: 'Free Time', 
+                start: FreeEventStart,
+                end: FreeEventEnd,
+                color: 'red'
+                
+           
+                });
               }
           }
           console.log("end");

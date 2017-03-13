@@ -7,12 +7,15 @@
 }
 body{
     font-family:  lato;
-    height: 100%
+    height: 100vh;
 }
 
 ::-webkit-scrollbar { 
      display: none; 
  }
+*:focus {
+    outline: none;
+}
 .navbar-fixed-left {
     width: 40px;
     position: fixed;
@@ -26,7 +29,7 @@ body{
     Will screw up the navbar as well. Need to fix.
     */
     margin-left: 60px;
-    height:100%;
+    height:100vh;
 
 }
 
@@ -42,10 +45,12 @@ body{
 #external-events {
 
     width: 100%;
+    height: 50%;
     float: right;
     padding: 0 40px;
     /*border around the stuff*/
-    background: #ffffff;
+    background: #ffffff;    
+    
 }
 #external-events .fc-event {
     text-align: center;
@@ -54,16 +59,22 @@ body{
     margin: 5px 0;
     cursor: pointer;
     background-color: #4990e2;
-    overflow-y:scroll;
+    
 }
 
 #calendarTrash,#calendar-container{
     height:100vh;
     position:relative
 }
+#calendar-container{
+    padding: 10px 15px 20px 0;
+}
 
 h3{
     text-align:center;
+}
+#quick-add{
+    
 }
 
 .button-group{
@@ -80,25 +91,39 @@ h3{
 #signout-button {
     margin-top: 10px;
 }
+<<<<<<< HEAD
+
+
+
+
+=======
+>>>>>>> 73a783c5c1c9decee3687dd4e96011eccc7e7735
 .btn-primary {
     color: #fff;
     background-color: #4990e2;
     border-color: #4990e2; /*set the color you want here*/
 }
+<<<<<<< HEAD
+=======
 
 #id{
     color: #4990e2;
 }
 
+>>>>>>> 73a783c5c1c9decee3687dd4e96011eccc7e7735
 .btn-primary:hover, .btn-primary:focus, .btn-primary:active, .btn-primary.active, .open>.dropdown-toggle.btn-primary {
     color: #fff;
     background-color: #3A73B5;
     border-color: #3A73B5; /*set the color you want here*/
 }
 
+<<<<<<< HEAD
+
+=======
 .modal-content{
     padding: 5%;
 }
+>>>>>>> 73a783c5c1c9decee3687dd4e96011eccc7e7735
 .modal-header {
 	border-bottom: 0px;
 	padding: 20px;
@@ -117,8 +142,11 @@ h3{
 	text-align: left !important;
 }
 
+<<<<<<< HEAD
+=======
 
 
+>>>>>>> 73a783c5c1c9decee3687dd4e96011eccc7e7735
 /* Label ------------------------------- */
 
 

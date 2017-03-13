@@ -48,8 +48,36 @@ var todoEvent;
  * Allows user to press enter to complete form.
  *****************************************************************/
 $("#modalWindow").keyup(function(event){
-    if(event.keyCode == 13){
+    if(event.keyCode == 13 && $('#modalWindow').hasClass('in')){   
+        alert('oops');
         $(".confirmation-button").click();
+    }
+});
+
+/*****************************************************************
+ * Allows user to quick add a todo
+ *****************************************************************/
+$('#quick-add').keyup(function (e) {
+    if (e.keyCode == 13) {
+        if($(this).val()!==''){
+            var val = $(this).val();
+            var div = document.createElement('div');
+            div.className = 'fc-event';
+            div.textContent = val;
+            $(div).data('event', {
+                title: val,
+                stick: true, 
+                id: 'external-event',
+            })
+            $(div).draggable({
+                zindex:999,
+                revert: true,
+            });
+            $( "#external-events" ).append(div);
+            $(this).val('');
+            
+        }
+        return false;    //<---- Add this line
     }
 });
 
@@ -66,7 +94,7 @@ function displayModal(calEvent, strSubmitFunc, eventType) {
 
     //Creating a Calendo Event
     if (eventType==="Create Event"){
-        $('h4.eventType').text('Create Event');
+        $('h3.eventType').text('Create Event');
         $('.confirmation-button').text('Create');
 
         //Create Empty Body
@@ -85,7 +113,7 @@ function displayModal(calEvent, strSubmitFunc, eventType) {
         //Calendo Event
         if(calEvent.id=="external-event"){
 
-            $('h4.eventType').text('Add to Calendar');
+            $('h3.eventType').text('Add to Calendar');
             $('.confirmation-button').text('Add');
 
             //Body
@@ -105,7 +133,7 @@ function displayModal(calEvent, strSubmitFunc, eventType) {
             id=calEvent.id;
             console.log(id);
             //Case where it already exists on Google Calendar
-            $('h4.eventType').text('Edit Event');
+            $('h3.eventType').text('Edit Event');
             $('.confirmation-button').text('Save Changes');
 
             //Body
@@ -193,8 +221,7 @@ function displayError(){
  *****************************************************************/
 $(document).ready(function() {
     //External Events
-    $('#external-events .fc-event').each(function() {
-
+    $('.fc-event').each(function() {
         //Initializing external event.
         $(this).data('event', {
             title: $.trim($(this).text()), // use the element's text as the event title
