@@ -7,6 +7,8 @@ html, body {
 }
 
 .navbar-fixed-left {
+		left: 0px;
+		top: 0px;
     width: 40px;
     position: fixed;
     border-radius: 0;
