@@ -78,7 +78,7 @@ function postRequest(){
 
     $(document).ready(function(){
         var client = new HttpClient();
-        client.get('/api/post', function(response) {
+        client.post('/api/post', function(response) {
         // do something with response
             var temp = JSON.parse(response); 
 
@@ -91,7 +91,7 @@ function postRequest(){
         })
     }); 
     var HttpClient = function() {
-        this.get = function(aUrl, aCallback) {
+        this.post = function(aUrl, aCallback) {
             var inputTitle = document.getElementById("task").value;
             var inputLoc = document.getElementById("loc").value;
             var inputDescrip = document.getElementById("desc").value;
