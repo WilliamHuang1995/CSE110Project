@@ -150,7 +150,7 @@ var currentYear = d.getFullYear();
         var rainbowEffect = true;
         var rainbowCounter = 0;
         var rainbowColor = 'cornflowerBlue';
-        var colorCount = 8; // 8 different colors for different events
+        var colorCount = 6; // 8 different colors for different events
         var rainbowEvent = new Array(colorCount);
         var existingEvent = false;
 
@@ -225,36 +225,29 @@ var currentYear = d.getFullYear();
                   switch(rainbowCounter%7)
                   {
                     case 0:
-                    rainbowColor = 'gray'
+                    rainbowColor = '#FF5722'
                     break;
+											
+										case 1:
+                    rainbowColor = '#4990E2'
+                    break;
+								
+										case 2:
+                    rainbowColor = '#673ABC'
+                    break;
+											
+                   	case 3:
+                    rainbowColor = '#3F51B5'
+                    break;
+				
+										case 4:
+                    rainbowColor = '#FF9800'
+                    break;
+											
+										case 5:
+                    rainbowColor = '#E91E63'
+                    break;	
 
-                    case 1:
-                    rainbowColor = 'orange'
-                    break;
-
-                    case 2:
-                    rainbowColor = 'lightsslategrey'
-                    break;
-
-                    case 3:
-                    rainbowColor = 'goldenrod'
-                    break;
-
-                    case 4:
-                    rainbowColor = 'gold'
-                    break;
-
-                    case 5:
-                    rainbowColor = 'gainsboro'
-                    break;
-
-                    case 6:
-                    rainbowColor = 'darkorange'
-                    break;
-
-                    case 7:
-                    rainbowCounter = 'orangered'
-                    break;
                   }
                   rainbowCounter++;
               }
