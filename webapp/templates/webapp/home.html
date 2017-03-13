@@ -178,7 +178,17 @@
             <div class="row">
 
                 <div class="col-md-4" id="calendarTrash">
+									
                     <h2>To-Do List</h2>
+									
+									
+										<div class="input-group quick-add" id='form-container'>
+											<span class="input-group-addon">	
+													<span class="glyphicon glyphicon-plus"></span>
+											</span>
+										 	<input class="form-control" type="text" value="" placeholder="Quick Add To-Do" id="quick-add">
+										</div>
+
                     <div id='external-events'>
 
                         <div class='fc-event'>Submit status report before customer meeting</div>
@@ -195,9 +205,7 @@
                      
 
                     <div class="button-group">
-											<div id = 'form-container'>
-                        <input class="form-control" type="text" value="" placeholder="Quick Add To-Do" id="quick-add">
-                    </div>
+			
                         <button id="authorize-button" class="btn btn-primary btn-large btn-block">Sync with Google Calendars</button>
                         <button id="signout-button" class="btn btn-danger btn-large btn-block">Sign Out</button>
                         <button id="signout-button" style="display: none;">Sign Out</button>
