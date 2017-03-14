@@ -76,14 +76,23 @@ $('#quick-add').keyup(function (e) {
                 id: 'external-event',
             })
             $(div).draggable({
-                zindex:999,
-                revert: true,
-								scroll:false
+                //revert: 'invalid', 
+                scroll: false,
+                containment: '#tagFun_div_main',
+                helper: 'clone',
+                start : function() {
+                    this.style.visibility="hidden";
+                },
+                stop: function() {
+
+                    this.style.visibility="visible";
+                },
+                zIndex:999
 
             });
             $( "#external-events" ).append(div);
             $(this).val('');
-            
+
         }
 				
 				addEvent();
@@ -250,14 +259,21 @@ $(document).ready(function() {
 
         // make the event draggable using jQuery UI revert, if let go, will go back to its position
         $(this).draggable({
-            clone: this,
-            zIndex: 9999999999,
-            revert: true,
-            scroll: false
+            //revert: 'invalid', 
+            scroll: false,
+            containment: '#tagFun_div_main',
+            helper: 'clone',
+            start : function() {
+                this.style.visibility="hidden";
+            },
+            stop: function() {
+
+                this.style.visibility="visible";
+            },
+            zIndex:999
         });
 
     });
-
 
     //Initialize the Calendar
     $('#calendar').fullCalendar({
@@ -351,11 +367,11 @@ $(document).ready(function() {
 
             todoEvent = $(this);
             startDate = date.format(ACCEPTED_DATE_FORMAT);
-            //var defaultDuration = moment.duration($('#calendar').fullCalendar('option', 'defaultTimedEventDuration'));
-            endDate = date.clone().add(1).format(ACCEPTED_DATE_FORMAT); 
+            var defaultDuration = moment.duration($('#calendar').fullCalendar('option', 'defaultTimedEventDuration'));
+            endDate = date.clone().add(1,'h').format(ACCEPTED_DATE_FORMAT);
             changedEvent = $(this).data('event');
             changedEvent.start = date.format(ACCEPTED_DATE_FORMAT);
-            changedEvent.end = date.clone().add(defaultDuration).format(ACCEPTED_DATE_FORMAT);
+            changedEvent.end =endDate;
             $("#calendar").fullCalendar('removeEvents', 'external-event');
             displayModal(changedEvent, "addToCalendar()", "Add To Calendar");
 
