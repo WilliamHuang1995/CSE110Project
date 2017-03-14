@@ -2,6 +2,12 @@ body {
   margin: 0;
   min-width: 250px;
 }
+.navbar-fixed-left {
+    width: 40px;
+    position: fixed;
+    border-radius: 0;
+    height: 100%;
+}
 
 /* Include the padding and border in an element's total width and height */
 * {

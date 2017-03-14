@@ -71,6 +71,8 @@ $('#quick-add').keyup(function (e) {
             $(div).draggable({
                 zindex:999,
                 revert: true,
+								scroll:false
+
             });
             $( "#external-events" ).append(div);
             $(this).val('');

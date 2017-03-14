@@ -25,7 +25,7 @@ SECRET_KEY = '-h&pur-*9(^f#7ffhc9gtkpa_#@t4e%)07p^b0u41^hs-#b%qt'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [u'secret-bastion-66008.herokuapp.com', u'localhost', u'www.calen-do.com']
 
 
 # Application definition
@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 	'bootstrap3',
+	#'corsheaders',
 ]
 
 MIDDLEWARE = [
@@ -49,6 +50,8 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    #'corsheaders.middleware.CorsMiddleware',
+    #'django.middleware.common.CommonMiddleware',
 ]
 
 ROOT_URLCONF = 'mysite.urls'
@@ -74,15 +77,25 @@ WSGI_APPLICATION = 'mysite.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/1.10/ref/settings/#databases
-
+'''
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
     }
 }
+'''
 
-
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'd911hqikvpts29',
+        'USER': 'lmrymghumvfstq',
+        'PASSWORD': 'e1ee55761a635eb799ce56f10da291f62682742f6fbc0ae018e9a2c2028ef169',
+        'HOST': 'ec2-184-73-222-194.compute-1.amazonaws.com',
+        'PORT': '5432',
+    }
+}
 # Password validation
 # https://docs.djangoproject.com/en/1.10/ref/settings/#auth-password-validators
 
@@ -116,11 +129,13 @@ USE_L10N = True
 USE_TZ = True
 
 
+PROJECT_ROOT = os.path.dirname(os.path.abspath(__file__))
+
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.10/howto/static-files/
 
 STATIC_URL = '/static/'
-
+STATIC_ROOT = os.path.join(PROJECT_ROOT, 'staticfiles')
 APPEND_SLASH=False
 
 EMAIL_HOST  = 'smtp.sendgrid.net'
@@ -129,3 +144,9 @@ EMAIL_HOST_USER = 'apikey'
 EMAIL_HOST_PASSWORD = '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'
 EMAIL_USE_SSL = True
 CSRF_USE_SESSIONS = True
+
+STATICFILES_STORAGE = 'whitenoise.django.GzipManifestStaticFilesStorage'
+X_FRAME_OPTIONS = 'ALLOW'
+SESSION_COOKIE_DOMAIN = "www.calen-do.com"
+#CORS_ORIGIN_ALLOW_ALL = true 
+#CORS_ORIGIN_ALLOW_ALL = True
