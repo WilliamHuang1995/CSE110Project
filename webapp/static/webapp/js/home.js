@@ -37,6 +37,13 @@ var changedEvent;
 var startDate;
 var endDate;
 
+/*****************************************************************
+ * Dynamically changes the end time to match the start time
+ *****************************************************************/
+
+$("#start-time-input").change(function() {
+    $("#end-time-input").val(moment($("#start-time-input").val()).add(1,'hours').format(ACCEPTED_DATE_FORMAT));
+});
 
 
 /*****************************************************************
@@ -339,8 +346,8 @@ $(document).ready(function() {
 
             todoEvent = $(this);
             startDate = date.format(ACCEPTED_DATE_FORMAT);
-            var defaultDuration = moment.duration($('#calendar').fullCalendar('option', 'defaultTimedEventDuration'));
-            endDate = date.clone().add(defaultDuration).format(ACCEPTED_DATE_FORMAT); 
+            //var defaultDuration = moment.duration($('#calendar').fullCalendar('option', 'defaultTimedEventDuration'));
+            endDate = date.clone().add(1).format(ACCEPTED_DATE_FORMAT); 
             changedEvent = $(this).data('event');
             changedEvent.start = date.format(ACCEPTED_DATE_FORMAT);
             changedEvent.end = date.clone().add(defaultDuration).format(ACCEPTED_DATE_FORMAT);
