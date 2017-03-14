@@ -71,12 +71,12 @@ $('#quick-add').keyup(function (e) {
             $(div).draggable({
                 zindex:999,
                 revert: true,
-								scroll:false
+                scroll:false
 
             });
             $( "#external-events" ).append(div);
             $(this).val('');
-            
+
         }
         return false;    //<---- Add this line
     }
@@ -236,14 +236,21 @@ $(document).ready(function() {
 
         // make the event draggable using jQuery UI revert, if let go, will go back to its position
         $(this).draggable({
-            clone: this,
-            zIndex: 9999999999,
-            revert: true,
-            scroll: false
+            revert: 'invalid', 
+            scroll: false,
+            containment: '#tagFun_div_main',
+            helper: 'clone',
+            start : function() {
+                this.style.visibility="hidden";
+            },
+            stop: function() {
+                
+                this.style.visibility="visible";
+            },
+            zIndex:999
         });
 
     });
-
 
     //Initialize the Calendar
     $('#calendar').fullCalendar({
