@@ -3,6 +3,7 @@ from . import views
 
 urlpatterns = [
     url(r'^test*', views.test, name='test'),
+    url(r'^todo-test*', views.todos_test, name='todo-test'),
     url(r'^todo*', views.todos, name='todos'),
     
     url(r'^calendar*', views.calendar, name='calendar'),

@@ -11,6 +11,7 @@ from .models import Calendo_User
 
 import json
 import time
+import math
 
 from .models import Confirm_Email
 from .models import Session
@@ -26,6 +27,16 @@ import random
 
 from django.core.mail import send_mail
 
+def todos_test(request):
+
+	userAuth = user_is_auth(request)
+
+	if not userAuth:
+		return redirect('/login.html')
+	
+	userTodosQuery = Todo.objects.raw('SELECT * FROM webapp_todo WHERE "UserID"=%s', [userAuth])
+	userTodos = [{'title': todo.title, 'id': todo.id} for todo in userTodosQuery]
+	return render(request, 'webapp/todo-test.html', {'todoList': userTodos})
 
 def prompt_login(request):
 	t = loader.get_template('webapp/login.html')
@@ -45,19 +56,18 @@ def get_request(request):
 	#db_result = Todo.objects.raw('SELECT * FROM webapp_todo')
 	#db_json = serializers.serialize('json', db_result, fields=('id', 'title'))
 	#return JsonResponse(db_json, safe=False)
-	queryset = Todo.objects.raw('SELECT * FROM webapp_todo')
-	data = [{'title': item.title, 'id': item.id} for item in queryset]
+	queryset = Todo.objects.raw('SELECT * FROM webapp_todo WHERE id = %s', request.GET.get('id'))
+	data = [{'title': item.title, 'description': item.Description, 'estimateTime': item.EstimateTime, 'dueDate': item.dueDate, 'location': item.location} for item in queryset]
 	return HttpResponse(json.dumps(data),content_type='application/json')
+
 
 def post_request(request):
 	if request.method != 'POST':
-		return redirect('/todo')
+			return redirect('/todo')
 	
-	print("daddy")
-
-	for key, value in request.POST.items():
-		print ("%s %s" ,(key, value))
-
+	userAuth = user_is_auth(request)
+	if not userAuth:
+		return prompt_login(request)
 
 	#see if all were provided
 	if( not (request.POST.get('title') )):
@@ -66,12 +76,62 @@ def post_request(request):
 		return redirect('/home')
 
 	
-	input_title = request.POST.get('title');
+	input_title = request.POST.get('title')
+	input_description = request.POST.get('description')
+	input_estimatedTime = request.POST.get('estimateTime')
+	input_priority = request.POST.get('priority')
+	input_dueDate = request.POST.get('dueDate')
+	input_location = request.POST.get('location')
 	
-	insertToDoResult = Todo(title=input_title)
+	#print(type(input_estimatedTime))
+	#if type(input_estimatedTime) == str or math.isnan(input_estimatedTime):
+	#	print("asdfasdf")
+	#	input_estimatedTime = 0
+	
+	insertToDoResult = Todo(title=input_title,UserID=userAuth,Description=input_description,EstimateTime=input_estimatedTime,DueDate=input_dueDate, Location=input_location)
 	insertToDoResult.save()
 
-	return render(request, 'webapp/todo.html')
+	#queryset = Todo.objects.raw('SELECT id FROM webapp_todo WHERE UserID=%s',[calendo_session_token])
+	#data = [{'id': item.id} for item in queryset]
+	#print("some value")
+	return HttpResponse(json.dumps(insertToDoResult.id),content_type='application/json')
+
+def edit_request(request):
+	if request.method != 'POST':
+			return redirect('/todo')
+	
+	userAuth = user_is_auth(request)
+	if not userAuth:
+		return prompt_login(request)
+
+	#see if all were provided
+	if( not (request.POST.get('title') )):
+		
+		#TODO error handling, give them error messages
+		return redirect('/home')
+
+	
+	input_title = request.POST.get('title')
+	input_description = request.POST.get('description')
+	input_estimatedTime = request.POST.get('estimateTime')
+	input_priority = request.POST.get('priority')
+	input_dueDate = request.POST.get('dueDate')
+	input_location = request.POST.get('location')
+	
+	edit_id = request.POST.get('id')
+	#insertToDoResult = Todo(title=input_title,UserID=userAuth,Description=input_description,EstimateTime=input_estimatedTime,DueDate=input_dueDate, Location=input_location)
+	insertToDoResult = Todo.objects.filter(id=edit_id)
+	insertToDoResult.title = input_title
+	insertToDoResult.Description = input_description
+	insertToDoResult.EstimateTime = input_estimatedTime
+	insertToDoResult.DueDate = input_dueDate
+	insertToDoResult.Location = input_location 
+	insertToDoResult.save()
+
+	#queryset = Todo.objects.raw('SELECT id FROM webapp_todo WHERE UserID=%s',[calendo_session_token])
+	#data = [{'id': item.id} for item in queryset]
+	#print("some value")
+	return render(request, 'webapp/todo-test');
 
 def delete_request(request):
 	if request.method != 'POST':
@@ -79,16 +139,16 @@ def delete_request(request):
 
 	print("dropping")
 
-	if( not (request.POST.get('title') )):
+	if( not (request.POST.get('id') )):
 		
 		#TODO error handling, give them error messages
 		return redirect('/home')
 
 	#this might need to be changed to id 
-	delete_title = request.POST.get('title');
+	delete_id = request.POST.get('id')
 
-	#deleteQuery = Todo.objects.raw('DELETE FROM webapp_todo WHERE title = %s', [delete_title])
-	Todo.objects.filter(title=delete_title).delete() 
+	#deleteQuery = Todo.objects.raw('DELETE FROM webapp_todo WHERE "title" = %s', [delete_title])
+	Todo.objects.filter(id=delete_id).delete() 
 
 	return render(request, 'webapp/todo.html')
 
@@ -101,10 +161,17 @@ def delete_request(request):
 
 def index(request):
 	#insert into database
-	if (request.GET.get('boop')):
-		testPlzSave = Todo(title=request.GET['boop'])
-		testPlzSave.save()
-	return render(request, 'webapp/home.html')
+	userAuth = user_is_auth(request)
+
+	if not userAuth:
+		return redirect('/login.html')
+	
+	userTodosQuery = Todo.objects.raw('SELECT * FROM webapp_todo WHERE "UserID"=%s', [userAuth])
+	userTodos = [{'title': todo.title, 'id': todo.id,'location':todo.Location,'description':todo.Description} for todo in userTodosQuery]
+	print(len(userTodos))
+	for x in userTodos:
+		print(x)
+	return render(request, 'webapp/home.html',{'todoList': userTodos})
 
 def register(request):
 	return render(request, 'webapp/register.html')
@@ -133,7 +200,7 @@ def register_auth(request):
 
 	#see if email already exists
 	
-	preExistingUsers = Calendo_User.objects.raw('SELECT * FROM webapp_calendo_user WHERE Email=%s', [input_email])
+	preExistingUsers = Calendo_User.objects.raw('SELECT * FROM webapp_calendo_user WHERE "Email"=%s', [input_email])
 
 	print( len(list(preExistingUsers )))
 	
@@ -172,7 +239,7 @@ def register_auth(request):
 		
 		To verify your Calendo account, please click on the link below:\n
 
-		http://127.0.0.1:8000/confirm_email?code=""" + codeGenerated + 
+		www.calen-do.com/confirm_email?code=""" + codeGenerated + 
 		
 		"""\n\n
 
@@ -190,7 +257,11 @@ def register_auth(request):
 	return render(request, 'webapp/register-complete.html', {'email':input_email})
 	
 def login(request):
+	
+	print("X in login")
+	
 	if(not user_is_auth(request)):
+		print("USER IS NOT AUTH MITHER FUCKER FCU KEM ")
 		return prompt_login(request)
 	auth_failed = False
 	if(request.GET.get('auth_failed') and request.GET['auth_failed'] == 'true'):
@@ -199,6 +270,7 @@ def login(request):
 
 
 def login_auth(request):
+	print("X IN LOGIN AUTH")
 	if (request.method != 'POST'):
 		return redirect('/login') 
 
@@ -207,6 +279,7 @@ def login_auth(request):
 		return redirect('/login')
 
 	
+	print("X IN LOGIN AUTH2")
 	input_email = request.POST['email']
 	input_password = request.POST['password']
 
@@ -214,8 +287,9 @@ def login_auth(request):
 
 
 	#query database for given email
-	userResult = Calendo_User.objects.raw('SELECT * FROM webapp_calendo_user  WHERE Email=%s', [request.POST['email']])
+	userResult = Calendo_User.objects.raw('SELECT * FROM webapp_calendo_user  WHERE "Email"=%s', [request.POST['email']])
 	
+	print("X IN LOGIN AUTH3")
 	#if not exactly 1 row, error
 	if( len(list(userResult)) != 1):
 		print("oh shits")
@@ -224,14 +298,17 @@ def login_auth(request):
 	userOfInterest = userResult[0]
 
 
+	print("X IN LOGIN AUTH4")
 	#Hash given password. Check with database. error back if not right
 	signer = Signer()
 
 	input_password_enc = signer.sign(input_password)
 	input_password_enc = input_password_enc[input_password_enc.find(":")+1:]
 
+	print("X IN LOGIN AUTH41")
 	if(input_password_enc  == userOfInterest.Password): 
 		
+		print("X IN LOGIN AUTH42")
 		#If still hasnt confrmed password, error it
 		if (not (userOfInterest.isConfirmed)):
 			#TODO let user know they have to confirm their email
@@ -239,17 +316,27 @@ def login_auth(request):
 		
 		#create token in database TODO
 		
+		print("X IN LOGIN AUTH5")
 		session_token = login_token_generator()
 		token_death_date = int(time.time()) + 60*2
 
 		insertSessionTokenResult = Session(SessionId=session_token, UserId=userOfInterest.id, UserEmail=userOfInterest.Email, DeathDate=token_death_date)
 		insertSessionTokenResult.save()
 
-		t = loader.get_template('webapp/home.html')
+		print("X IN LOGIN AUTH6")
+		t = loader.get_template('webapp/home_redirect.html')
 		c = {'userResult':userResult[0]}
 
 		response = HttpResponse(t.render(c, request))
 		response.set_cookie('calendo_session_token', session_token)
+		
+		print("Cook that was set:")
+		print("Cook that was set:")
+		print("Cook that was set:")
+		print("Cook that was set:")
+		print("Cook that was set:")
+		print("Cook that was set:")
+		print(session_token)
 		print("OH YES BABY")
 		return response
 
@@ -274,9 +361,15 @@ def calendar(request):
 
 
 def todos(request):
-	#if(not user_is_auth(request)):
-		#return prompt_login(request)
-	return render(request, 'webapp/todo.html');
+	userAuth = user_is_auth(request)
+
+	if not userAuth:
+		print("TODOS USER IS NOT AUTH")
+		return redirect('/login.html')
+	
+	userTodosQuery = Todo.objects.raw('SELECT * FROM webapp_todo WHERE "UserID"=%s', [userAuth])
+	userTodos = [{'title': todo.title, 'id': todo.id} for todo in userTodosQuery]
+	return render(request, 'webapp/todo-test.html', {'todoList': userTodos})
 
 
 def confirmEmail(request):
@@ -286,9 +379,10 @@ def confirmEmail(request):
 	
 	givenCode = request.GET['code']
 	
-	codeQueryResult = Confirm_Email.objects.raw('SELECT * FROM webapp_Confirm_Email WHERE Code=%s AND IsConfirmed = 0',[givenCode])
+	codeQueryResult = Confirm_Email.objects.raw('SELECT * FROM webapp_Confirm_Email WHERE "Code"=%s AND "IsConfirmed" = False',[givenCode])
 	
 	if( len(list(codeQueryResult)) != 1):
+		print("SQL QUERY FAILED FIRST")
 		return render(request, 'webapp/confirm_email.html', {'confirm_status':'fail'})
 	
 	emailToConfirm = codeQueryResult[0].Email
@@ -309,7 +403,7 @@ def test(request):
 	alex = 'omgfg'
 
 	#get from database
-	db_result = Todo.objects.raw('SELECT * FROM webapp_todo WHERE id=%s', [request.GET['id']])[0]
+	db_result = Todo.objects.raw('SELECT * FROM webapp_todo WHERE "id"=%s', [request.GET['id']])[0]
 	return render(request, 'webapp/test.html', {'alex':alex, 'dbResult':db_result})
 
 def confirm_code_generator(size=30, chars=string.ascii_uppercase + string.digits):
@@ -324,7 +418,7 @@ def user_is_auth(request):
 	if(not calendo_session_token):
 		return False
 	
-	sessionQueryResult = Session.objects.raw('SELECT * FROM webapp_session WHERE SessionId=%s', [calendo_session_token])
+	sessionQueryResult = Session.objects.raw('SELECT * FROM webapp_session WHERE "SessionId"=%s', [calendo_session_token])
 
 	if( len(list(sessionQueryResult)) != 1):
 		return False
@@ -338,8 +432,8 @@ def user_is_auth(request):
 	
 	#update token for another 10 mins
 	
-	new_death_date = int(time.time()) + 2*60
+	new_death_date = int(time.time()) + 10*60
 	updateDeathDateResult = Session(id=session_record.id, DeathDate=new_death_date)
 	updateDeathDateResult.save(update_fields=['DeathDate'])
 	
-	return True
+	return session_record.UserId

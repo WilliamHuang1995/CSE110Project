@@ -44,7 +44,7 @@ body{
 }
 #external-events {
 
-    width: auto;
+    width: 100%;
     height: 50%;
     float: right;
     padding-left: 40px;
