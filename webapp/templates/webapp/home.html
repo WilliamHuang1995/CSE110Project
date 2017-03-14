@@ -233,7 +233,7 @@
 
 
 												{% for todo in todoList %}
-                                                {% if todo.IsScheduled == 0}
+                                                {% if todo.IsScheduled == 0 %}
                         <div data-todoDesc="{{todo.description}}" data-todoLoc="{{todo.location}}" class='fc-event'>{{todo.title}}</div>
 												{% endif %} 
                                                 {% endfor %}
