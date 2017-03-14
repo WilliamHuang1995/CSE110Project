@@ -344,8 +344,8 @@ $(document).ready(function() {
 
             todoEvent = $(this);
             startDate = date.format(ACCEPTED_DATE_FORMAT);
-            var defaultDuration = moment.duration($('#calendar').fullCalendar('option', 'defaultTimedEventDuration'));
-            endDate = date.clone().add(defaultDuration).format(ACCEPTED_DATE_FORMAT); 
+            //var defaultDuration = moment.duration($('#calendar').fullCalendar('option', 'defaultTimedEventDuration'));
+            endDate = date.clone().add(1).format(ACCEPTED_DATE_FORMAT); 
             changedEvent = $(this).data('event');
             changedEvent.start = date.format(ACCEPTED_DATE_FORMAT);
             changedEvent.end = date.clone().add(defaultDuration).format(ACCEPTED_DATE_FORMAT);
