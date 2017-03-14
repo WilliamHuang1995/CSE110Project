@@ -228,7 +228,7 @@ $(document).ready(function() {
   * fads;falksfjasfa
   */            
             location: $(this).attr('data-todoloc'),
-            description: $(this).attr('data-tdodesc'),
+            description: $(this).attr('data-tododesc'),
             title: $.trim($(this).text()), // use the element's text as the event title
             stick: true, // maintain when user navigates (see docs on the renderEvent method)
             id: 'external-event', //give the event id so that it gets removed 
