@@ -231,11 +231,9 @@
 
                     <div id='external-events'>
 												{%csrf_token%}
-
-
 												{% for todo in todoList %}
                                                 {% if todo.isScheduled == 0 %}
-                        <div data-todoDesc="{{todo.description}}" data-todoLoc="{{todo.location}}" class='fc-event' data-todoId="{{todo.id}}">{{todo.title}}</div>
+                        <div data-todoDesc="{{todo.description}}" data-todoLoc="{{todo.location}}" data-todoId="{{todo.id}}" class='fc-event' >{{todo.title}}</div>
 												{% endif %} 
                                                 {% endfor %}
 

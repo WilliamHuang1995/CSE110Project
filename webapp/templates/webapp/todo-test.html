@@ -130,33 +130,29 @@
 							
 							<div class="panel-body">
 								<!-- List group -->
-								
-								<div class="list-group">
-									
-									<a href="#" class="list-group-item list-group-item-action">
-										<span class="glyphicon glyphicon-ok-circle glyphicon-ok-circle-s"></span>
-										<span class="glyphicon glyphicon-trash"></span>
+								<div class="list-group noborder" id="unscheduledDiv">
+										
+									{% csrf_token %}	
+									{% for todo in todoList %}
+									{% if todo.isScheduled == 1 %}
+
+
+									<a href="#" class="list-group-item list-group-item-action list-group-item-unscheduled">
+										<span class="glyphicon glyphicon-ok-circle glyphicon-ok-circle-u"></span>
+										
+										<span class="glyphicon glyphicon-trash glyphicon-trash-u" id= {{todo.id}} onclick="deleteTodo()"></span>
+										
 										
 										<div class="p-2">
-											<p class="mb-1">Print stuff 
-												<img style="margin-bottom:3px; margin-left:7px;" src="" />
+											
+											<p class="mb-1" id={{todo.id}}>{{ todo.title}}
+												<img style="margin-bottom:3px; margin-left:7px;" src="{% static "webapp/img/Fill 71.png" %}" />
 											</p>
-											<small class="text-muted due">TOMORROW 3PM</small>
+											
 										</div>
 									</a>
-									
-									<a href="#" class="list-group-item list-group-item-action">
-										<span class="glyphicon glyphicon-ok-circle glyphicon-ok-circle-s"></span>
-										<div class="p-2 list-group-item-text">
-											<span class="glyphicon glyphicon-trash"></span>
-											<div class="p-2">
-												<p class="mb-1">Print stuff 
-													<img style="margin-bottom:3px; margin-left:7px;" src="{% static "webapp/img/Fill 71.png" %}" />
-												</p>
-											</div>
-											<small class="text-muted overdue">1 WEEK AGO</small>
-										</div>
-									</a>
+									{% endif %}	
+									{% endfor %}
 									
 									
 								</div>

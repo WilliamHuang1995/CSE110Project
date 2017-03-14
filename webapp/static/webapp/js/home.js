@@ -557,6 +557,11 @@ function addToCalendar(){
  * 
 */  
         //$('id')
+        console.log("MOO COWS");
+        var ourId = todoEvent.attr('data-todoID');
+        console.log(ourId); 
+        console.log("what am I");
+        updateRequest(ourId);
         todoEvent.remove();
 
         //close the modal window after completion
@@ -569,6 +574,39 @@ function addToCalendar(){
         console.log(e);
         displayError();
     }
+}
+/*************************************************************************
+ ******
+ ******
+ ******/
+function updateRequest(value){
+     
+    var inputId = value;
+    
+
+
+
+
+
+    var csrftoken = jQuery("[name=csrfmiddlewaretoken]").val(); 
+    console.log("crsf token"+ csrftoken);
+    var url = "/api/schedule";
+    var form_data = new FormData();
+    
+    form_data.append("id", inputId);
+    
+
+
+    var xhr = new XMLHttpRequest();
+    xhr.open("POST", url, true);
+                
+            //Send the proper header information along with the request
+            //xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+    xhr.setRequestHeader("X-CSRFToken", csrftoken);
+
+    xhr.send(form_data);
+    console.log("sent params");
+
 }
 /*****************************************************************
  * SAVE CHANGED

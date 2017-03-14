@@ -42,21 +42,21 @@ def get_request(request):
 def update_request(request):
 	if request.method != 'POST': 
 		return redirect('/')
+	
 	userAuth = user_is_auth(request)
 	if not userAuth:
 		return prompt_login(request)
 
-	if(not (request.POST.get('id'))):
-		return redirect('/')
+	
 
 	
 	edit_id = request.POST.get('id')
+	print(edit_id)
+	insertToDoResult = Todo(id=edit_id, IsScheduled = 1)
+	
+	insertToDoResult.save(update_fields=['IsScheduled']) 
 
-	insertToDoResult = Todo.objects.filter(id=edit_id)
-	insertToDoResult.IsScheduled = 1
-	insertToDoResult.save() 
-
-	return render(request, 'webapp/todo-test')
+	return render(request, 'webapp/todo-test.html')
 
 
 def post_request(request):
@@ -129,7 +129,7 @@ def edit_request(request):
 	#queryset = Todo.objects.raw('SELECT id FROM webapp_todo WHERE UserID=%s',[calendo_session_token])
 	#data = [{'id': item.id} for item in queryset]
 	#print("some value")
-	return render(request, 'webapp/todo-test')
+	return render(request, 'webapp/todo-test.html')
 
 def delete_request(request):
 	if request.method != 'POST':
