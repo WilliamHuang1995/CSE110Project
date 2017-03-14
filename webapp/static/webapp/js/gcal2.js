@@ -13,6 +13,11 @@ var SCOPES = "https://www.googleapis.com/auth/calendar";
 var authorizeButton = document.getElementById('authorize-button');
 var signoutButton = document.getElementById('signout-button');
 
+function timeBlock(start1,end1,duration1){
+    this.start = start1;
+    this.end = end1;
+    this.duration = duration1;
+}
 
 /**On load, called to load the auth2 library and API client library.*/
 function handleClientLoad() {
@@ -121,6 +126,7 @@ function listUpcomingEvents() {
         'calendarId': 'primary',
     }).then(function(response) {
         var eventsList = [];
+        var freeList = [];
         var successArgs;
         var successRes;
         var events = response.result.items;
@@ -338,6 +344,8 @@ function listUpcomingEvents() {
                 var FreeHourEnd = (Math.floor(endBlocks/60))%(24);
                 var FreeMinuteEnd = endBlocks%60;
 
+                var freeTimeMinutes = ConsecBlocks;
+
                 console.log(FreeDateStart, FreeHourStart, FreeMinuteStart);
                 console.log(FreeDateEnd, FreeHourEnd, FreeMinuteEnd);
 
@@ -360,8 +368,10 @@ function listUpcomingEvents() {
                 //console.log(FreeEventStart);
                 //console.log(FreeEventEnd);
 
-                
-                eventsList.push({
+                var freeObject = new timeBlock(startBlocks,endBlocks,freeTimeMinutes);
+                freeList.push(freeObject);
+                console.log(freeList[0].duration);
+                /* eventsList.push({
                 title: 'Free Time', 
                 start: FreeEventStart,
                 end: FreeEventEnd,
@@ -370,11 +380,39 @@ function listUpcomingEvents() {
                 url: undefined,
 
 
-                });
+                });*/
                 
             }
         }
         console.log("end123");
+        var todoList = [];
+        /* TO DEBUG
+        todoList[0].title = 'TESTTODO';
+        todoList[0].priority = 1;
+        todoList[0].estimatedTime = 180;
+
+            for (j=0; j < todoList.length; j++)
+            {
+                for (k=0; k< freeList.length; k++)
+                {
+                    if(todoList.priority == i)
+                    {
+                        if(todoList[j].estimatedTime < freeList[k].duration)
+                        {
+                            eventsList.push({
+                            title: todoList[j].title, 
+                            start: FreeEventStart,
+                            end: FreeEventEnd,
+                            color: 'blue',
+                            id: "external-event",
+                            url: undefined,
+                            });
+                        }
+                    }
+                }
+            }
+        */
+        
 
 
 
