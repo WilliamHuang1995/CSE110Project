@@ -106,7 +106,7 @@ function listUpcomingEvents() {
 
     var newDate = new Date();
     var datetime = "LastSync: " + newDate.today() + " @ " + newDate.timeNow();
-    console.log(newDate, datetime);
+    // console.log(newDate, datetime);
     var d = new Date();
     var currentMonth = d.getMonth() + 1;
     var currentDate = d.getDate();
@@ -193,22 +193,54 @@ function listUpcomingEvents() {
 
             var DurationBlocks = DurationDate*24*60 + DurationHour*60 + DurationMinute; 
 
+            // entry is within same year
             if (StartYear == 0)
             {
-
+                // entry is within same month
                 if (StartMonth == 0)
                 {
-
-                    if (StartDate >= 0)
+                    // if entry is within two weeks from today
+                    if (StartDate >= 0 && StartDate <= daysTwoWeeks)
                     {
                         for(i = (StartDate*24*60 + StartHour*60 + StartMinute); i < (StartDate*24*60 + StartHour*60 + StartMinute)+ DurationBlocks; i++)
                         {
-
                             freeTime[i] = 1;
                             // 1 is busy, 0 is free
                         }
                     }
                 }
+                // End of month
+                else if (StartMonth == 1)
+                {
+                    var differenceInDays = entryDateStart + daysInMonth(currentMonth, currentYear) - currentDate;
+                    if (differenceInDays <= daysTwoWeeks)
+                    {
+                        for(i = (differenceInDays*24*60 + StartHour*60 + StartMinute); i < (differenceInDays*24*60 + StartHour*60 + StartMinute)+ DurationBlocks; i++)
+                        {
+                            freeTime[i] = 1;
+                            // 1 is busy, 0 is free
+                        }
+                    }
+                }
+            }
+            // entry year is following year
+            
+            else if (StartYear == 1)
+            {
+                // If current month is December and entry month is January of folling year
+                if(StartMonth == - 11)
+                {
+                    var differenceInDays = entryDateStart + daysInMonth(currentMonth, currentYear) - currentDate;
+                    if (differenceInDays <= daysTwoWeeks)
+                    {
+                        for(i = (differenceInDays*24*60 + StartHour*60 + StartMinute); i < (differenceInDays*24*60 + StartHour*60 + StartMinute)+ DurationBlocks; i++)
+                        {
+                            freeTime[i] = 1;
+                            // 1 is busy, 0 is free
+                        }
+                    }
+                }
+
             }
 
 
@@ -216,14 +248,14 @@ function listUpcomingEvents() {
 
             if(rainbowEffect)
             {
-                console.log(rainbowCounter);
+                // console.log(rainbowCounter);
                 for(i = 0; i < eventsList.length; i++)
                 {
 
                     if(entry.summary == eventsList[i].title)
                     {
-                        console.log(entry.summary);
-                        console.log(eventsList[i].title);
+                        // console.log(entry.summary);
+                        // console.log(eventsList[i].title);
                         rainbowColor = eventsList[i].color;
                         existingEvent = true;
                         break;
@@ -328,19 +360,21 @@ function listUpcomingEvents() {
                 //console.log(FreeEventStart);
                 //console.log(FreeEventEnd);
 
-                /*
+                
                 eventsList.push({
                 title: 'Free Time', 
                 start: FreeEventStart,
                 end: FreeEventEnd,
-                color: 'DeepSkyBlue'
+                color: 'blue',
+                id: "external-event",
+                url: undefined,
 
 
                 });
-                */
+                
             }
         }
-        console.log("end");
+        console.log("end123");
 
 
 
@@ -363,4 +397,8 @@ function listUpcomingEvents() {
             appendPre('No upcoming events found.');
         }*/
     });
+}
+
+function daysInMonth(month, year) {
+  return new Date(year, month, 0).getDate();
 }
