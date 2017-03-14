@@ -82,9 +82,9 @@ def post_request(request):
 	input_location = request.POST.get('location')
 	
 	print(type(input_estimatedTime))
-	if type(input_estimatedTime) == str or math.isnan(input_estimatedTime):
-		print("asdfasdf")
-		input_estimatedTime = 0
+	#if type(input_estimatedTime) == str or math.isnan(input_estimatedTime):
+#		print("asdfasdf")
+#		input_estimatedTime = 0
 	
 	insertToDoResult = Todo(title=input_title,UserID=userAuth,Description=input_description,EstimateTime=input_estimatedTime,DueDate=input_dueDate, Location=input_location)
 	insertToDoResult.save()
