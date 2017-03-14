@@ -37,6 +37,13 @@ var changedEvent;
 var startDate;
 var endDate;
 
+/*****************************************************************
+ * Dynamically changes the end time to match the start time
+ *****************************************************************/
+
+$("#start-time-input").change(function() {
+    $("#end-time-input").val(moment($("#start-time-input").val()).add(1,'hours').format(ACCEPTED_DATE_FORMAT));
+});
 
 
 /*****************************************************************
