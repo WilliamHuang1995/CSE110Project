@@ -69,9 +69,18 @@ $('#quick-add').keyup(function (e) {
                 id: 'external-event',
             })
             $(div).draggable({
-                zindex:999,
-                revert: true,
-                scroll:false
+                revert: 'invalid', 
+                scroll: false,
+                containment: '#tagFun_div_main',
+                helper: 'clone',
+                start : function() {
+                    this.style.visibility="hidden";
+                },
+                stop: function() {
+
+                    this.style.visibility="visible";
+                },
+                zIndex:999
 
             });
             $( "#external-events" ).append(div);
@@ -244,7 +253,7 @@ $(document).ready(function() {
                 this.style.visibility="hidden";
             },
             stop: function() {
-                
+
                 this.style.visibility="visible";
             },
             zIndex:999
