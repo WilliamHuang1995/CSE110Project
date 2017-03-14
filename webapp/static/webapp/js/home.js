@@ -224,6 +224,11 @@ $(document).ready(function() {
     $('.fc-event').each(function() {
         //Initializing external event.
         $(this).data('event', {
+ /******************************************************************
+  * fads;falksfjasfa
+  */            
+            location: $(this).attr('data-todoloc'),
+            description: $(this).attr('data-tdodesc'),
             title: $.trim($(this).text()), // use the element's text as the event title
             stick: true, // maintain when user navigates (see docs on the renderEvent method)
             id: 'external-event', //give the event id so that it gets removed 
@@ -521,6 +526,12 @@ function addToCalendar(){
 
         //Remove from todolist event
         //Will not trigger if user does not click button.
+/********************************************
+ * dfa;dlfkajdfalkfj
+
+ * 
+*/  
+        //$('id')
         todoEvent.remove();
 
         //close the modal window after completion

@@ -39,6 +39,25 @@ def get_request(request):
 	data = [{'title': item.title, 'description': item.Description, 'estimateTime': item.EstimateTime, 'dueDate': item.dueDate, 'location': item.location} for item in queryset]
 	return HttpResponse(json.dumps(data),content_type='application/json')
 
+def update_request(request):
+	if request.method != 'POST': 
+		return redirect('/')
+	userAuth = user_is_auth(request)
+	if not userAuth:
+		return prompt_login(request)
+
+	if(not (request.POST.get('id'))):
+		return redirect('/')
+
+	
+	edit_id = request.POST.get('id')
+
+	insertToDoResult = Todo.objects.filter(id=edit_id)
+	insertToDoResult.IsScheduled = 1
+	insertToDoResult.save() 
+
+	return render(request, 'webapp/todo-test')
+
 
 def post_request(request):
 	if request.method != 'POST':
@@ -110,7 +129,7 @@ def edit_request(request):
 	#queryset = Todo.objects.raw('SELECT id FROM webapp_todo WHERE UserID=%s',[calendo_session_token])
 	#data = [{'id': item.id} for item in queryset]
 	#print("some value")
-	return render(request, 'webapp/todo-test');
+	return render(request, 'webapp/todo-test')
 
 def delete_request(request):
 	if request.method != 'POST':
