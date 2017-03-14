@@ -78,6 +78,8 @@ $('#quick-add').keyup(function (e) {
             $(this).val('');
             
         }
+				
+				addEvent();
         return false;    //<---- Add this line
     }
 });
