@@ -62,6 +62,8 @@ class Todo(models.Model):
 	EstimateTime = models.IntegerField(default=1)
 	DueDate = models.DateField(null=True)
 	Location = models.TextField(null=True)
+	#need int field for isscheduled 
+	#need int field for smart schedule 
 	#SmartSchedule = models.IntegerField(default=0)
 
 	

@@ -5,20 +5,21 @@ from django.http import JsonResponse
 import django.apps
 from django.core.signing import Signer
 from django.core import serializers
-from .models import Todo
-from .models import Calendo_User
+from ..models import Todo
+from ..models import Calendo_User
 
 
 import json
 import time
 import math
-import viewstest
-import viewsapi
-import viewslogin
+from .viewslogin import * 
+from .viewsapi import *
+from .viewstest import * 
+from .userAuth import * 
 
 
-from .models import Confirm_Email
-from .models import Session
+from ..models import Confirm_Email
+from ..models import Session
 
 
 from django.http import HttpResponse
@@ -30,8 +31,6 @@ import random
 
 
 from django.core.mail import send_mail
-
-
 def index(request):
 	#insert into database
 	userAuth = user_is_auth(request)
@@ -45,6 +44,14 @@ def index(request):
 	for x in userTodos:
 		print(x)
 	return render(request, 'webapp/home.html',{'todoList': userTodos})
+
+def prompt_login(request):
+	t = loader.get_template('webapp/login.html')
+	c = {}
+
+	response = HttpResponse(t.render(c, request))
+	response.delete_cookie('calendo_session_token')
+	return response
 
 def register(request):
 	return render(request, 'webapp/register.html')
@@ -80,7 +87,4 @@ def todos(request):
 	userTodosQuery = Todo.objects.raw('SELECT * FROM webapp_todo WHERE "UserID"=%s', [userAuth])
 	userTodos = [{'title': todo.title, 'id': todo.id} for todo in userTodosQuery]
 	return render(request, 'webapp/todo-test.html', {'todoList': userTodos})
-
-
-
 

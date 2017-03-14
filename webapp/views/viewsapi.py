@@ -5,20 +5,20 @@ from django.http import JsonResponse
 import django.apps
 from django.core.signing import Signer
 from django.core import serializers
-from .models import Todo
-from .models import Calendo_User
+from ..models import Todo
+from ..models import Calendo_User
 
 
 import json
 import time
 import math
-import viewstest
-import viewshtml
-import viewslogin
+from .viewslogin import * 
+from .viewshtml import *
+from .viewstest import * 
+from .userAuth import *
 
-
-from .models import Confirm_Email
-from .models import Session
+from ..models import Confirm_Email
+from ..models import Session
 
 
 from django.http import HttpResponse
@@ -30,6 +30,7 @@ import random
 
 
 from django.core.mail import send_mail
+
 def get_request(request):
 	#db_result = Todo.objects.raw('SELECT * FROM webapp_todo')
 	#db_json = serializers.serialize('json', db_result, fields=('id', 'title'))
@@ -111,6 +112,7 @@ def edit_request(request):
 	#print("some value")
 	return render(request, 'webapp/todo-test');
 
+def delete_request(request):
 	if request.method != 'POST':
 		return redirect('/todo')
 

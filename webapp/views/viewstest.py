@@ -5,21 +5,20 @@ from django.http import JsonResponse
 import django.apps
 from django.core.signing import Signer
 from django.core import serializers
-from .models import Todo
-from .models import Calendo_User
+from ..models import Todo
+from ..models import Calendo_User
 
 
 import json
 import time
 import math
+from .viewslogin import * 
+from .viewsapi import *
+from .viewshtml import *
 
-import viewsapi
-import viewshtml
-import viewslogin
 
-
-from .models import Confirm_Email
-from .models import Session
+from ..models import Confirm_Email
+from ..models import Session
 
 
 from django.http import HttpResponse
@@ -31,7 +30,6 @@ import random
 
 
 from django.core.mail import send_mail
-
 def todos_test(request):
 
 	userAuth = user_is_auth(request)

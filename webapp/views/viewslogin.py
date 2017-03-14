@@ -5,20 +5,20 @@ from django.http import JsonResponse
 import django.apps
 from django.core.signing import Signer
 from django.core import serializers
-from .models import Todo
-from .models import Calendo_User
+from ..models import Todo
+from ..models import Calendo_User
 
 
 import json
 import time
 import math
-import viewstest
-import viewsapi
-import viewshtml
+from .viewsapi import *
+from .viewshtml import *
+from .viewstest import *
+from .userAuth import * 
 
-
-from .models import Confirm_Email
-from .models import Session
+from ..models import Confirm_Email
+from ..models import Session
 
 
 from django.http import HttpResponse
@@ -222,32 +222,8 @@ def confirmEmail(request):
 
 def confirm_code_generator(size=30, chars=string.ascii_uppercase + string.digits):
     return ''.join(random.SystemRandom().choice(string.ascii_uppercase + string.digits) for _ in range(size))
+
 def login_token_generator(size=25, chars=string.ascii_lowercase + string.digits):
     return ''.join(random.SystemRandom().choice(string.ascii_uppercase + string.digits) for _ in range(size))
 
 
-def user_is_auth(request):
-	calendo_session_token = request.COOKIES.get('calendo_session_token')
-
-	if(not calendo_session_token):
-		return False
-	
-	sessionQueryResult = Session.objects.raw('SELECT * FROM webapp_session WHERE "SessionId"=%s', [calendo_session_token])
-
-	if( len(list(sessionQueryResult)) != 1):
-		return False
-	
-	session_record = sessionQueryResult[0]
-	
-	#if token is expired, passed deathdate
-
-	if (session_record.DeathDate <  int(time.time())):
-		return False
-	
-	#update token for another 10 mins
-	
-	new_death_date = int(time.time()) + 10*60
-	updateDeathDateResult = Session(id=session_record.id, DeathDate=new_death_date)
-	updateDeathDateResult.save(update_fields=['DeathDate'])
-	
-	return session_record.UserId
