@@ -37,6 +37,13 @@ var changedEvent;
 var startDate;
 var endDate;
 
+/*****************************************************************
+ * Dynamically changes the end time to match the start time
+ *****************************************************************/
+
+$("#start-time-input").change(function() {
+    $("#end-time-input").val(moment($("#start-time-input").val()).add(1,'hours').format(ACCEPTED_DATE_FORMAT));
+});
 
 
 /*****************************************************************
@@ -69,14 +76,23 @@ $('#quick-add').keyup(function (e) {
                 id: 'external-event',
             })
             $(div).draggable({
-                zindex:999,
-                revert: true,
-								scroll:false
+                revert: 'invalid', 
+                scroll: false,
+                containment: '#tagFun_div_main',
+                helper: 'clone',
+                start : function() {
+                    this.style.visibility="hidden";
+                },
+                stop: function() {
+
+                    this.style.visibility="visible";
+                },
+                zIndex:999
 
             });
             $( "#external-events" ).append(div);
             $(this).val('');
-            
+
         }
         return false;    //<---- Add this line
     }
@@ -236,14 +252,21 @@ $(document).ready(function() {
 
         // make the event draggable using jQuery UI revert, if let go, will go back to its position
         $(this).draggable({
-            clone: this,
-            zIndex: 9999999999,
-            revert: true,
-            scroll: false
+            revert: 'invalid', 
+            scroll: false,
+            containment: '#tagFun_div_main',
+            helper: 'clone',
+            start : function() {
+                this.style.visibility="hidden";
+            },
+            stop: function() {
+
+                this.style.visibility="visible";
+            },
+            zIndex:999
         });
 
     });
-
 
     //Initialize the Calendar
     $('#calendar').fullCalendar({
@@ -337,8 +360,8 @@ $(document).ready(function() {
 
             todoEvent = $(this);
             startDate = date.format(ACCEPTED_DATE_FORMAT);
-            var defaultDuration = moment.duration($('#calendar').fullCalendar('option', 'defaultTimedEventDuration'));
-            endDate = date.clone().add(defaultDuration).format(ACCEPTED_DATE_FORMAT); 
+            //var defaultDuration = moment.duration($('#calendar').fullCalendar('option', 'defaultTimedEventDuration'));
+            endDate = date.clone().add(1).format(ACCEPTED_DATE_FORMAT); 
             changedEvent = $(this).data('event');
             changedEvent.start = date.format(ACCEPTED_DATE_FORMAT);
             changedEvent.end = date.clone().add(defaultDuration).format(ACCEPTED_DATE_FORMAT);

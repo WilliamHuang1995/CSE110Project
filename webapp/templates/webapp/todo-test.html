@@ -23,7 +23,43 @@
 	
 	
 		<body>
+        <div id="settingsModal" class="modal fade" role="dialog">
+            <div class="modal-dialog">
+                <!-- Modal content-->
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h3>Settings</h3>
+                    </div>
+                    <div class="modal-body">
+                        <form class="form-inline">
+                            <div id="start-time-input-div" class="form-group">
+                                <label class="control-label col-sm-2" for="active-start-time-input">
+                                    Active Hours:
+                                </label>
+                                <div class="col-sm-10">
+                                    <input class="form-control" name="start-date" placeholder="YYYY/MM/DD" type="time" id="active-start-time-input">
+                                </div>
+                            </div>
+                            <div id="end-time-input-div" class="form-group">
+                                <label class="control-label col-sm-2" for="active-end-time-input">
+                                    To:
+                                </label>
+                                <div class="col-sm-10">
+                                    <input class="form-control" name="start-date" placeholder="YYYY/MM/DD" type="time" id="active-end-time-input">
+                                </div>
+                            </div>
+                        </form>
+                        <button id="logout-button" class="btn btn-danger btn-large btn-block">Log Out</button>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Save Changes</button>
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                    </div>
+                </div>
 
+            </div>
+        </div>
 			<!--- navbar yo -->
         <div class="navbar navbar-inverse navbar-fixed-left" role="navigation">
             <ul class="nav navbar-nav">
