@@ -53,7 +53,7 @@
 										
 									{% csrf_token %}	
 									{% for todo in todoList %}
-									{% if todo.IsScheduled == 0 %}
+									{% if todo.isScheduled == 0 %}
 
 
 									<a href="#" class="list-group-item list-group-item-action list-group-item-unscheduled">
