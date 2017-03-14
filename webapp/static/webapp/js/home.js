@@ -76,7 +76,7 @@ $('#quick-add').keyup(function (e) {
                 id: 'external-event',
             })
             $(div).draggable({
-                revert: 'invalid', 
+                //revert: 'invalid', 
                 scroll: false,
                 containment: '#tagFun_div_main',
                 helper: 'clone',
@@ -252,7 +252,7 @@ $(document).ready(function() {
 
         // make the event draggable using jQuery UI revert, if let go, will go back to its position
         $(this).draggable({
-            revert: 'invalid', 
+            //revert: 'invalid', 
             scroll: false,
             containment: '#tagFun_div_main',
             helper: 'clone',
@@ -360,11 +360,11 @@ $(document).ready(function() {
 
             todoEvent = $(this);
             startDate = date.format(ACCEPTED_DATE_FORMAT);
-            //var defaultDuration = moment.duration($('#calendar').fullCalendar('option', 'defaultTimedEventDuration'));
-            endDate = date.clone().add(1).format(ACCEPTED_DATE_FORMAT); 
+            var defaultDuration = moment.duration($('#calendar').fullCalendar('option', 'defaultTimedEventDuration'));
+            endDate = date.clone().add(1,'h').format(ACCEPTED_DATE_FORMAT);
             changedEvent = $(this).data('event');
             changedEvent.start = date.format(ACCEPTED_DATE_FORMAT);
-            changedEvent.end = date.clone().add(defaultDuration).format(ACCEPTED_DATE_FORMAT);
+            changedEvent.end =endDate;
             $("#calendar").fullCalendar('removeEvents', 'external-event');
             displayModal(changedEvent, "addToCalendar()", "Add To Calendar");
 
