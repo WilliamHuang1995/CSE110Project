@@ -76,7 +76,7 @@ function postRequest(){
                     
             var estimatedTime = inputHours * 60 + inputMins;
 						
-						if(Number.isNan(estimatedTime))
+						if(Number.isNaN(estimatedTime))
 							estimatedTime = 0;
 
 
