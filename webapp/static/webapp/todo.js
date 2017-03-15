@@ -224,8 +224,8 @@ function newTodo() {
 function deleteTodo(){
     var close = document.getElementsByClassName("glyphicon glyphicon-trash glyphicon-trash-u");
     var i;
-   // for (i = 0; i < close.length; i++) {
-        close.onclick = function() {
+    for (i = 0; i < close.length; i++) {
+      close[i].onclick = function() {
         var div = this;
         console.log(div);
         //var text = div["innerText" in div ? "innerText" : "textContent"]; 
@@ -235,7 +235,7 @@ function deleteTodo(){
         deleteRequest(text);   
         div.parentElement.style.display = "none";
       }
-   // }    
+    }    
 };
 
 
