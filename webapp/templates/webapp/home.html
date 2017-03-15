@@ -19,7 +19,7 @@
 
         <!--Import fullcalendar/jquery-->
         <link rel="stylesheet" href="{% static 'webapp/fullcalendar/fullcalendar.css' %}" type = "text/css"/>
-			 	<link rel="stylesheet" href="{% static 'webapp/fullcalendar/fullcalendar-custom.css' %}" type = "text/css"/>
+        <link rel="stylesheet" href="{% static 'webapp/fullcalendar/fullcalendar-custom.css' %}" type = "text/css"/>
         <!--Import Font Awesome-->
         <link rel="stylesheet" href='https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css' type = "text/css"/>
 
@@ -231,43 +231,44 @@
                     </div>
 
                     <div id='external-events'>
-												{%csrf_token%}
+                        {%csrf_token%}
 
 
-												{% for todo in todoList %}
+                        {% for todo in todoList %}
                         <div data-todoDesc="{{todo.description}}" data-todoLoc="{{todo.location}}" class='fc-event'>{{todo.title}}</div>
-												{% endfor %}
+                        {% endfor %}
 
-                        
+
                     </div>
 
-                <div class="button-group">
-                    <button id="authorize-button" class="btn btn-primary btn-large btn-block">Click to Show Google Calendar</button>
-                    <button id="signout-button" class="btn btn-danger btn-large btn-block">Hide Calendar</button>
-                    <button id="signout-button" style="display: none;">Sign Out</button>
+                    <div class="button-group">
+                        <button id="authorize-button" class="btn btn-primary btn-large btn-block">Click to Show Google Calendar</button>
+                        <button id="signout-button" class="btn btn-danger btn-large btn-block">Hide Calendar</button>
+                        <button id="signout-button" style="display: none;">Sign Out</button>
+                    </div>
+
+
+                </div>
+                <div class="col-md-8" id='calendar-container'><!--Change this to col-md-6 for half view-->
+                    <!--this line does the magic-->
+                    <div id='calendar' class='cal'></div>
                 </div>
 
 
             </div>
-            <div class="col-md-8" id='calendar-container'><!--Change this to col-md-6 for half view-->
-                <!--this line does the magic-->
-                <div id='calendar' class='cal'></div>
-            </div>
-
-
-        </div>
         </div>
 
-    <script type="text/javascript" src='{% static "webapp/js/home.js" %}'></script>
-    <script type="text/javascript" src='{% static "webapp/js/gcal2.js" %}'></script>
-    <!-- The following has to go with the above script-->
-    <script async defer src="https://apis.google.com/js/api.js"
-            onload="this.onload=function(){};handleClientLoad()"
-            onreadystatechange="if (this.readyState === 'complete') this.onload()">
-    </script>
-    <!--The following script is a script that is used to get public google calendars. But we don't want that -->
-    <script type='text/javascript' src='{% static "webapp/fullcalendar/gcal.js" %}'></script>
-    <audio id="audio" src="{% static 'webapp/1.mp3' %}" ></audio><!--yee-->
+
+        <script type="text/javascript" src='{% static "webapp/js/gcal2.js" %}'></script>
+        <script type="text/javascript" src='{% static "webapp/js/home.js" %}'></script>
+        <!-- The following has to go with the above script-->
+        <script async defer src="https://apis.google.com/js/api.js"
+                onload="this.onload=function(){};handleClientLoad()"
+                onreadystatechange="if (this.readyState === 'complete') this.onload()">
+        </script>
+        <!--The following script is a script that is used to get public google calendars. But we don't want that -->
+        <script type='text/javascript' src='{% static "webapp/fullcalendar/gcal.js" %}'></script>
+        <audio id="audio" src="{% static 'webapp/1.mp3' %}" ></audio><!--yee-->
     </body>
 </html>
 
