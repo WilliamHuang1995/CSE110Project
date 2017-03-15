@@ -58,8 +58,6 @@ function showExtraSettings() {
 //trying a callback post request :) 
 
 
-
-
 function postRequest(){
      
     var HttpClient = function() {
@@ -215,13 +213,18 @@ function newTodo() {
 /*
 };
 */
+/*function checkTodo(){
+    var check = document.getElementByClassName("glyphicon glyphicon-ok-circle glyphicon-ok-circle-u");
+
+}*/
+
 
 
 //should execute on delete call 
 function deleteTodo(){
     var close = document.getElementsByClassName("glyphicon glyphicon-trash glyphicon-trash-u");
     var i;
-    for (i = 0; i < close.length; i++) {
+   // for (i = 0; i < close.length; i++) {
       close[i].onclick = function() {
         var div = this;
         console.log(div);
@@ -232,7 +235,7 @@ function deleteTodo(){
         deleteRequest(text);   
         div.parentElement.style.display = "none";
       }
-    }    
+   // }    
 };
 
 
