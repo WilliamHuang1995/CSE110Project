@@ -244,3 +244,11 @@ input:focus {
 	border-radius: 0px; 
 }
 
+#active-hours-form {
+    text-align: center;
+    margin: 0px auto;
+}
+
+#logout-button {
+    float: left;
+}
