@@ -220,7 +220,7 @@ function listUpcomingEvents() {
             }
         }
 
-        var rainbowEffect = false;
+        var rainbowEffect = true;
         var rainbowCounter = 0;
         var rainbowColor = 'cornflowerBlue';
         var colorCount = 6; // 8 different colors for different events
@@ -329,7 +329,7 @@ function listUpcomingEvents() {
                     }
                 }
             }
-
+            colorArray=['#FF5722','#4990E2','#673ABC','#3F51B5','#FF9800','#E91E63']
             if (existingEvent == false)
             {
                 switch(rainbowCounter%7)
@@ -374,7 +374,7 @@ function listUpcomingEvents() {
                 url: url,
                 location: entry.location,
                 description: entry.description,
-                color: rainbowColor
+                color: '#FF9800' //change it back later if u want
 
             });
 
@@ -449,6 +449,17 @@ function listUpcomingEvents() {
         var todoListHigh = [];
         var todoListNormal = [];
 
+        
+        /*****************************************************************
+         *
+         *
+         * YO ERIC LOOK HERE. PUT UR BACK END STUFF HERE~!@!@$!@#!@#
+         * the line directly below is what you'll need
+         *
+         *****************************************************************/
+        
+        //todoList.push(new timeBlock(new Date(),undefined,//duration in minutes in INTEGER,//high or normal, //event name));
+        
         // testing todos
         startObject = new Date();
         var freeObject = new timeBlock(startObject,undefined,45,'high','High priority');
@@ -483,7 +494,11 @@ function listUpcomingEvents() {
         todoList.push(freeObject);
         // end of testing todos
 
-        //high priorities and low priorities
+        
+        /*****************************************************************
+         * Sorts high priority and low priority
+         * After sorting prioritizes high pri event over low pri
+         *****************************************************************/
         for (j=0; j < todoList.length; j++)
         {
             if (todoList[j].priority == 'high')
@@ -495,7 +510,9 @@ function listUpcomingEvents() {
         {
             for ( i=0; i < todoListHigh.length; i++)
             {
-                //If the todo can't fit 
+                /*****************************************************************
+                 * If you can fit to do
+                 *****************************************************************/
                 if(todoListHigh[i].duration + 2*minutesBreak < freeList[k].duration)
                 {
                     eventsList.push({
@@ -503,9 +520,13 @@ function listUpcomingEvents() {
                         start: blocksToTime(freeList[k].start + minutesBreak, 'start'),
                         end: blocksToTime(freeList[k].start + todoListHigh[i].duration + minutesBreak, 'end'),
                         color: 'red',
+                        id: 'smart-schedule',
                         description: 'High Priority Calen-Do event created by smart scheduling'
 
                     });
+                    /*****************************************************************
+                     * update after insertion
+                     *****************************************************************/
                     freeList[k].start = freeList[k].start + (todoListHigh[i].duration + minutesBreak);
                     freeList[k].duration = freeList[k].duration - (todoListHigh[i].duration + minutesBreak);
 
@@ -526,6 +547,7 @@ function listUpcomingEvents() {
                         start: blocksToTime(freeList[k].start + minutesBreak, 'start'),
                         end: blocksToTime(freeList[k].start + todoListNormal[i].duration + minutesBreak, 'end'),
                         color: 'pink',
+                        id: 'smart-schedule',
                         description: 'Low Priority Calen-Do event created by smart scheduling'
 
                     });
@@ -536,27 +558,13 @@ function listUpcomingEvents() {
                 }
             }
         }
-        //freeList = smartSchedule(todoListNormal, freeList, eventsList);
-
+        
 
         successArgs = [ eventsList].concat(Array.prototype.slice.call(arguments, 1));
         successRes = $.fullCalendar.applyAll(true, this, successArgs);
         if(events.length > 0){
             $('#calendar').fullCalendar('addEventSource', eventsList, true);
         }
-        /* Debug purpose
-        if (events.length > 0) {
-            for (i = 0; i < events.length; i++) {
-                var event = events[i];
-                var when = event.start.dateTime;
-                if (!when) {
-                    when = event.start.date;
-                }
-                appendPre(event.summary + ' (' + when + ')')
-            }
-        } else {
-            appendPre('No upcoming events found.');
-        }*/
     });
 }
 

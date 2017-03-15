@@ -143,11 +143,25 @@ function displayModal(calEvent, strSubmitFunc, eventType) {
             $("#url").hide();
             $('.delete-button').hide();
         }
+        //Calendo Event created via Smart Scheduling
+        else if(calEvent.id=="smart-schedule"){
+            $('h3.eventType').text('Add to Calendar');
+            $('.confirmation-button').text('Add');
+
+            //Body
+            $('#event-name-input').val(calEvent.title);
+            $('#start-time-input').val(calEvent.start.format(ACCEPTED_DATE_FORMAT));
+            $('#end-time-input').val(calEvent.end.format(ACCEPTED_DATE_FORMAT));
+            $('#location-input').val(calEvent.location);
+            $('#description-input').val(calEvent.description);
+            $(".confirmation-button").attr("onclick","addToCalendar()");
+            $('.delete-button').hide();
+        }
         //Google Calendar Event
         else{
             //set global var to remember the GCal ID
             id=calEvent.id;
-            console.log(id);
+            console.log("ID: "+id);
             //Case where it already exists on Google Calendar
             $('h3.eventType').text('Edit Event');
             $('.confirmation-button').text('Save Changes');
@@ -159,7 +173,7 @@ function displayModal(calEvent, strSubmitFunc, eventType) {
             $('#location-input').val(calEvent.location);
             $('#description-input').val(calEvent.description);
             $(".confirmation-button").attr("onclick",strSubmitFunc);
-            console.log(calEvent.url);
+            console.log("URL: "+calEvent.url);
             $("#url").attr("href",""+calEvent.url);
             $("#url").show();
             $('.delete-button').show();
@@ -499,6 +513,10 @@ function generateEvent(){
  *****************************************************************/
 function addToCalendar(){
     try{
+        var External = true;
+        if(changedEvent.id=='smart-schedule'){
+            External = false;
+        }
         initializeClient();
 
         if (!validateEvent($('#start-time-input').val(), $('#end-time-input').val())) {
@@ -539,12 +557,17 @@ function addToCalendar(){
             changedEvent.location = $('#location-input').val()
             changedEvent.url=resp.htmlLink;
             changedEvent.id=resp.id;
+            changedEvent.color = '#FF9800';
+
             $('#calendar').fullCalendar('renderEvent', changedEvent,stick=true);
+
         });
 
         //Remove from todolist event
         //Will not trigger if user does not click button.
-        todoEvent.remove();
+        if(External){
+            todoEvent.remove();
+        }
 
         //close the modal window after completion
         $("#modalWindow").modal('hide');
