@@ -69,8 +69,12 @@ def check_request(request):
 	
 	edit_id = request.POST.get('id')
 	print(edit_id)
-	insertToDoResult = Todo(id=edit_id, IsChecked = 1)
-	
+	queryset = Todo.objects.raw('SELECT * FROM webapp_todo WHERE id = %s', [edit_id])
+	if queryset[0].IsChecked == 0:
+		insertToDoResult = Todo(id=edit_id, IsChecked = 1)
+	else:
+		insertToDoResult = Todo(id=edit_id, IsChecked = 0)
+
 	insertToDoResult.save(update_fields=['IsChecked']) 
 
 	return render(request, 'webapp/todo-test.html')
