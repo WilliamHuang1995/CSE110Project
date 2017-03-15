@@ -13,10 +13,56 @@ var SCOPES = "https://www.googleapis.com/auth/calendar";
 var authorizeButton = document.getElementById('authorize-button');
 var signoutButton = document.getElementById('signout-button');
 
+function timeBlock(start1,end1,duration1,priority,title){
+    this.start = start1;
+    this.end = end1;
+    this.duration = duration1;
+    this.priority = priority;
+    this.title = title;
+}
 
 /**On load, called to load the auth2 library and API client library.*/
 function handleClientLoad() {
     gapi.load('client:auth2', initClient);
+}
+
+function blocksToTime(block, startorend){
+    var d = new Date();
+    var currentMonth = d.getMonth() + 1;
+    var currentDate = d.getDate();
+    var currentHour = d.getHours();
+    var currentMinute = d.getMinutes();
+    var currentYear = d.getFullYear();
+    var currentBlocks = currentDate*60*24 + currentHour*60 + currentMinute;
+
+    var FreeDateStart = Math.floor(block/(24*60));
+    var FreeHourStart = (Math.floor(block/60))%(24);
+    var FreeMinuteStart = block%60;
+
+    // console.log(FreeDateStart, FreeHourStart, FreeMinuteStart);
+    // console.log(FreeDateEnd, FreeHourEnd, FreeMinuteEnd);
+
+    var FreeEventStart = new Date();
+    if (startorend == 'start')
+    {
+        FreeEventStart.setSeconds(59);
+    }
+    else
+    {
+        FreeEventStart.setSeconds(0);
+        if (FreeMinuteStart%5 == 0)
+        {
+            //console.log('minutestart')
+            FreeMinuteStart--;   
+        }
+    }
+
+    FreeEventStart.setMonth(currentMonth - 1);
+    FreeEventStart.setDate(FreeDateStart);
+    FreeEventStart.setHours(FreeHourStart);
+    FreeEventStart.setMinutes(FreeMinuteStart);
+
+    return FreeEventStart;
 }
 
 /**Initializes the API client library and sets up sign-in state listeners. */
@@ -106,13 +152,14 @@ function listUpcomingEvents() {
 
     var newDate = new Date();
     var datetime = "LastSync: " + newDate.today() + " @ " + newDate.timeNow();
-    console.log(newDate, datetime);
+    // console.log(newDate, datetime);
     var d = new Date();
     var currentMonth = d.getMonth() + 1;
     var currentDate = d.getDate();
     var currentHour = d.getHours();
     var currentMinute = d.getMinutes();
     var currentYear = d.getFullYear();
+    var currentDay = d.getDay();
 
     gapi.client.calendar.events.list({
         //Whether or not to expand recurring events as instance
@@ -121,6 +168,7 @@ function listUpcomingEvents() {
         'calendarId': 'primary',
     }).then(function(response) {
         var eventsList = [];
+        var freeList = [];
         var successArgs;
         var successRes;
         var events = response.result.items;
@@ -137,8 +185,10 @@ function listUpcomingEvents() {
         }
         // initialize element to 0, free
 
-        var FreeStart = 6;  // Default start of free time 8:00
-        var FreeEnd = 21;   // Default end of free time 17:00
+        var FreeStart = 8;  // Default start of free time 8:00
+        var FreeEnd = 18;   // Default end of free time 17:00
+        var minutesBreak = 10; // 10 minutes of break betwee events
+        var weekend = 5;
 
         var Offset = -(currentHour * minutesOneHour + currentMinute);
 
@@ -153,6 +203,14 @@ function listUpcomingEvents() {
             {
                 if(j+k*hoursOneDay*minutesOneHour+Offset >= 0)
                     freeTime[j+k*hoursOneDay*minutesOneHour+Offset] = 1;
+            }
+            if ((currentDay+k)%7 == weekend)
+            {
+                for(l = 0; l < hoursOneDay * minutesOneHour; l++)
+                {
+                    if(l+k*hoursOneDay*minutesOneHour+Offset >= 0)
+                        freeTime[l+k*hoursOneDay*minutesOneHour+Offset] = 1;
+                }
             }
         }
 
@@ -193,22 +251,54 @@ function listUpcomingEvents() {
 
             var DurationBlocks = DurationDate*24*60 + DurationHour*60 + DurationMinute; 
 
+            // entry is within same year
             if (StartYear == 0)
             {
-
+                // entry is within same month
                 if (StartMonth == 0)
                 {
-
-                    if (StartDate >= 0)
+                    // if entry is within two weeks from today
+                    if (StartDate >= 0 && StartDate <= daysTwoWeeks)
                     {
                         for(i = (StartDate*24*60 + StartHour*60 + StartMinute); i < (StartDate*24*60 + StartHour*60 + StartMinute)+ DurationBlocks; i++)
                         {
-
                             freeTime[i] = 1;
                             // 1 is busy, 0 is free
                         }
                     }
                 }
+                // End of month
+                else if (StartMonth == 1)
+                {
+                    var differenceInDays = entryDateStart + daysInMonth(currentMonth, currentYear) - currentDate;
+                    if (differenceInDays <= daysTwoWeeks)
+                    {
+                        for(i = (differenceInDays*24*60 + StartHour*60 + StartMinute); i < (differenceInDays*24*60 + StartHour*60 + StartMinute)+ DurationBlocks; i++)
+                        {
+                            freeTime[i] = 1;
+                            // 1 is busy, 0 is free
+                        }
+                    }
+                }
+            }
+            // entry year is following year
+            
+            else if (StartYear == 1)
+            {
+                // If current month is December and entry month is January of folling year
+                if(StartMonth == - 11)
+                {
+                    var differenceInDays = entryDateStart + daysInMonth(currentMonth, currentYear) - currentDate;
+                    if (differenceInDays <= daysTwoWeeks)
+                    {
+                        for(i = (differenceInDays*24*60 + StartHour*60 + StartMinute); i < (differenceInDays*24*60 + StartHour*60 + StartMinute)+ DurationBlocks; i++)
+                        {
+                            freeTime[i] = 1;
+                            // 1 is busy, 0 is free
+                        }
+                    }
+                }
+
             }
 
 
@@ -216,14 +306,14 @@ function listUpcomingEvents() {
 
             if(rainbowEffect)
             {
-                console.log(rainbowCounter);
+                // console.log(rainbowCounter);
                 for(i = 0; i < eventsList.length; i++)
                 {
 
                     if(entry.summary == eventsList[i].title)
                     {
-                        console.log(entry.summary);
-                        console.log(eventsList[i].title);
+                        // console.log(entry.summary);
+                        // console.log(eventsList[i].title);
                         rainbowColor = eventsList[i].color;
                         existingEvent = true;
                         break;
@@ -306,6 +396,8 @@ function listUpcomingEvents() {
                 var FreeHourEnd = (Math.floor(endBlocks/60))%(24);
                 var FreeMinuteEnd = endBlocks%60;
 
+                var freeTimeMinutes = ConsecBlocks;
+
                 console.log(FreeDateStart, FreeHourStart, FreeMinuteStart);
                 console.log(FreeDateEnd, FreeHourEnd, FreeMinuteEnd);
 
@@ -328,21 +420,109 @@ function listUpcomingEvents() {
                 //console.log(FreeEventStart);
                 //console.log(FreeEventEnd);
 
-                /*
-                eventsList.push({
+                var freeObject = new timeBlock(startBlocks,endBlocks,freeTimeMinutes,0,'Free Time');
+                freeList.push(freeObject);
+                
+                /* eventsList.push({
                 title: 'Free Time', 
                 start: FreeEventStart,
                 end: FreeEventEnd,
-                color: 'DeepSkyBlue'
-
-
-                });
-                */
+                color: 'blue',
+                id: "external-event",
+                url: undefined,
+                });*/
+                
             }
         }
         console.log("end");
+        var todoList = [];
+        var todoListHigh = [];
+        var todoListNormal = [];
 
+        // testing todos
+        startObject = new Date();
+        var freeObject = new timeBlock(startObject,'GG',45,'high','High priority');
+        todoList.push(freeObject);
+        var freeObject = new timeBlock(startObject,'GG',500,'normal','low priority1');
+        todoList.push(freeObject);
+                var freeObject = new timeBlock(startObject,'GG',45,'normal','low priority 2');
+        todoList.push(freeObject);
+                var freeObject = new timeBlock(startObject,'GG',180,'normal','low priority 3');
+        todoList.push(freeObject);
+                var freeObject = new timeBlock(startObject,'GG',90,'normal','low priority 4');
+        todoList.push(freeObject);
+                var freeObject = new timeBlock(startObject,'GG',45,'normal','low priority 5');
+        todoList.push(freeObject);
+                var freeObject = new timeBlock(startObject,'GG',45,'normal','low priority 6');
+        todoList.push(freeObject);
+                var freeObject = new timeBlock(startObject,'GG',90,'normal','low priority 7');
+        todoList.push(freeObject);
+                var freeObject = new timeBlock(startObject,'GG',45,'normal','low priority 8');
+        todoList.push(freeObject);
+                var freeObject = new timeBlock(startObject,'GG',45,'normal','low priority 9');
+        todoList.push(freeObject);
+                var freeObject = new timeBlock(startObject,'GG',300,'high','High priority test 2');
+        todoList.push(freeObject);
+                var freeObject = new timeBlock(startObject,'GG',180,'high','High priority test 3');
+        todoList.push(freeObject);
+                var freeObject = new timeBlock(startObject,'GG',45,'high','High priority test 4');
+        todoList.push(freeObject);
+                var freeObject = new timeBlock(startObject,'GG',180,'high','High priority test 5');
+        todoList.push(freeObject);
+                var freeObject = new timeBlock(startObject,'GG',45,'high','High priority test 6');
+        todoList.push(freeObject);
+        // end of testing todos
+        for (j=0; j < todoList.length; j++)
+        {
+            if (todoList[j].priority == 'high')
+                todoListHigh.push(todoList[j]);
+            else
+                todoListNormal.push(todoList[j]);
+        }
+    for (k=0; k < freeList.length; k++)
+    {
+        for ( i=0; i < todoListHigh.length; i++)
+        {
+            if(todoListHigh[i].duration + 2*minutesBreak < freeList[k].duration)
+            {
+                eventsList.push({
+                title: todoListHigh[i].title, 
+                start: blocksToTime(freeList[k].start + minutesBreak, 'start'),
+                end: blocksToTime(freeList[k].start + todoListHigh[i].duration + minutesBreak, 'end'),
+                color: 'red',
+                
+                });
+                freeList[k].start = freeList[k].start + (todoListHigh[i].duration + minutesBreak);
+                freeList[k].duration = freeList[k].duration - (todoListHigh[i].duration + minutesBreak);
 
+                todoListHigh.splice(i,1);
+                i--;
+            }
+        }
+    }
+
+    for (k=0; k < freeList.length; k++)
+    {
+        for ( i=0; i < todoListNormal.length; i++)
+        {
+            if(todoListNormal[i].duration + 2*minutesBreak <= freeList[k].duration)
+            {
+                eventsList.push({
+                title: todoListNormal[i].title, 
+                start: blocksToTime(freeList[k].start + minutesBreak, 'start'),
+                end: blocksToTime(freeList[k].start + todoListNormal[i].duration + minutesBreak, 'end'),
+                color: 'pink',
+                
+                });
+                freeList[k].start = freeList[k].start + (todoListNormal[i].duration + minutesBreak);
+                freeList[k].duration = freeList[k].duration - (todoListNormal[i].duration + minutesBreak);
+                todoListNormal.splice(i,1);
+                i--;
+            }
+        }
+    }
+        //freeList = smartSchedule(todoListNormal, freeList, eventsList);
+        
 
         successArgs = [ eventsList].concat(Array.prototype.slice.call(arguments, 1));
         successRes = $.fullCalendar.applyAll(true, this, successArgs);
@@ -364,3 +544,7 @@ function listUpcomingEvents() {
         }*/
     });
 }
+
+/*function daysInMonth(month, year) {
+  return new Date(year, month, 0).getDate();
+}*/
