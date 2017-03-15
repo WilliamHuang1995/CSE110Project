@@ -75,6 +75,9 @@ function postRequest(){
             inputMins = Number.parseInt(inputMins.split(' ')[0]);
                     
             var estimatedTime = inputHours * 60 + inputMins;
+						
+						if(Number.isNan(estimatedTime))
+							estimatedTime = 0;
 
 
             var inputPriority = document.getElementById("priorityOpt").value;
