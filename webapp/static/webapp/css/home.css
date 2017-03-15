@@ -1,3 +1,18 @@
+/*
+@font-face {
+  font-family: 'MyScriptFont';
+  src: url('webfont.eot'); 
+  src: url('webfont.eot?#iefix') format('embedded-opentype'), 
+       url('webfont.woff2') format('woff2'), 
+       url('webfont.woff') format('woff'),
+       url('MyScriptFont.ttf')  format('truetype'), 
+       url('webfont.svg#svgFontName') format('svg'); 
+}
+*/
+
+
+
+
 /* CSS used here will be applied after bootstrap.css */
 
 #top-content img,
@@ -6,7 +21,7 @@
 
 }
 body{
-    font-family:  lato, sans-serif;
+    font-family: 'Lato', sans-serif;
     height: 100vh;
 }
 
