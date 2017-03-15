@@ -22,6 +22,7 @@ urlpatterns = [
     url(r'^api/post$', views.post_request, name='posting'),
     url(r'^api/delete$', views.delete_request, name='deleting'),
     url(r'^api/schedule$', views.update_request, name='updating'),
+    url(r'^api/click$', views.check_request, name='change'),
     url(r'^$', views.index, name='index'),
 
     

@@ -58,6 +58,23 @@ def update_request(request):
 
 	return render(request, 'webapp/todo-test.html')
 
+def check_request(request):
+	if request.method != 'POST': 
+		return redirect('/')
+	
+	userAuth = user_is_auth(request)
+	if not userAuth:
+		return prompt_login(request)
+
+	
+	edit_id = request.POST.get('id')
+	print(edit_id)
+	insertToDoResult = Todo(id=edit_id, IsChecked = 1)
+	
+	insertToDoResult.save(update_fields=['IsChecked']) 
+
+	return render(request, 'webapp/todo-test.html')
+
 
 def post_request(request):
 	if request.method != 'POST':

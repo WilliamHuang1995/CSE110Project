@@ -213,10 +213,42 @@ function newTodo() {
 /*
 };
 */
-/*function checkTodo(){
-    var check = document.getElementByClassName("glyphicon glyphicon-ok-circle glyphicon-ok-circle-u");
+function checkTodo(){
+    var check = document.getElementsByClassName("glyphicon glyphicon-ok-circle glyphicon-ok-circle-u");
+    var i;
+    for (i = 0; i < check.length; i++){
+        check[i].onclick = function(){
+            var div = this; 
+            console.log(div); 
+            var text = div.getAttribute('id');
+            console.log(text); 
 
-}*/
+            checkRequest(text); 
+            div.parentElement.style.display = "::after"; 
+        }
+    }
+}
+
+function checkRequest(someValue){
+    var inputValue = someValue; 
+    var csrftoken = jQuery("[name=csrfmiddlewaretoken]").val();
+    var url = "/api/click";
+
+    var params = inputValue; 
+    var form_data = new FormData(); 
+    form_data.append("id", params);
+
+    var xhr = new XMLHttpRequest();
+    xhr.open("POST", url, true);
+                
+            //Send the proper header information along with the request
+            //xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+    xhr.setRequestHeader("X-CSRFToken", csrftoken);
+
+    xhr.send(form_data);
+    console.log("sent params");  
+
+}
 
 
 

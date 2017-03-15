@@ -52,6 +52,7 @@ class Todo(models.Model):
 	#need int field for smart schedule 
 	#SmartSchedule = models.IntegerField(default=0)
 	IsScheduled = models.IntegerField(default=0)
+	IsChecked = models.IntegerField(default=0)
 	
 
 	def __str__(self):
