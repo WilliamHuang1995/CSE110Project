@@ -9,6 +9,10 @@ body {
     height: 100%;
 }
 
+.container {
+	height: 100% !important;
+}
+
 /* Include the padding and border in an element's total width and height */
 * {
   box-sizing: border-box;
