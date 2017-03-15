@@ -4,6 +4,8 @@
 {% load bootstrap3 %}
 {% load staticfiles %}
 
+{%block title%}To-Do Home{% endblock %}
+
 {% block content %}
 	<head>
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -66,13 +68,13 @@
                     <li><a href="/"><img src="{% static 'webapp/img/nav_calendar.png' %}" class="img-responsive"/></a></li>
                     <li><a href=/todo><li><img src="{% static 'webapp/img/nav_task1.png' %}" class="img-responsive"/></a></li>
                 </div>
-                <li><img src="{% static 'webapp/img/nav_settings.png' %}" class="img-responsive navbar-fixed-bottom" data-toggle="modal" data-target="#settingsModal" id="settings" /></li>
+                <li><img src="{% static 'webapp/img/nav_settings.png' %}" class="img-responsive navbar-fixed-bottom" data-toggle="modal" data-target="#settingsModal" style="cursor:pointer;"/></li>
             </ul>
         </div>
 
 
 			<div class="col-sm-5">
-				<div class="row">                                                                                  
+				<div class="row" style="padding-bottom: 6%;">                                                                                  
 					<div class="col-sm-12 unscheduled">
 					
 						<div class="panel panel-default">
@@ -97,7 +99,7 @@
 										<div class="p-2">
 											
 											<p class="mb-1" id={{todo.id}}>{{ todo.title}}
-												<img id="fill71"  src="{% static 'webapp/img/Fill 71.png' %}" />
+												<img style="margin-bottom:3px; margin-left:7px;" src="{% static "webapp/img/Fill 71.png" %}" />
 											</p>
 											
 										</div>
@@ -134,7 +136,8 @@
 										<span class="glyphicon glyphicon-trash"></span>
 										
 										<div class="p-2">
-											<p class="mb-1">Fix Todo.css 
+											<p class="mb-1">Print stuff 
+												<img style="margin-bottom:3px; margin-left:7px;" src="" />
 											</p>
 											<small class="text-muted due">TOMORROW 3PM</small>
 										</div>
@@ -146,7 +149,7 @@
 											<span class="glyphicon glyphicon-trash"></span>
 											<div class="p-2">
 												<p class="mb-1">Print stuff 
-													<img id="fill71" bottom:3px; margin- src="{% static 'webapp/img/Fill 71.png' %}" />
+													<img style="margin-bottom:3px; margin-left:7px;" src="{% static "webapp/img/Fill 71.png" %}" />
 												</p>
 											</div>
 											<small class="text-muted overdue">1 WEEK AGO</small>
@@ -210,7 +213,7 @@
 				<input id="smart-schedule-switch" type="checkbox" onchange="showExtraSettings();" data-toggle="toggle">
 			</div>
 
-			<div id="smart-schedule-form" class="input-group col-xs-12 input-time">
+			<div id="smart-schedule-form" class="input-group col-xs-12 input-time" style="display:none;">
 					<span class="input-group-addon">	
 						<span class="glyphicon glyphicon-hourglass"></span>
 					</span>
@@ -249,7 +252,7 @@
 					</select>
 			</div>
 			
-			<div class="input-group" id="smart-schedule-priority">	
+			<div class="input-group" style="display:none;" id="smart-schedule-priority">	
 				<span class="input-group-addon">	
 					<span class="glyphicon glyphicon-bell"></span>
 				</span>
