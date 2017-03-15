@@ -39,7 +39,7 @@ def index(request):
 		return redirect('/login.html')
 	
 	userTodosQuery = Todo.objects.raw('SELECT * FROM webapp_todo WHERE "UserID"=%s', [userAuth])
-	userTodos = [{'title': todo.title, 'id': todo.id,'location':todo.Location,'description':todo.Description, 'isScheduled':todo.IsScheduled} for todo in userTodosQuery]
+	userTodos = [{'title': todo.title, 'id': todo.id,'location':todo.Location,'description':todo.Description, 'isScheduled':todo.IsScheduled ,'isChecked':todo.IsChecked} for todo in userTodosQuery]
 	print(len(userTodos))
 	for x in userTodos:
 		print(x)
@@ -85,6 +85,6 @@ def todos(request):
 		return redirect('/login.html')
 	
 	userTodosQuery = Todo.objects.raw('SELECT * FROM webapp_todo WHERE "UserID"=%s', [userAuth])
-	userTodos = [{'title': todo.title, 'id': todo.id, 'isScheduled':todo.IsScheduled} for todo in userTodosQuery]
+	userTodos = [{'title': todo.title, 'id': todo.id, 'isScheduled':todo.IsScheduled, 'isChecked':todo.IsChecked} for todo in userTodosQuery]
 	return render(request, 'webapp/todo-test.html', {'todoList': userTodos})
 

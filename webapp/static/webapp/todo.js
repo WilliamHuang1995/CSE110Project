@@ -120,8 +120,8 @@ function postRequest(){
 
         $("#unscheduledDiv").append('\
             <a href="#" class="list-group-item list-group-item-action list-group-item-unscheduled">\
-                <span class="glyphicon glyphicon-ok-circle glyphicon-ok-circle-u"></span>\
-                <button type="button" class="glyphicon glyphicon-trash glyphicon-trash-u" id= ' + temp + ' onclick="deleteTodo()"></button>\
+                <span class="glyphicon glyphicon-ok-circle glyphicon-ok-circle-q glyphicon-ok-circle-u"></span>\
+                <span class="glyphicon glyphicon-trash glyphicon-trash-u" id= ' + temp + ' onclick="deleteTodo()"></span>\
                 <div class="p-2">\
                     <p class="mb-1" id=' + temp + '> ' + document.getElementById("task").value +'\
                         <img style="margin-bottom:3px; margin-left:7px;" src="/static/webapp/img/Fill 71.png" />\
@@ -224,9 +224,13 @@ function checkTodo(){
             console.log(text); 
 
             checkRequest(text); 
-            div.parentElement.style.display = "::after"; 
+
+            $(div).removeClass('glyphicon-ok-circle-q');
+            $(div).addClass('glyphicon-ok-circle-u');
+            
         }
     }
+
 }
 
 function checkRequest(someValue){
