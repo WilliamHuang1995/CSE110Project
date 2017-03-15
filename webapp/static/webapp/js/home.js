@@ -144,10 +144,11 @@ function displayModal(calEvent, strSubmitFunc, eventType) {
             $('.delete-button').hide();
         }
         //Calendo Event created via Smart Scheduling
-        else if(calEvent.id=="smart-schedule"){
+        else if(calEvent.id.includes("smart-schedule")){
             $('h3.eventType').text('Add to Calendar');
             $('.confirmation-button').text('Add');
-
+            
+            console.log(calEvent.id);
             //Body
             $('#event-name-input').val(calEvent.title);
             $('#start-time-input').val(calEvent.start.format(ACCEPTED_DATE_FORMAT));
@@ -201,6 +202,7 @@ function confirmDelete(){
 function deleteEvent(){
     $("#bs-example-modal-sm").modal('hide');
     try{
+        console.log("EVENT ID"+changedEvent.id);
         //executing google remove first
         initializeClient();
         gapi.client.calendar.events.delete({
@@ -208,6 +210,7 @@ function deleteEvent(){
             'eventId': changedEvent.id,
         }).execute();
         //removes from local calendar as well
+        
         $('#calendar').fullCalendar('removeEvents', changedEvent.id);
 
         $("#modalWindow").modal('hide');
@@ -508,13 +511,17 @@ function generateEvent(){
  * Called by Drop
  * Trigger: User wants to add TO DO to Calendar
  * Precondition: No events exist, user already created TODO event
+ *    OR 
+ *               Smart-Scheduled
  * Postcondition: Event Created on both Calendars
  * Uses Google Calendar API
  *****************************************************************/
 function addToCalendar(){
     try{
+        //store id of pre
+        id = changedEvent.id
         var External = true;
-        if(changedEvent.id=='smart-schedule'){
+        if(changedEvent.id.includes('smart-schedule')){
             External = false;
         }
         initializeClient();
@@ -558,8 +565,14 @@ function addToCalendar(){
             changedEvent.url=resp.htmlLink;
             changedEvent.id=resp.id;
             changedEvent.color = '#FF9800';
-
-            $('#calendar').fullCalendar('renderEvent', changedEvent,stick=true);
+            
+            
+            if(External){
+                $('#calendar').fullCalendar('renderEvent', changedEvent,stick=true);
+            }else{
+                $('#calendar').fullCalendar('updateEvent',changedEvent);
+                
+            }
 
         });
 
@@ -571,7 +584,9 @@ function addToCalendar(){
 
         //close the modal window after completion
         $("#modalWindow").modal('hide');
-
+        changedEvent.id = id;
+        console.log("ADD TO CALENDAR ID RETURNED~!"+changedEvent.id);
+        
         //success notification
         $("#event-add-success").slideDown();
         setTimeout(function(){ hide();}, waitTime);

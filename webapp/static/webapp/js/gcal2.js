@@ -506,6 +506,9 @@ function listUpcomingEvents() {
             else
                 todoListNormal.push(todoList[j]);
         }
+        
+        //used for making each smart scheduled event unique
+        var index = 0;
         for (k=0; k < freeList.length; k++)
         {
             for ( i=0; i < todoListHigh.length; i++)
@@ -520,7 +523,7 @@ function listUpcomingEvents() {
                         start: blocksToTime(freeList[k].start + minutesBreak, 'start'),
                         end: blocksToTime(freeList[k].start + todoListHigh[i].duration + minutesBreak, 'end'),
                         color: 'red',
-                        id: 'smart-schedule',
+                        id: 'smart-schedule'+index++,
                         description: 'High Priority Calen-Do event created by smart scheduling'
 
                     });
@@ -547,7 +550,7 @@ function listUpcomingEvents() {
                         start: blocksToTime(freeList[k].start + minutesBreak, 'start'),
                         end: blocksToTime(freeList[k].start + todoListNormal[i].duration + minutesBreak, 'end'),
                         color: 'pink',
-                        id: 'smart-schedule',
+                        id: 'smart-schedule'+index++,
                         description: 'Low Priority Calen-Do event created by smart scheduling'
 
                     });
