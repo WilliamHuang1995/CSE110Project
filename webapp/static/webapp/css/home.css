@@ -119,6 +119,10 @@ h2 {
 	padding-bottom:18px;
 }
 
+.row {
+    margin-left: 0px;
+}
+
 .button-group{
 
     position: absolute;
@@ -128,6 +132,11 @@ h2 {
     padding-left: 1em;
     padding-right: 1em;
 
+}
+
+.btn-group, .btn-group-vertical {
+    padding-top, padding-bottom: 30px !important;
+    font-size: 18px !important;
 }
 
 #authorize-button {

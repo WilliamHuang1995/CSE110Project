@@ -434,6 +434,7 @@ $(document).ready(function() {
         }
 
     });
+
 });
 
 
@@ -562,13 +563,13 @@ function addToCalendar(){
             changedEvent.url=resp.htmlLink;
             changedEvent.id=External?resp.id:id;
             changedEvent.color = '#4990e2';
-            
-            
+
+
             if(External){
                 $('#calendar').fullCalendar('renderEvent', changedEvent,stick=true);
             }else{
                 $('#calendar').fullCalendar('updateEvent',changedEvent);
-                
+
             }
 
         });
@@ -581,7 +582,7 @@ function addToCalendar(){
 
         //close the modal window after completion
         $("#modalWindow").modal('hide');
-        
+
         //success notification
         $("#event-add-success").slideDown();
         setTimeout(function(){ hide();}, waitTime);
@@ -713,3 +714,7 @@ function clearModalErrors() {
     $('#start-time-input-help').hide();
     $('#end-time-input-help').hide();
 }
+
+$(".btn").mouseup(function() {
+    $(this).blur();  
+})
