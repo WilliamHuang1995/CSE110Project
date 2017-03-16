@@ -72,7 +72,7 @@ function getRequest(id){
             }
 
 
-            document.getElementById("priorityOpt").value = "High"; //temp.priority
+            document.getElementById("priorityOpt").value = temp.priority;
 
 
 

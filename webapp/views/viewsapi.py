@@ -99,8 +99,7 @@ def edit_todo_request(request):
 	edit_title = request.POST.get('title')
 	edit_description = request.POST.get('description')
 	edit_estimatedTime = request.POST.get('estimateTime')
-	# TODO ADD PRIORITY
-	#edit_priority = request.POST.get('priority')
+	edit_priority = request.POST.get('priority')
 	edit_dueDate = request.POST.get('dueDate')
 	edit_location = request.POST.get('location')
 
