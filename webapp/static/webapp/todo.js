@@ -10,8 +10,8 @@ $(document).ready(function() {
 });
 
 function showExtraSettings() {
-	$('#smart-schedule-form').slideToggle(2000,"linear");
-	$('#smart-schedule-priority').slideToggle(2000,"linear");
+	$('#smart-schedule-form').slideToggle('fast','linear');
+	$('#smart-schedule-priority').slideToggle('fast','linear');
 }
 
 function getRequest(id){
