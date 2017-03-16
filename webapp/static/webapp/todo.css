@@ -113,35 +113,29 @@ h3 {
 	color: #4990e2;
 }
 
-.glyphicon-ok-circle:hover {
-	color: #4990e2;
-}
 
 .glyphicon-ok-circle-s {
 	font-size: 30px;
 	float: left;
-  margin-right: 15px;
+ 	margin-right: 15px;
 	margin-left: 15px;
 	padding: 10px;
 	color: #f0f0f0;
 }
 
+
 .glyphicon-ok-circle-u {
 	float: left;
 	font-size: 27px;
-  margin-left: 15px;
-	margin-right: 25px;
-	padding: 0px;
-	color: #4990e2;
-	
-}
-.glyphicon-ok-circle-q {
-	float: left;
-	font-size: 27px;
-  margin-left: 15px;
+  	margin-left: 15px;
 	margin-right: 25px;
 	padding: 0px;
 	color: #f0f0f0;
+	
+}
+
+.makeBlue {
+	color: #4990e2;
 }
 
 .glyphicon-pencil, .glyphicon-map-marker {
