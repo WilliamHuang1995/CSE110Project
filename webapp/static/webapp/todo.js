@@ -140,7 +140,7 @@ function postRequest(){
 
 
         $("#unscheduledDiv").append('\
-            <a href="#" class="list-group-item list-group-item-action list-group-item-unscheduled">\
+            <a href="#" class="list-group-item list-group-item-action list-group-item-unscheduled" onClick="getRequest(' + temp + ')">\
                 <span class="glyphicon glyphicon-ok-circle glyphicon-ok-circle-q glyphicon-ok-circle-u"></span>\
                 <span class="glyphicon glyphicon-trash glyphicon-trash-u" id= ' + temp + ' onclick="deleteTodo()"></span>\
                 <div class="p-2">\
@@ -154,8 +154,14 @@ function postRequest(){
         document.getElementById("loc").value = null;
         document.getElementById("desc").value = null;
         document.getElementById('example-date-input').value = "";
-        document.getElementById("numHours").value = "";
-        document.getElementById("numMins").value = "";
+        document.getElementById("numHours").value = "Hours";
+        document.getElementById("numMins").value = "Minutes";
+        document.getElementById("priorityOpt").value = "Priority"
+
+        $('#task').blur();
+        $('#loc').blur();
+        $('#desc').blur();
+
 
     });
 }
@@ -164,6 +170,7 @@ function newTodo() {
     //if statement checking if task has id unsure since it has an id as well
     //then either edit or post depending on if it has id
     postRequest();
+
 
 
         //adding to scheduled div
