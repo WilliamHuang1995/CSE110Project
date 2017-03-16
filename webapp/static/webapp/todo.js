@@ -162,7 +162,6 @@ function editTodoRequest(id){
 
 function saveChanges(id){
   editTodoRequest(id);
-  console.log("todo" + id)
 
   //document.getElementById("todo" + id).innerHTML="WHAYS GOSD"
   cancel();
