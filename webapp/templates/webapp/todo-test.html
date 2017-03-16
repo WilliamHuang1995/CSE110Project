@@ -30,8 +30,22 @@
                     <button type="button" class="close" data-dismiss="modal">&times;</button>
                     <h3>Settings</h3>
                 </div>
+                <div class="modal-body">
+                    <form id="active-hours-form" class="form-inline">
+                        <div id="start-time-input-div" class="col-sm-6 form-group">
+                            <label class="control-label" for="active-start-time-input">Active Hours:</label>
+                            <input class="form-control" name="start-date" value ="10:00" type="time" step="3600" id="active-start-time-input">
+                        </div>
+                        <div id="end-time-input-div" class="col-sm-6 form-group">
+                            <label class="control-label" for="active-end-time-input">To</label>
+                            <input class="form-control" name="start-date" value="22:00" type="time" step="3600" id="active-end-time-input">
+                        </div>
+                    </form>
+                </div>
                 <div class="modal-footer">
-                    <div id="todo-logout" class="btn btn-danger">Log Out</div>
+                    <span id="logout-button" class="btn btn-danger">Log Out</span>
+                    <span class="btn btn-danger" data-dismiss="modal">Cancel</span>
+                    <span class="btn btn-primary confirmation-button" type="submit">Save Changes</span>
                 </div>
             </div>
 
