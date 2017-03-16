@@ -34,6 +34,11 @@ html, body{
     margin: auto;       
 }
 
+.navbar-fixed-left a {
+	display: block;
+	width: 4em;
+}
+
 .navbar-fixed-left {
     left: 0px;
     top: 0px;
@@ -130,8 +135,6 @@ h2 {
     position: absolute;
     bottom: .25em;
     width: 100%;
-    margin: auto;
-    padding-left: 0em;
     padding-right: 1em;	
 
 }

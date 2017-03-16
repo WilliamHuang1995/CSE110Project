@@ -9,11 +9,7 @@ html, body {
 .nav {
 
     margin: auto;
-}
-
-.navbar > a {
-	display: block;
-	line-height: 1em;
+	max-width: 4em;
 }
 
 .navbar-fixed-left {
@@ -31,8 +27,9 @@ html, body {
     width: 4em;
 }
 
-#top-content > a {
+a {
 	display: block;
+	width: 4em;
 }
 
 .img-responsive {
@@ -176,17 +173,33 @@ h3 {
 
 .right-side {
 	
+	position: relative;
 	margin: auto;
 	width: 40%;
+	height: 80%;
     padding: 5em 2em 3em 5em;
 	display: block;
   	justify-content: center;
 	vertical-align: middle;
 }
 
-.btn-primary {
+.primary-btn {
+	bottom: 0;
 	background-color: #4990e2;
 	border: none;
+}
+
+.invisible-btn {
+	display: none;
+	width: 100%;
+}
+
+.submit-btn {
+	position: relative;
+	margin-top: 3em;
+	background-color: #4990e2;
+	border: none;
+	
 }
 
 
