@@ -144,7 +144,7 @@ function postRequest(){
         var temp = JSON.parse(response);
         console.log(temp);
 
-        if(document.getElementById("priorityOpt").value != "Priority "){
+        if(document.getElementById("priorityOpt").value == "Priority "){
         $("#unscheduledDiv").append('\
             <a href="#" class="list-group-item list-group-item-action list-group-item-unscheduled" onClick="getRequest(' + temp + ')">\
                 <span class="glyphicon glyphicon-ok-circle glyphicon-ok-circle-u" onClick="checkTodo()"></span>\
