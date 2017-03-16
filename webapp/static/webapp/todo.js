@@ -275,9 +275,9 @@ function postRequest(){
         document.getElementById("loc").value = null;
         document.getElementById("desc").value = null;
         document.getElementById('example-date-input').value = "";
-        document.getElementById("numHours").value = "Hours";
-        document.getElementById("numMins").value = "Minutes";
-        document.getElementById("priorityOpt").value = "Priority"
+        document.getElementById("numHours").value = "Hours ";
+        document.getElementById("numMins").value = "Minutes ";
+        document.getElementById("priorityOpt").value = "Priority "
 
         $('#task').blur();
         $('#loc').blur();
