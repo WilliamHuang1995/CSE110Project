@@ -1,7 +1,7 @@
 /* Left side stuff */
 
 html, body {
-	height: 100vh;
+	height: 100%;
 	font-family: "Lato", sans-serif;
 	background-color: #F6F7F7;
 }
@@ -35,7 +35,7 @@ html, body {
 
 a {
 	display: block;
-	width: 4em;
+	/*width: 4em;*/
 }
 
 .img-responsive {
@@ -91,7 +91,7 @@ div.scheduled {
 
 .panel-body {
 	margin-top: 2em;
-	height: 80%;
+	height: 70%;
 	overflow-y: scroll;
 }
 
@@ -192,6 +192,7 @@ h3 {
 
 .right-side {	
 	position: relative;
+
 	margin: auto;
 	width: 40%;
 	height: 80%;
