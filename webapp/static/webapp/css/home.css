@@ -109,7 +109,7 @@ html, body{
 }
 #calendar-container{
     /* padding: 10px 15px 20px 0; */
-    padding: 1.5em 5em 1.5em 1.5em;
+    padding: 1.5em 1.5em 1.5em 1.5em;
 
 }
 
@@ -121,6 +121,10 @@ h2 {
 	padding-bottom:18px;
 }
 
+.row {
+    margin-left: 0px;
+}
+
 .button-group{
 
     position: absolute;
@@ -130,6 +134,11 @@ h2 {
     padding-left: 1em;
     padding-right: 1em;
 
+}
+
+.btn-group, .btn-group-vertical {
+    padding-top, padding-bottom: 30px !important;
+    font-size: 18px !important;
 }
 
 #authorize-button {
@@ -262,8 +271,8 @@ input:focus {
 }
 
 #active-hours-form {
-    text-align: center;
-    margin: 0px auto;
+    /*text-align: center;
+    margin: 0px auto;*/
 }
 
 #logout-button {
