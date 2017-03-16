@@ -28,6 +28,15 @@ const DAY_IN_HOURS = 24;
  *****************************************************************/
 const minutesBreak = 0; // 10 minutes of break betwee events
 const weekend = 0; //change this to make a specific date unscheduled
+var freeday = Array(7);
+freeday[0] = true;
+freeday[1] = false;
+freeday[2] = false;
+freeday[3] = true;
+freeday[4] = true;
+freeday[5] = true;
+freeday[6] = true;
+
 var FreeStart = 8;  // Default start of free time 8:00
 var FreeEnd = 18;   // Default end of free time 17:00
 
@@ -40,6 +49,16 @@ function timeBlock(start1,end1,duration1,priority,title){
     this.duration = duration1;
     this.priority = priority;
     this.title = title;
+}
+
+function freeDays(monday,tuesday,wednesday,thursday,friday,saturday,sunday){
+    this.monday = monday;
+    this.tuesday = tuesday;
+    this.wednesday = wednesday;
+    this.thursday = thursday;
+    this.friday = friday;
+    this.saturday = saturday;
+    this.sunday = sunday;
 }
 
 /**On load, called to load the auth2 library and API client library.*/
@@ -211,12 +230,18 @@ function listUpcomingEvents() {
                 if(j+k*DAY_IN_HOURS*HOUR_IN_MINUTES+Offset >= 0)
                     freeTime[j+k*DAY_IN_HOURS*HOUR_IN_MINUTES+Offset] = 1;
             }
-            if ((currentDay+k)%7 == weekend)
+            for (m = 0; m < 7; m++)
             {
-                for(l = 0; l < DAY_IN_HOURS * HOUR_IN_MINUTES; l++)
+                if(freeday[m] == true)
                 {
-                    if(l+k*DAY_IN_HOURS*HOUR_IN_MINUTES+Offset >= 0)
-                        freeTime[l+k*DAY_IN_HOURS*HOUR_IN_MINUTES+Offset] = 1;
+                    if ((currentDay+k)%7 == m)
+                    {
+                        for(l = 0; l < DAY_IN_HOURS * HOUR_IN_MINUTES; l++)
+                        {
+                            if(l+k*DAY_IN_HOURS*HOUR_IN_MINUTES+Offset >= 0)
+                                freeTime[l+k*DAY_IN_HOURS*HOUR_IN_MINUTES+Offset] = 1;
+                        }
+                    }
                 }
             }
         }
