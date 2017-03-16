@@ -190,7 +190,7 @@ h3 {
 /* Right side ------------------------------- */
 
 
-.right-side {	
+.right-side {
 	position: relative;
 
 	margin: auto;
@@ -213,7 +213,7 @@ h3 {
 	margin-top: 3em;
 	background-color: #4990e2;
 	border: none;
-	
+
 }
 
 
@@ -445,4 +445,11 @@ input:checked + .slider:before {
 
 #cancelButton {
 	display: none;
+}
+
+#myAlert {
+	position: absolute;
+	top: 15px;
+	left: 530px;
+	width: 250px;
 }

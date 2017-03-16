@@ -174,8 +174,13 @@ function editTodoRequest(id){
 function saveChanges(id){
   editTodoRequest(id);
 
+  $("#myAlert").show('fade');
   //document.getElementById("todo" + id).innerHTML="WHAYS GOSD"
   cancel();
+
+  setTimeout(function() {
+    $('#myAlert').hide('fade');
+  }, 2500);
 }
 //trying a callback post request :)
 
