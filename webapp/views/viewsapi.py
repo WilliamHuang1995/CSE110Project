@@ -146,7 +146,7 @@ def post_request(request):
 		thisPriority = 0; 
 	elif input_priority == "Normal":
 		thisPriority = 1; 
-	else 
+	else:
 		thisPriority = 2; 
 
 
