@@ -21,8 +21,7 @@ html, body {
     height: 100vh;
 }
 
-.logo {
-    margin-top: .25em;
+.logo-todo {
     height: 4em;
     width: 4em;
 }
@@ -36,8 +35,21 @@ a {
     padding: .25em;
     height: 3em;
     width: 3em;
-    margin: .5em;
+	margin: .7em .5em .5em .5em;
 }
+
+.wrapper-todo {
+	background-color: #4990E2;
+	/*margin-top: .5em;*/
+	display: inline-block;
+}
+
+/*
+#img1 {
+	display: inline-block;
+	margin-top: 1.5em;
+	margin-bottom: 1em;
+}*/
 
 .row {
 	margin: auto;
@@ -189,11 +201,6 @@ h3 {
 	border: none;
 }
 
-.invisible-btn {
-	display: none;
-	width: 100%;
-}
-
 .submit-btn {
 	position: relative;
 	margin-top: 3em;
@@ -210,6 +217,7 @@ h3 {
   margin-bottom:45px; 
 	width: 100%;
 }
+
 input         {
   font-size:20px;
   padding:10px 10px 10px 5px;

@@ -31,11 +31,13 @@ html, body{
 
 .nav {
 
-    margin: auto;       
+    margin: auto;
+	max-width: 4em;
 }
 
 .navbar-fixed-left a {
 	display: block;
+	top:4em;
 	width: 4em;
 }
 
@@ -49,19 +51,26 @@ html, body{
 }
 
 .logo {
-
-    margin-top: .25em;
+	background-color: #4990E2;
     height: 4em;
     width: 4em;
 }
 
 .img-responsive {
-
     padding: .25em;
     height: 3em;
     width: 3em;
-    margin: .5em;
+    margin: .7em .5em .5em .5em;
 }
+
+/*
+.wrapper-home {
+	margin-top: 1em;
+	margin-bottom: .5em;
+	background-color: dimgray;
+	display: inline-block;
+}
+*/
 
 /* Idk if this does anything yet*/
 .container-fluid{
