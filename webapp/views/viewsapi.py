@@ -68,6 +68,34 @@ def update_request(request):
 
 	return render(request, 'webapp/todo-test.html')
 
+def edit_todo_request(request):
+	if request.method != 'POST':
+		return redirect('/')
+
+	userAuth = user_is_auth(request)
+	if not userAuth:
+		return prompt_login(request)
+
+	edit_id = request.POST.get('id')
+	edit_title = request.POST.get('title')
+	edit_description = request.POST.get('description')
+	edit_estimatedTime = request.POST.get('estimateTime')
+	# TODO ADD PRIORITY
+	#edit_priority = request.POST.get('priority')
+	edit_dueDate = request.POST.get('dueDate')
+	edit_location = request.POST.get('location')
+
+
+	insertToDoResult = Todo(id=edit_id, title=edit_title, Description=edit_description, EstimateTime=edit_estimatedTime, DueDate=edit_dueDate, Location=edit_location)
+
+	insertToDoResult.save(update_fields=['title', 'Description', 'EstimateTime', 'DueDate', 'Location'])
+
+	response_data = {}
+	response_data['success'] = 'True'
+
+	return HttpResponse(json.dumps(response_data),content_type='application/json')
+
+
 def check_request(request):
 	if request.method != 'POST':
 		return redirect('/')
