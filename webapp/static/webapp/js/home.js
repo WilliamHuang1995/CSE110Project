@@ -51,6 +51,57 @@ $("#start-time-input").change(function() {
  *****************************************************************/
 var todoEvent;
 
+
+
+function addEvent(val) {
+
+		inputTitle = val;
+
+    var HttpClient = function() {
+        this.post = function(aUrl, aCallback) {
+
+            var csrftoken = jQuery("[name=csrfmiddlewaretoken]").val(); 
+            console.log("crsf token"+ csrftoken);
+            var url = "/api/post";
+            var form_data = new FormData();
+                
+            form_data.append("title", inputTitle);
+            form_data.append("location", "");
+            form_data.append("description", ""); 
+						var today = new Date();
+						var nextweek = new Date(today.getFullYear(), today.getMonth(), today.getDate()+7);
+            form_data.append("dueDate", nextweek.toISOString().split('T')[0]);
+            form_data.append("estimateTime", 0);
+            form_data.append("priority", "");
+
+
+
+            var anHttpRequest = new XMLHttpRequest();
+            anHttpRequest.onreadystatechange = function() { 
+                if (anHttpRequest.readyState == 4 && anHttpRequest.status == 200)
+                    aCallback(anHttpRequest.responseText);
+            }
+                
+
+            anHttpRequest.open( "POST", aUrl, true );   
+            anHttpRequest.setRequestHeader("X-CSRFToken", csrftoken);         
+            anHttpRequest.send( form_data );
+            console.log("sent params");
+        }
+    }
+    var client = new HttpClient();
+    client.post('/api/post', function(response) {
+        // do something with response
+        var temp = JSON.parse(response); 
+        console.log(temp); 
+            
+        
+    });
+	
+
+
+}
+
 /*****************************************************************
  * Allows user to press enter to complete form.
  *****************************************************************/
@@ -95,7 +146,7 @@ $('#quick-add').keyup(function (e) {
 
         }
 				
-				addEvent();
+				addEvent(val);
         return false;    //<---- Add this line
     }
 });
