@@ -49,30 +49,58 @@
                     </div>
                     <div class="modal-body">
 
-                        <form id="active-hours-form" class="form-inline">
+                        <form id="settings-form">
 
-                            <div class="col-sm-4">
-                                <label class="control-label" for="active-start-time-input">Active Hours:</label>
-                            </div>
-                            <div id="time-input-div col-sm-8" class="form-group">
-                                <div id="start-time-input-div">
-                                    <input class="form-control" name="start-date" value ="10:00" type="time" step="3600" id="active-start-time-input">
-                                    <label class="control-label" for="active-end-time-input">To</label>
-                                    <div id="end-time-input-div" class="form-group">
-                                        <input class="form-control" name="start-date" value="22:00" type="time" step="3600" id="active-end-time-input">
+                           
+                                <div class="col-sm-4">
+                                    <label class="control-label" for="active-start-time-input">Active Hours:</label>
+                                </div>
+                                <div id="time-input-div col-sm-8" class="form-group form-inline">
+                                    <div id="start-time-input-div">
+                                        <input class="form-control" name="start-date" value ="10:00" type="time" step="3600" id="active-start-time-input">
+                                        <label class="control-label" for="active-end-time-input">To</label>
+                                        <div id="end-time-input-div" class="form-group">
+                                            <input class="form-control" name="start-date" value="22:00" type="time" step="3600" id="active-end-time-input">
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="col-sm-4">
-                                <label class="control-label" for="active-start-time-input">Break Time Length:</label>
-                                
-                            </div>
-                            <div id="time-input-div col-sm-8" class="form-group">
-                                <div id="free-time">
+                            
+                            <div class="row">
+                                <div class="col-sm-4">
+                                    <label class="control-label" for="active-start-time-input">Break Time Length:</label>
+                                </div>
+                                <div id="free-time col-sm-8" class="form-group">
                                     <input class="form-control" id="break-time-input" name="break-time" value ="0" type="number" step="5" max="60" min="0">
                                 </div>
                             </div>
-
+                            <div class="row col-sm-6">
+                                <label class="control-label" for="weekend-input">Smart-Schedule Days:</label>
+                            </div>
+                            <div class="row col-sm-12">
+                                <div class="btn-group" data-toggle="buttons">
+                                    <label class="btn btn-primary btn-xs">
+                                        <input type="checkbox"> Sunday
+                                    </label>
+                                    <label class="btn btn-primary btn-xs">
+                                        <input type="checkbox"> Monday
+                                    </label>
+                                    <label class="btn btn-primary btn-xs">
+                                        <input type="checkbox"> Tuesday
+                                    </label>
+                                    <label class="btn btn-primary btn-xs">
+                                        <input type="checkbox"> Wednesday
+                                    </label>
+                                    <label class="btn btn-primary btn-xs">
+                                        <input type="checkbox"> Thursday
+                                    </label>
+                                    <label class="btn btn-primary btn-xs">
+                                        <input type="checkbox"> Friday
+                                    </label>
+                                    <label class="btn btn-primary btn-xs">
+                                        <input type="checkbox"> Saturday
+                                    </label>
+                                </div>
+                            </div>
                         </form>
                     </div>
                     <div class="modal-footer">
