@@ -58,14 +58,20 @@ function getRequest(id){
             inputHours = Math.floor((Number.parseInt(temp.estimateTime)/60)).toString();
             inputMins = (Number.parseInt(temp.estimateTime)%60).toString();
 
-            if (inputHours == 1){
+            if (inputHours == 0){
+              document.getElementById("numHours").value = "Hours";
+              document.getElementById("numMins").value = "Minutes";
+            }
+            else if (inputHours == 1){
               document.getElementById("numHours").value = inputHours + " hour";
+              document.getElementById("numMins").value = inputMins + " min";
             }
             else{
               document.getElementById("numHours").value = inputHours + " hours";
+              document.getElementById("numMins").value = inputMins + " min";
             }
 
-            document.getElementById("numMins").value = inputMins + " min";
+
             document.getElementById("priorityOpt").value = "High"; //temp.priority
 
 
