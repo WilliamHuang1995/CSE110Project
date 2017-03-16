@@ -159,8 +159,8 @@ def post_request(request):
 	input_priority = request.POST.get('priority')
 	input_dueDate = request.POST.get('dueDate')
 	input_location = request.POST.get('location')
-
-	if input_priority == "Priority ":
+	print("|%s|" %(input_priority))
+	if input_priority == "Priority":
 		thisPriority = 0;
 	elif input_priority == "Normal ":
 		thisPriority = 1;
