@@ -22,6 +22,7 @@
         <link rel="stylesheet" href="{% static 'webapp/fullcalendar/fullcalendar-custom.css' %}" type = "text/css"/>
         <!--Import Font Awesome-->
         <link rel="stylesheet" href='https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css' type = "text/css"/>
+		<link href='http://fonts.googleapis.com/css?family=Lato:400,700' rel='stylesheet' type='text/css'>
 
         <script src='{% static "webapp/fullcalendar/lib/jquery.min.js" %}'></script>
         <script src='{% static "webapp/fullcalendar/lib/moment.min.js" %}'></script>
@@ -49,30 +50,58 @@
                     </div>
                     <div class="modal-body">
 
-                        <form id="active-hours-form" class="form-inline">
+                        <form id="settings-form">
 
-                            <div class="col-sm-4">
-                                <label class="control-label" for="active-start-time-input">Active Hours:</label>
-                            </div>
-                            <div id="time-input-div col-sm-8" class="form-group">
-                                <div id="start-time-input-div">
-                                    <input class="form-control" name="start-date" value ="10:00" type="time" step="3600" id="active-start-time-input">
-                                    <label class="control-label" for="active-end-time-input">To</label>
-                                    <div id="end-time-input-div" class="form-group">
-                                        <input class="form-control" name="start-date" value="22:00" type="time" step="3600" id="active-end-time-input">
+                           
+                                <div class="col-sm-4">
+                                    <label class="control-label" for="active-start-time-input">Active Hours:</label>
+                                </div>
+                                <div id="time-input-div col-sm-8" class="form-group form-inline">
+                                    <div id="start-time-input-div">
+                                        <input class="form-control" name="start-date" value ="10:00" type="time" step="3600" id="active-start-time-input">
+                                        <label class="control-label" for="active-end-time-input">To</label>
+                                        <div id="end-time-input-div" class="form-group">
+                                            <input class="form-control" name="start-date" value="22:00" type="time" step="3600" id="active-end-time-input">
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="col-sm-4">
-                                <label class="control-label" for="active-start-time-input">Break Time Length:</label>
-                                
-                            </div>
-                            <div id="time-input-div col-sm-8" class="form-group">
-                                <div id="free-time">
+                            
+                            <div class="row">
+                                <div class="col-sm-4">
+                                    <label class="control-label" for="active-start-time-input">Break Time Length:</label>
+                                </div>
+                                <div id="free-time col-sm-8" class="form-group">
                                     <input class="form-control" id="break-time-input" name="break-time" value ="0" type="number" step="5" max="60" min="0">
                                 </div>
                             </div>
-
+                            <div class="row col-sm-6">
+                                <label class="control-label" for="weekend-input">Smart-Schedule Days:</label>
+                            </div>
+                            <div class="row col-sm-12">
+                                <div class="btn-group" data-toggle="buttons">
+                                    <label class="btn btn-primary btn-xs">
+                                        <input type="checkbox"> Sunday
+                                    </label>
+                                    <label class="btn btn-primary btn-xs">
+                                        <input type="checkbox"> Monday
+                                    </label>
+                                    <label class="btn btn-primary btn-xs">
+                                        <input type="checkbox"> Tuesday
+                                    </label>
+                                    <label class="btn btn-primary btn-xs">
+                                        <input type="checkbox"> Wednesday
+                                    </label>
+                                    <label class="btn btn-primary btn-xs">
+                                        <input type="checkbox"> Thursday
+                                    </label>
+                                    <label class="btn btn-primary btn-xs">
+                                        <input type="checkbox"> Friday
+                                    </label>
+                                    <label class="btn btn-primary btn-xs">
+                                        <input type="checkbox"> Saturday
+                                    </label>
+                                </div>
+                            </div>
                         </form>
                     </div>
                     <div class="modal-footer">
@@ -177,12 +206,12 @@
             </div>
         </div>
 
-        <!-- nav bar -->
+        <!--- navbar yo -->
         <div class="navbar navbar-inverse navbar-fixed-left" role="navigation">
             <ul class="nav navbar-nav">
                 <div id="top-content" class="navbar-fixed-top">
                     <li><img src="{% static 'webapp/img/nav_logo.png' %}" class="logo" /></li>
-                    <li><a href=#><img src="{% static 'webapp/img/nav_calendar.png' %}" class="img-responsive"/></a></li>
+                    <li><a href=/#><img src="{% static 'webapp/img/nav_calendar.png' %}" class="img-responsive"/></a></li>
                     <li><a href=/todo><li><img src="{% static 'webapp/img/nav_task1.png' %}" class="img-responsive"/></a></li>
                 </div>
                 <li><img src="{% static 'webapp/img/nav_settings.png' %}" class="img-responsive navbar-fixed-bottom" data-toggle="modal" data-target="#settingsModal" style="cursor:pointer;"/></li>
