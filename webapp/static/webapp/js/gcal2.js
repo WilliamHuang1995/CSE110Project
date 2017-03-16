@@ -596,7 +596,7 @@ function listUpcomingEvents() {
         if(events.length > 0){
             $('#calendar').fullCalendar('addEventSource', eventsList, true);
         }
-    });
+    }); 
 }
 
 function daysInMonth(month, year) {
