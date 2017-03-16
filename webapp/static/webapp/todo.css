@@ -439,9 +439,6 @@ input:checked + .slider:before {
   border-radius: 50%;
 }
 
-#todo-logout {
-    display: block;
-}
 #saveButton {
 	display: none;
 }
