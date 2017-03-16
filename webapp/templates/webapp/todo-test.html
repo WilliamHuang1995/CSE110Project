@@ -10,7 +10,7 @@
 	<head>
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 		<!-- Bootstrap CSS -->
-		
+
 			<!--<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>-->
 			<script src='{% static "webapp/fullcalendar/lib/jquery.min.js" %}'></script>
     		<script src='{% static "webapp/fullcalendar/lib/moment.min.js" %}'></script>
@@ -20,8 +20,8 @@
 		<script src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script>
     <link rel="stylesheet" href="{% static "webapp/todo.css" %}" type="text/css"/>
 	</head>
-	
-	
+
+
 		<body>
 
 			<!--- navbar yo -->
@@ -38,105 +38,126 @@
 
 
 			<div class="col-sm-5">
-				<div class="row" style="padding-bottom: 6%;">                                                                                  
+				<div class="row" style="padding-bottom: 6%;">
 					<div class="col-sm-12 unscheduled">
-					
+
 						<div class="panel panel-default">
-  						
+
 							<div class="panel-heading panel-heading-custom">
 								<h3>Unscheduled</h3>
-							</div> 
-						
+							</div>
+
 							<div class="panel-body">
 								<!-- List group -->
 								<div class="list-group noborder" id="unscheduledDiv">
-										
-									{% csrf_token %}	
+
+									{% csrf_token %}
 									{% for todo in todoList %}
 									{% if todo.isScheduled == 0 %}
 
 									{% if todo.isChecked == 0 %}
+<<<<<<< HEAD
 									<a class="list-group-item list-group-item-action list-group-item-unscheduled">
 										<span class="glyphicon glyphicon-ok-circle glyphicon-ok-circle-u" id= {{todo.id}} onclick="checkTodo()"></span>
+=======
+									<a href="#" class="list-group-item list-group-item-action list-group-item-unscheduled" onClick="getRequest({{todo.id}})">
+										<span class="glyphicon glyphicon-ok-circle glyphicon-ok-circle-q glyphicon-ok-circle-u" id= {{todo.id}} onclick="checkTodo()"></span>
+>>>>>>> c8190c2cccafbb444dbecd3c79e55e8766b379fd
 										<span class="glyphicon glyphicon-trash glyphicon-trash-u" id= {{todo.id}} onclick="deleteTodo()"></span>
-										
-										
+
+
 										<div class="p-2">
-											
+
 											<p class="mb-1" id={{todo.id}}>{{ todo.title}}
 												<img style="margin-bottom:3px; margin-left:7px;" src="{% static "webapp/img/Fill 71.png" %}" />
 											</p>
-											
+
 										</div>
 									</a>
-									{% endif %}	
+									{% endif %}
 									{% endif %}
 									{% endfor %}
+
 
 									{% for todo in todoList %}
 									{% if todo.isScheduled == 0 %}
 									{% if todo.isChecked == 1 %}
+<<<<<<< HEAD
 									<a class="list-group-item list-group-item-action list-group-item-unscheduled">
 										<span class="glyphicon glyphicon-ok-circle glyphicon-ok-circle-u makeBlue" id= {{todo.id}} onclick="checkTodo()"></span>
+=======
+									<a href="#" class="list-group-item list-group-item-action list-group-item-unscheduled" onClick="getRequest({{todo.id}})">
+
+										<span class="glyphicon glyphicon-ok-circle glyphicon-ok-circle-u" id= {{todo.id}} onclick="checkTodo()"></span>
+>>>>>>> c8190c2cccafbb444dbecd3c79e55e8766b379fd
 										<span class="glyphicon glyphicon-trash glyphicon-trash-u" id= {{todo.id}} onclick="deleteTodo()"></span>
-										
-										
+
+
 										<div class="p-2">
-											
+
 											<p class="mb-1" id={{todo.id}}>{{ todo.title}}
 												<img style="margin-bottom:3px; margin-left:7px;" src="{% static "webapp/img/Fill 71.png" %}" />
 											</p>
-											
+
 										</div>
 									</a>
-									{% endif %}	
-									{% endif %}	
+
+									{% endif %}
+									{% endif %}
 									{% endfor %}
 
-									
-									
+
+
+
 								</div>
 							</div>
 						</div>
 					</div>
 				</div>
-		
+
 				<div class="row">
-					
-					
-					
+
+
+
 					<div class="col-sm-12 scheduled">
 						<div class="panel panel-default">
-							
+
 							<div class="panel-heading panel-heading-custom">
 								<h3 id="heading-text">Scheduled</h3>
 							</div>
-							
-							
+
+
 							<div class="panel-body">
 								<!-- List group -->
 								<div class="list-group noborder" id="unscheduledDiv">
-										
-									{% csrf_token %}	
+
+									{% csrf_token %}
 									{% for todo in todoList %}
 									{% if todo.isScheduled == 1 %}
 									{% if todo.isChecked == 0 %}
 
+<<<<<<< HEAD
 									<a class="list-group-item list-group-item-action list-group-item-unscheduled">
 										<span class="glyphicon glyphicon-ok-circle glyphicon-ok-circle-u" id= {{todo.id}} onclick="checkTodo()"></span>
 										
+=======
+									<a href="#" class="list-group-item list-group-item-action list-group-item-unscheduled">
+
+										<span class="glyphicon glyphicon-ok-circle glyphicon-ok-circle-q glyphicon-ok-circle-u"></span>
+>>>>>>> c8190c2cccafbb444dbecd3c79e55e8766b379fd
 										<span class="glyphicon glyphicon-trash glyphicon-trash-u" id= {{todo.id}} onclick="deleteTodo()"></span>
-										
-										
+
+
 										<div class="p-2">
-											
+
 											<p class="mb-1" id={{todo.id}}>{{ todo.title}}
 												<img style="margin-bottom:3px; margin-left:7px;" src="{% static "webapp/img/Fill 71.png" %}" />
 											</p>
-											
+
 										</div>
 									</a>
-									{% endif %}	
+
+									{% endif %}
 									{% endif %}
 									{% endfor %}
 									{% for todo in todoList %}
@@ -145,51 +166,52 @@
 									<a class="list-group-item list-group-item-action list-group-item-unscheduled">
 										<span class="glyphicon glyphicon-ok-circle glyphicon-ok-circle-u makeBlue" id= {{todo.id}} onclick="checkTodo()"></span>
 										<span class="glyphicon glyphicon-trash glyphicon-trash-u" id= {{todo.id}} onclick="deleteTodo()"></span>
-										
-										
+
+
 										<div class="p-2">
-											
+
 											<p class="mb-1" id={{todo.id}}>{{ todo.title}}
 												<img style="margin-bottom:3px; margin-left:7px;" src="{% static "webapp/img/Fill 71.png" %}" />
 											</p>
-											
+
 										</div>
 									</a>
-									{% endif %}	
-									{% endif %}	
+									{% endif %}
+									{% endif %}
 									{% endfor %}
-									
+
+
 								</div>
 							</div>
 						</div>
-		
+
 				</div>
 				</div>
 		</div>
-	
 
-			
+
+
 	<div class="col-sm-7 right-side">
-		
-		
+
+
 		<form>
 			<div class="input-group">
 				<input type="text" id="task">
 				<span class="bar"></span>
 				<label for="task">I want to...</label>
 			</div>
-    
+
 			<div class="input-group">
-				<span class="input-group-addon">	
+				<span class="input-group-addon">
 					<span class="glyphicon glyphicon-map-marker"></span>
 				</span>
 				<input type="text" id="loc">
 				<span class="bar"></span>
 				<label for="loc">Location</label>
 			</div>
-			
-			<div class="input-group ">  
-				<span class="input-group-addon">	
+
+			<div class="input-group ">
+				<span class="input-group-addon">
 					<span class="glyphicon glyphicon-pencil"></span>
 				</span>
 				<input type="text" id="desc" >
@@ -198,25 +220,25 @@
 			</div>
 
 			<div class="input-group">
-				<span class="input-group-addon">	
+				<span class="input-group-addon">
 					<span class="glyphicon glyphicon-calendar"></span>
 				</span>
 
 				 <input class="form-control" type="date" id="example-date-input">
 			</div>
-	
+
 			<!-- Rounded switch -->
-			<!--		
-			<label class="switch">	
+			<!--
+			<label class="switch">
 				<input type="checkbox">
-				<div class="slider round"></div> 
+				<div class="slider round"></div>
 			</label> -->
 			<div class="smart-schedule-label">Smart Scheduling
 				<input id="smart-schedule-switch" type="checkbox" onchange="showExtraSettings();" data-toggle="toggle">
 			</div>
 
 			<div id="smart-schedule-form" class="input-group col-xs-12 input-time" style="display:none;">
-					<span class="input-group-addon">	
+					<span class="input-group-addon">
 						<span class="glyphicon glyphicon-hourglass"></span>
 					</span>
 					<select id ="numHours" class="form-control input-lg">
@@ -235,7 +257,7 @@
 						<option>12 hours</option>
 					</select>
 
-					<span class="input-group-addon">	
+					<span class="input-group-addon">
 						<span class="glyphicon glyphicon-hourglass glyphicon-hourglass-u"></span>
 					</span>
 					<select id="numMins" class="form-control input-lg">
@@ -253,9 +275,9 @@
 						<option>55 min</option>
 					</select>
 			</div>
-			
-			<div class="input-group" style="display:none;" id="smart-schedule-priority">	
-				<span class="input-group-addon">	
+
+			<div class="input-group" style="display:none;" id="smart-schedule-priority">
+				<span class="input-group-addon">
 					<span class="glyphicon glyphicon-bell"></span>
 				</span>
 				<select id="priorityOpt" class="form-control input-lg">
@@ -264,15 +286,15 @@
 					<option>High</option>
 				</select>
 			</div>
-		
+
 			<button type="button" class="btn btn-primary" onclick="newTodo()">Submit</button>
-			
-		</form>		
-		
-		
-		
+
+		</form>
+
+
+
 	</div>
-		
+
 	</body>
 
 {% endblock %}
