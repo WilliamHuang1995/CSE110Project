@@ -26,8 +26,8 @@ const DAY_IN_HOURS = 24;
  * Includes: Days to not schedule stuff
  *           The time range
  *****************************************************************/
-const minutesBreak = 0; // 10 minutes of break betwee events
-const weekend = 0; //change this to make a specific date unscheduled
+var minutesBreak = 10; // 10 minutes of break betwee events
+
 var freeday = Array(7);
 freeday[0] = false;
 freeday[1] = false;
