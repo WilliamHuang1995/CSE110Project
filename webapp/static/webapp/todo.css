@@ -1,36 +1,37 @@
 /* Left side stuff */
 
 html, body {
-	height: 100%;
+	height: 100vh;
 	font-family: "Lato", sans-serif;
 	background-color: #F6F7F7;
 }
 
+.nav {
+    margin: auto;
+}
+
 .navbar-fixed-left {
-		left: 0px;
-		top: 0px;
-    width: 40px;
+    left: 0px;
+    top: 0px;
+    width: 4em;
     position: fixed;
     border-radius: 0;
-    height: 100%;
+    height: 100vh;
 }
+
+.logo {
+    margin-top: .25em;
+    height: 4em;
+    width: 4em;
+}
+
 .img-responsive {
-    padding: 6px;
-    max-width:40px; 
-    max-height:40px
+    padding: .25em;
+    height: 3em;
+    width: 3em;
+    margin: .5em;
 }
 
-html {
-	padding: 2%;
-}
-
-.col-sm-12 {
-	height: 100%;
-}
-
-.col-sm-5 {
-	height: 100%;
-}
 
 .row {
 	height: 50%;
@@ -147,6 +148,7 @@ h3 {
 
 .right-side {
 	padding: 10%;
+    padding-top: 5em;
 	display: flex;
   justify-content: center;
 	vertical-align: middle;
@@ -223,12 +225,15 @@ input:focus     { outline:none; }
 	outline: none;
 }
 
+.form {
+    margin: auto;
+}
+
 .form-check-input {
 	float: right;
 }
 
 /* Label ------------------------------- */
-
 label          {
   color:#979797; 
   font-size:18px;
@@ -301,10 +306,14 @@ input:focus ~ .bar:before, input:focus ~ .bar:after {
 .smart-schedule-label {
 	float: right;
 	color:#979797; 
-  font-size:18px;
-  font-weight:normal;	
+    font-size:18px;
+    font-weight:normal;	
 	margin-right: 25px;
 	margin-top: 18px;
+}
+
+.smart-schedule-label > .btn {
+    margin-left: 1em;
 }
 
 .smart-schedule-label:focus {
