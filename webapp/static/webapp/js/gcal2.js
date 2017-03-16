@@ -16,8 +16,8 @@ var signoutButton = document.getElementById('signout-button');
  * Global Vars
  *****************************************************************/
 const MONTHS = 12;
-const START_DAY = 6;
-const END_DAY = 21;
+//const START_DAY = 6;
+//const END_DAY = 21;
 const DAYS_TWO_WEEK = 14;
 const HOUR_IN_MINUTES = 60;
 const DAY_IN_HOURS = 24;
