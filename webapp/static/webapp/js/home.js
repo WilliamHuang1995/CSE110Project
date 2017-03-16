@@ -18,6 +18,24 @@ function initializeClient(){
     });
 }
 
+
+function settingSave(){
+    //needs to check if calendar is hidden maybe
+    freeday[0]=$("#sunday").is(":checked");
+    freeday[1]=$("#monday").is(":checked");
+    freeday[2]=$("#tuesday").is(":checked");
+    freeday[3]=$("#wednesday").is(":checked");
+    freeday[4]=$("#thursday").is(":checked");
+    freeday[5]=$("#friday").is(":checked");
+    freeday[6]=$("#saturday").is(":checked");
+    minutesBreak = Number($("#break-time-input").val());
+    FreeStart = $("#active-start-time-input").val().substring(0,2)
+    FreeEnd = $("#active-end-time-input").val().substring(0,2);
+    $("#settingsModal").modal('hide');
+    $("#calendar").fullCalendar('removeEvents');
+    listUpcomingEvents();
+
+}
 /*****************************************************************
  * GLOBAL CONSTANTS
  *****************************************************************/
