@@ -16,7 +16,7 @@
 /* CSS used here will be applied after bootstrap.css */
 
 
-body{
+html, body{
     font-family: 'Lato', sans-serif;
     height: 100vh;
     background-color: #F6F7F7;
@@ -30,7 +30,15 @@ body{
 }
 
 .nav {
+
     margin: auto;
+	max-width: 4em;
+}
+
+.navbar-fixed-left a {
+	display: block;
+	top:4em;
+	width: 4em;
 }
 
 .navbar-fixed-left {
@@ -43,7 +51,7 @@ body{
 }
 
 .logo {
-    margin-top: .25em;
+	background-color: #4990E2;
     height: 4em;
     width: 4em;
 }
@@ -52,8 +60,17 @@ body{
     padding: .25em;
     height: 3em;
     width: 3em;
-    margin: .5em;
+    margin: .7em .5em .5em .5em;
 }
+
+/*
+.wrapper-home {
+	margin-top: 1em;
+	margin-bottom: .5em;
+	background-color: dimgray;
+	display: inline-block;
+}
+*/
 
 /* Idk if this does anything yet*/
 .container-fluid{
@@ -68,6 +85,7 @@ body{
 #calendar{
     padding-top: 10px;
 }
+
 #external-events {
 
     width: 100%;
@@ -78,6 +96,7 @@ body{
     overflow:scroll;
     /*border around the stuff*/
 }
+
 #external-events .fc-event {
     text-align: left;
     width: 100%;
@@ -93,10 +112,6 @@ body{
     background-color: #4990e2; 
 }
 
-.col-md-4 {
-	right: 18px;
-}
-
 #external-events .fc-event:hover, .fc-event:focus, .fc-event:active {
 		background-color: #3A73B5; 
 }
@@ -104,6 +119,7 @@ body{
 #calendarTrash,#calendar-container{
     height: 100vh;
     position:relative;
+	display: block;
 }
 #calendar-container{
     /* padding: 10px 15px 20px 0; */
@@ -128,9 +144,7 @@ h2 {
     position: absolute;
     bottom: .25em;
     width: 100%;
-    margin: auto;
-    padding-left: 1em;
-    padding-right: 1em;
+    padding-right: 1em;	
 
 }
 
@@ -243,11 +257,8 @@ input:focus ~ .bar:before, input:focus ~ .bar:after {
 
 /* Form styling ------------------------------- */
 
-.input-group        { 
-  position:relative; 
-	width: 100%;
-}
-input         {
+
+input {
   font-size:20px;
   padding:10px 10px 10px 5px;
   display:block;
@@ -268,7 +279,7 @@ input:focus {
 .input-group-addon {
 	background-color: transparent; 
 	border: 0px; 
-	border-radius: 0px; 
+	border-radius: 0px;	
 }
 
 #logout-button {
