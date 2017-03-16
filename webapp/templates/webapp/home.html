@@ -19,7 +19,7 @@
 
         <!--Import fullcalendar/jquery-->
         <link rel="stylesheet" href="{% static 'webapp/fullcalendar/fullcalendar.css' %}" type = "text/css"/>
-			 	<link rel="stylesheet" href="{% static 'webapp/fullcalendar/fullcalendar-custom.css' %}" type = "text/css"/>
+        <link rel="stylesheet" href="{% static 'webapp/fullcalendar/fullcalendar-custom.css' %}" type = "text/css"/>
         <!--Import Font Awesome-->
         <link rel="stylesheet" href='https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css' type = "text/css"/>
 
@@ -249,8 +249,11 @@
             </div>
         </div>
 
-        <script type="text/javascript" src='{% static "webapp/js/home.js" %}'></script>
+
+
         <script type="text/javascript" src='{% static "webapp/js/gcal2.js" %}'></script>
+        <script type="text/javascript" src='{% static "webapp/js/home.js" %}'></script>
+
         <!-- The following has to go with the above script-->
         <script async defer src="https://apis.google.com/js/api.js"
                 onload="this.onload=function(){};handleClientLoad()"

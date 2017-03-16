@@ -143,11 +143,25 @@ function displayModal(calEvent, strSubmitFunc, eventType) {
             $("#url").hide();
             $('.delete-button').hide();
         }
+        //Calendo Event created via Smart Scheduling
+        else if(calEvent.id.includes("smart-schedule")&& calEvent.url==undefined){
+            $('h3.eventType').text('Schedule To-Do');
+            $('.confirmation-button').text('Accept Schedule');
+            //Body
+            $('#event-name-input').val(calEvent.title);
+            $('#start-time-input').val(calEvent.start.format(ACCEPTED_DATE_FORMAT));
+            $('#end-time-input').val(calEvent.end.format(ACCEPTED_DATE_FORMAT));
+            $('#location-input').val(calEvent.location);
+            $('#description-input').val(calEvent.description);
+            $(".confirmation-button").attr("onclick","addToCalendar()");
+            $("#url").hide();
+            $('.delete-button').hide();
+        }
         //Google Calendar Event
         else{
             //set global var to remember the GCal ID
             id=calEvent.id;
-            console.log(id);
+            console.log("ID: "+id);
             //Case where it already exists on Google Calendar
             $('h3.eventType').text('Edit Event');
             $('.confirmation-button').text('Save Changes');
@@ -159,7 +173,7 @@ function displayModal(calEvent, strSubmitFunc, eventType) {
             $('#location-input').val(calEvent.location);
             $('#description-input').val(calEvent.description);
             $(".confirmation-button").attr("onclick",strSubmitFunc);
-            console.log(calEvent.url);
+            console.log("URL: "+calEvent.url);
             $("#url").attr("href",""+calEvent.url);
             $("#url").show();
             $('.delete-button').show();
@@ -195,7 +209,6 @@ function deleteEvent(){
         }).execute();
         //removes from local calendar as well
         $('#calendar').fullCalendar('removeEvents', changedEvent.id);
-
         $("#modalWindow").modal('hide');
         //display success message
         $("#event-remove-success").slideDown();
@@ -395,6 +408,7 @@ $(document).ready(function() {
         eventClick: function(calEvent, jsEvent, view) {
             changedEvent = calEvent;
             id=calEvent.id;
+            console.log(calEvent);
             displayModal(calEvent, "saveChanges()", "Save Changes");
             return false;
         },
@@ -494,11 +508,19 @@ function generateEvent(){
  * Called by Drop
  * Trigger: User wants to add TO DO to Calendar
  * Precondition: No events exist, user already created TODO event
+ *    OR 
+ *               Smart-Scheduled
  * Postcondition: Event Created on both Calendars
  * Uses Google Calendar API
  *****************************************************************/
 function addToCalendar(){
     try{
+        //store id of pre
+        var External = true;
+        id=changedEvent.id;
+        if(changedEvent.id.includes('smart-schedule')){
+            External = false;
+        }
         initializeClient();
 
         if (!validateEvent($('#start-time-input').val(), $('#end-time-input').val())) {
@@ -538,17 +560,28 @@ function addToCalendar(){
             changedEvent.description = $('#description-input').val()
             changedEvent.location = $('#location-input').val()
             changedEvent.url=resp.htmlLink;
-            changedEvent.id=resp.id;
-            $('#calendar').fullCalendar('renderEvent', changedEvent,stick=true);
+            changedEvent.id=External?resp.id:id;
+            changedEvent.color = '#4990e2';
+            
+            
+            if(External){
+                $('#calendar').fullCalendar('renderEvent', changedEvent,stick=true);
+            }else{
+                $('#calendar').fullCalendar('updateEvent',changedEvent);
+                
+            }
+
         });
 
         //Remove from todolist event
         //Will not trigger if user does not click button.
-        todoEvent.remove();
+        if(External){
+            todoEvent.remove();
+        }
 
         //close the modal window after completion
         $("#modalWindow").modal('hide');
-
+        
         //success notification
         $("#event-add-success").slideDown();
         setTimeout(function(){ hide();}, waitTime);
