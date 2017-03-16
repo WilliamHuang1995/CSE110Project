@@ -56,7 +56,7 @@
 									{% if todo.isScheduled == 0 %}
 
 									{% if todo.isChecked == 0 %}
-									<a href="#" class="list-group-item list-group-item-action list-group-item-unscheduled">
+									<a href="#" class="list-group-item list-group-item-action list-group-item-unscheduled" onClick="getRequest({{todo.id}})">
 										<span class="glyphicon glyphicon-ok-circle glyphicon-ok-circle-q glyphicon-ok-circle-u" id= {{todo.id}} onclick="checkTodo()"></span>
 										<span class="glyphicon glyphicon-trash glyphicon-trash-u" id= {{todo.id}} onclick="deleteTodo()"></span>
 
