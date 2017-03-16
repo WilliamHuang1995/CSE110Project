@@ -64,6 +64,7 @@ function blocksToTime(block, startorend){
     // console.log(FreeDateEnd, FreeHourEnd, FreeMinuteEnd);
 
     var FreeEventStart = new Date();
+    
     if (startorend == 'start')
     {
         FreeEventStart.setSeconds(59);
@@ -74,7 +75,7 @@ function blocksToTime(block, startorend){
         if (FreeMinuteStart%5 == 0)
         {
             //console.log('minutestart')
-            FreeMinuteStart--;   
+            //FreeMinuteStart--;   
         }
     }
 
@@ -364,7 +365,9 @@ function listUpcomingEvents() {
             existingEvent = false;
 
 
-
+            var startDateObject = new Date(entry.start.dateTime);
+            startDateObject.setSeconds(59);
+            entry.start.dateTime = startDateObject;
 
             eventsList.push({
                 id:entry.id,
