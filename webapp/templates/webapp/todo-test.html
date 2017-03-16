@@ -56,13 +56,10 @@
 									{% if todo.isScheduled == 0 %}
 
 									{% if todo.isChecked == 0 %}
-<<<<<<< HEAD
-									<a class="list-group-item list-group-item-action list-group-item-unscheduled">
-										<span class="glyphicon glyphicon-ok-circle glyphicon-ok-circle-u" id= {{todo.id}} onclick="checkTodo()"></span>
-=======
+
 									<a href="#" class="list-group-item list-group-item-action list-group-item-unscheduled" onClick="getRequest({{todo.id}})">
-										<span class="glyphicon glyphicon-ok-circle glyphicon-ok-circle-q glyphicon-ok-circle-u" id= {{todo.id}} onclick="checkTodo()"></span>
->>>>>>> c8190c2cccafbb444dbecd3c79e55e8766b379fd
+										<span class="glyphicon glyphicon-ok-circle glyphicon-ok-circle-u" id= {{todo.id}} onclick="checkTodo()"></span>
+
 										<span class="glyphicon glyphicon-trash glyphicon-trash-u" id= {{todo.id}} onclick="deleteTodo()"></span>
 
 
@@ -82,14 +79,11 @@
 									{% for todo in todoList %}
 									{% if todo.isScheduled == 0 %}
 									{% if todo.isChecked == 1 %}
-<<<<<<< HEAD
-									<a class="list-group-item list-group-item-action list-group-item-unscheduled">
-										<span class="glyphicon glyphicon-ok-circle glyphicon-ok-circle-u makeBlue" id= {{todo.id}} onclick="checkTodo()"></span>
-=======
+
 									<a href="#" class="list-group-item list-group-item-action list-group-item-unscheduled" onClick="getRequest({{todo.id}})">
 
 										<span class="glyphicon glyphicon-ok-circle glyphicon-ok-circle-u" id= {{todo.id}} onclick="checkTodo()"></span>
->>>>>>> c8190c2cccafbb444dbecd3c79e55e8766b379fd
+
 										<span class="glyphicon glyphicon-trash glyphicon-trash-u" id= {{todo.id}} onclick="deleteTodo()"></span>
 
 
@@ -136,15 +130,10 @@
 									{% if todo.isScheduled == 1 %}
 									{% if todo.isChecked == 0 %}
 
-<<<<<<< HEAD
-									<a class="list-group-item list-group-item-action list-group-item-unscheduled">
+
+									<a class="list-group-item list-group-item-action list-group-item-unscheduled" onClick="getRequest({{todo.id}})">
 										<span class="glyphicon glyphicon-ok-circle glyphicon-ok-circle-u" id= {{todo.id}} onclick="checkTodo()"></span>
 										
-=======
-									<a href="#" class="list-group-item list-group-item-action list-group-item-unscheduled">
-
-										<span class="glyphicon glyphicon-ok-circle glyphicon-ok-circle-q glyphicon-ok-circle-u"></span>
->>>>>>> c8190c2cccafbb444dbecd3c79e55e8766b379fd
 										<span class="glyphicon glyphicon-trash glyphicon-trash-u" id= {{todo.id}} onclick="deleteTodo()"></span>
 
 
@@ -163,7 +152,7 @@
 									{% for todo in todoList %}
 									{% if todo.isScheduled == 1 %}
 									{% if todo.isChecked == 1 %}
-									<a class="list-group-item list-group-item-action list-group-item-unscheduled">
+									<a class="list-group-item list-group-item-action list-group-item-unscheduled" onClick="getRequest({{todo.id}})">
 										<span class="glyphicon glyphicon-ok-circle glyphicon-ok-circle-u makeBlue" id= {{todo.id}} onclick="checkTodo()"></span>
 										<span class="glyphicon glyphicon-trash glyphicon-trash-u" id= {{todo.id}} onclick="deleteTodo()"></span>
 
