@@ -120,7 +120,7 @@ function postRequest(){
 
         $("#unscheduledDiv").append('\
             <a href="#" class="list-group-item list-group-item-action list-group-item-unscheduled">\
-                <span class="glyphicon glyphicon-ok-circle glyphicon-ok-circle-q glyphicon-ok-circle-u"></span>\
+                <span class="glyphicon glyphicon-ok-circle glyphicon-ok-circle-u"></span>\
                 <span class="glyphicon glyphicon-trash glyphicon-trash-u" id= ' + temp + ' onclick="deleteTodo()"></span>\
                 <div class="p-2">\
                     <p class="mb-1" id=' + temp + '> ' + document.getElementById("task").value +'\
@@ -214,10 +214,11 @@ function newTodo() {
 };
 */
 function checkTodo(){
+ 
     var check = document.getElementsByClassName("glyphicon glyphicon-ok-circle glyphicon-ok-circle-u");
     var i;
     for (i = 0; i < check.length; i++){
-        check[i].onclick = function(){
+        check[i].onclick = function(){ // might be [0] 
             var div = this; 
             console.log(div); 
             var text = div.getAttribute('id');
@@ -225,8 +226,10 @@ function checkTodo(){
 
             checkRequest(text); 
 
-            $(div).removeClass('glyphicon-ok-circle-q');
-            $(div).addClass('glyphicon-ok-circle-u');
+            div.classList.toggle('makeBlue');
+            //if( $(div).hasClass('glyphicon-ok-circle-q') )
+            //$(div).removeClass('glyphicon-ok-circle-u');
+            //$(div).addClass('glyphicon-ok-circle-q');
             
         }
     }
