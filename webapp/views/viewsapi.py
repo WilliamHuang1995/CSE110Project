@@ -31,6 +31,25 @@ import random
 
 from django.core.mail import send_mail
 
+def get_smart(request):
+	userAuth = user_is_auth(request)
+	if not userAuth:
+		return prompt_login(request)
+
+	userSmartUnsched = Todo.objects.raw('select * from webapp_todo where "UserID"= %s and "IsScheduled" = 0 and not "IsSmart" = 0 and "IsChecked" = 0', [userAuth])
+
+	returnArray = []
+  
+	for userTodo in userSmartUnsched:
+    
+		priorityStr = 'low'
+
+		if(userTodo.IsSmart == 2):
+			priorityStr = 'high'
+		
+		returnArray.append({'name': userTodo.title, 'priorityStr': priorityStr, "duration" : userTodo.EstimateTime}) 
+	return HttpResponse(json.dumps(returnArray),content_type='application/json')
+
 def get_request(request):
 	#db_result = Todo.objects.raw('SELECT * FROM webapp_todo')
 	#db_json = serializers.serialize('json', db_result, fields=('id', 'title'))
