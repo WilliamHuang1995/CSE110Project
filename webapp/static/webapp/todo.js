@@ -71,8 +71,19 @@ function getRequest(id){
               document.getElementById("numMins").value = inputMins + " min";
             }
 
+            if (temp.priority == 0){
+              document.getElementById("priorityOpt").value = 'Priority';
+            }
 
-            document.getElementById("priorityOpt").value = temp.priority;
+            else if (temp.priority == 1){
+              document.getElementById("priorityOpt").value = 'Normal';
+            }
+
+            else {
+              document.getElementById("priorityOpt").value = 'High';
+            }
+
+
 
 
 

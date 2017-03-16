@@ -63,7 +63,7 @@ def get_request(request):
 		year = x[0:4]
 		month = x[5:7]
 		day = x[8:10]
-		todoTuple = {'title': 	item.title, 'description': item.Description, 'estimateTime': item.EstimateTime, 'year': year, 'month': month, 'day': day, 'location': item.Location, 'isChecked': item.IsChecked}
+		todoTuple = {'title': 	item.title, 'description': item.Description, 'estimateTime': item.EstimateTime, 'year': year, 'month': month, 'day': day, 'location': item.Location, 'priority': item.IsSmart, 'isChecked': item.IsChecked}
 		data.append(todoTuple)
 
 	return HttpResponse(json.dumps(data),content_type='application/json')
