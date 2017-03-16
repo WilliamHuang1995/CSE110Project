@@ -142,12 +142,20 @@ def post_request(request):
 	input_dueDate = request.POST.get('dueDate')
 	input_location = request.POST.get('location')
 
+	if input_priority == "Priority":
+		thisPriority = 0; 
+	elif input_priority == "Normal":
+		thisPriority = 1; 
+	else:
+		thisPriority = 2; 
+
+
 	print(type(input_estimatedTime))
 	#if type(input_estimatedTime) == str or math.isnan(input_estimatedTime):
 #		print("asdfasdf")
 #		input_estimatedTime = 0
 
-	insertToDoResult = Todo(title=input_title,UserID=userAuth,Description=input_description,EstimateTime=input_estimatedTime,DueDate=input_dueDate, Location=input_location)
+	insertToDoResult = Todo(title=input_title,UserID=userAuth,Description=input_description,EstimateTime=input_estimatedTime,DueDate=input_dueDate, Location=input_location, IsSmart=thisPriority)
 	insertToDoResult.save()
 
 	#queryset = Todo.objects.raw('SELECT id FROM webapp_todo WHERE UserID=%s',[calendo_session_token])
