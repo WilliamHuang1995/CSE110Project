@@ -85,6 +85,9 @@ def edit_todo_request(request):
 	edit_dueDate = request.POST.get('dueDate')
 	edit_location = request.POST.get('location')
 
+	print(edit_id)
+	print(edit_location)
+
 
 	insertToDoResult = Todo(id=edit_id, title=edit_title, Description=edit_description, EstimateTime=edit_estimatedTime, DueDate=edit_dueDate, Location=edit_location)
 

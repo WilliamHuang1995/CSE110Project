@@ -82,8 +82,110 @@ function getRequest(id){
     });
 
 }
+
+function setViewMode(id){
+  getRequest(id)
+
+  document.getElementById("submitButton").style.display = 'none';
+  document.getElementById("cancelButton").style.display = 'inline-block';
+  document.getElementById("saveButton").style.display = 'inline-block';
+
+  document.getElementById("saveButton").setAttribute('onclick','saveChanges('+ id + ')');
+
+}
+
+function editTodoRequest(id){
+  var HttpClient = function() {
+      this.post = function(aUrl, aCallback) {
+          var inputTitle = document.getElementById("task").value;
+          var inputLoc = document.getElementById("loc").value;
+          var inputDescrip = document.getElementById("desc").value;
+          var inputDate = document.getElementById('example-date-input').value;
+          var inputHours = document.getElementById("numHours").value;
+          var inputMins = document.getElementById("numMins").value;
+
+          inputHours = Number.parseInt(inputHours.split(' ')[0]);
+          inputMins = Number.parseInt(inputMins.split(' ')[0]);
+
+          var estimatedTime = inputHours * 60 + inputMins;
+
+          if(Number.isNaN(estimatedTime))
+            estimatedTime = 0;
+
+
+          var inputPriority = document.getElementById("priorityOpt").value;
+          var csrftoken = jQuery("[name=csrfmiddlewaretoken]").val();
+          console.log("crsf token"+ csrftoken);
+          var url = "/api/edit";
+          var form_data = new FormData();
+
+          form_data.append("id", id);
+          form_data.append("title", inputTitle);
+          form_data.append("location", inputLoc);
+          form_data.append("description", inputDescrip);
+          form_data.append("dueDate", inputDate);
+          form_data.append("estimateTime", estimatedTime);
+          form_data.append("priority", inputPriority);
+
+          $('#todo' + id).text(inputTitle);
+
+
+          var anHttpRequest = new XMLHttpRequest();
+          anHttpRequest.onreadystatechange = function() {
+              if (anHttpRequest.readyState == 4 && anHttpRequest.status == 200)
+                  aCallback(anHttpRequest.responseText);
+          }
+
+
+
+
+          //Send the proper header information along with the request
+          //xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+
+
+          anHttpRequest.open( "POST", aUrl, true );
+          anHttpRequest.setRequestHeader("X-CSRFToken", csrftoken);
+          anHttpRequest.send( form_data );
+          console.log("sent params");
+      }
+  }
+  var client = new HttpClient();
+  client.post('/api/edit', function(response) {
+      // do something with response
+      var temp = JSON.parse(response);
+      console.log(temp);
+
+      // TODO Try to fix the title change on the side bar
+  });
+}
+
+
+function saveChanges(id){
+  editTodoRequest(id);
+  console.log("todo" + id)
+
+  //document.getElementById("todo" + id).innerHTML="WHAYS GOSD"
+  cancel();
+}
 //trying a callback post request :)
 
+function cancel(){
+  document.getElementById("task").value = null;
+  document.getElementById("loc").value = null;
+  document.getElementById("desc").value = null;
+  document.getElementById('example-date-input').value = "";
+  document.getElementById("numHours").value = "Hours";
+  document.getElementById("numMins").value = "Minutes";
+  document.getElementById("priorityOpt").value = "Priority"
+
+  $('#task').blur();
+  $('#loc').blur();
+  $('#desc').blur();
+
+  document.getElementById("submitButton").style.display = 'inline-block';
+  document.getElementById("cancelButton").style.display = 'none';
+  document.getElementById("saveButton").style.display = 'none';
+}
 
 function postRequest(){
 
@@ -146,7 +248,7 @@ function postRequest(){
 
 
         $("#unscheduledDiv").append('\
-            <a href="#" class="list-group-item list-group-item-action list-group-item-unscheduled" onClick="getRequest(' + temp + ')">\
+            <a href="#" class="list-group-item list-group-item-action list-group-item-unscheduled" onClick="setViewMode(' + temp + ')">\
                 <span class="glyphicon glyphicon-ok-circle glyphicon-ok-circle-u" onClick="checkTodo()"></span>\
                 <span class="glyphicon glyphicon-trash glyphicon-trash-u" id= ' + temp + ' onclick="deleteTodo()"></span>\
                 <div class="p-2">\

@@ -16,7 +16,7 @@ html, body {
 }
 .img-responsive {
     padding: 6px;
-    max-width:40px; 
+    max-width:40px;
     max-height:40px
 }
 
@@ -45,7 +45,7 @@ html {
 }
 
 .panel-default > .panel-heading {
-	background: #4990e2; color: #fff; 
+	background: #4990e2; color: #fff;
 	border-radius: 11px 11px 0px 0px;
 	border: none;
 	-moz-box-shadow:0 3px 10px rgba(182, 182, 182, 0.75);
@@ -100,7 +100,7 @@ h3 {
 
 .glyphicon-trash {
 	font-size: 20px;
-	float: right; 
+	float: right;
 	display: none;
 	padding: 0px;
 }
@@ -131,7 +131,7 @@ h3 {
 	margin-right: 25px;
 	padding: 0px;
 	color: #f0f0f0;
-	
+
 }
 
 .makeBlue {
@@ -140,7 +140,7 @@ h3 {
 
 .glyphicon-pencil, .glyphicon-map-marker {
 	font-size: 25px;
-	float: right; 
+	float: right;
 	padding-top: 13px;
 	color: #000000;
 }
@@ -163,9 +163,9 @@ h3 {
 
 /* Form styling ------------------------------- */
 
-.input-group        { 
-  position:relative; 
-  margin-bottom:45px; 
+.input-group        {
+  position:relative;
+  margin-bottom:45px;
 	width: 100%;
 }
 input         {
@@ -184,9 +184,9 @@ input:focus     { outline:none; }
 }
 
 .input-group-addon {
-	background-color: transparent; 
-	border: 0px; 
-	border-radius: 0px; 
+	background-color: transparent;
+	border: 0px;
+	border-radius: 0px;
 }
 
 .text-area {
@@ -195,7 +195,7 @@ input:focus     { outline:none; }
 	width: 100%;
 	-webkit-box-sizing: border-box;
 	-moz-box-sizing: border-box;
-	box-sizing: border-box; 
+	box-sizing: border-box;
 	resize: none;
 }
 .text-area:focus { outline: none; }
@@ -203,7 +203,7 @@ input:focus     { outline:none; }
 
 .glyphicon-hourglass, .glyphicon-bell, .glyphicon-calendar {
 	font-size: 25px;
-	float: right; 
+	float: right;
 	color: #000000;
 }
 
@@ -233,13 +233,13 @@ input:focus     { outline:none; }
 /* Label ------------------------------- */
 
 label          {
-  color:#979797; 
+  color:#979797;
   font-size:18px;
   font-weight:normal;
   position:absolute;
   pointer-events:none;
   top:16px;
-  transition:0.2s ease all; 
+  transition:0.2s ease all;
 }
 
 /* active state */
@@ -274,18 +274,18 @@ input:focus ~ label  {
 .bar  { position:relative; display:block; width:100%; }
 .bar:before, .bar:after   {
   content:'';
-  height:3px; 
+  height:3px;
   width:0;
-  bottom:0px; 
+  bottom:0px;
   position:absolute;
-  background:#4990e2; 
-  transition:0.2s ease all; 
+  background:#4990e2;
+  transition:0.2s ease all;
 }
 .bar:before {
   left:50%;
 }
 .bar:after {
-  right:50%; 
+  right:50%;
 }
 
 /* active state */
@@ -303,16 +303,16 @@ input:focus ~ .bar:before, input:focus ~ .bar:after {
 
 .smart-schedule-label {
 	float: right;
-	color:#979797; 
+	color:#979797;
   font-size:18px;
-  font-weight:normal;	
+  font-weight:normal;
 	margin-right: 25px;
 	margin-top: 18px;
 }
 
 .smart-schedule-label:focus {
 	float: right;
-	color:#4990e2; 
+	color:#4990e2;
   font-size:18px;
   font-weight:normal;
 }
@@ -376,4 +376,12 @@ input:checked + .slider:before {
 
 .slider.round:before {
   border-radius: 50%;
+}
+
+#saveButton {
+	display: none;
+}
+
+#cancelButton {
+	display: none;
 }

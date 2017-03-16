@@ -57,7 +57,7 @@
 
 									{% if todo.isChecked == 0 %}
 
-									<a href="#" class="list-group-item list-group-item-action list-group-item-unscheduled" onClick="getRequest({{todo.id}})">
+									<a href="#" class="list-group-item list-group-item-action list-group-item-unscheduled" onClick="setViewMode({{todo.id}})">
 										<span class="glyphicon glyphicon-ok-circle glyphicon-ok-circle-u" id= {{todo.id}} onclick="checkTodo()"></span>
 
 										<span class="glyphicon glyphicon-trash glyphicon-trash-u" id= {{todo.id}} onclick="deleteTodo()"></span>
@@ -65,7 +65,7 @@
 
 										<div class="p-2">
 
-											<p class="mb-1" id={{todo.id}}>{{ todo.title}}
+											<p class="mb-1" id="todo{{todo.id}}">{{ todo.title}}
 												<img style="margin-bottom:3px; margin-left:7px;" src="{% static "webapp/img/Fill 71.png" %}" />
 											</p>
 
@@ -80,7 +80,7 @@
 									{% if todo.isScheduled == 0 %}
 									{% if todo.isChecked == 1 %}
 
-									<a href="#" class="list-group-item list-group-item-action list-group-item-unscheduled" onClick="getRequest({{todo.id}})">
+									<a href="#" class="list-group-item list-group-item-action list-group-item-unscheduled" onClick="setViewMode({{todo.id}})">
 
 										<span class="glyphicon glyphicon-ok-circle glyphicon-ok-circle-u" id= {{todo.id}} onclick="checkTodo()"></span>
 
@@ -89,7 +89,7 @@
 
 										<div class="p-2">
 
-											<p class="mb-1" id={{todo.id}}>{{ todo.title}}
+											<p class="mb-1" id="todo{{todo.id}}">{{ todo.title}}
 												<img style="margin-bottom:3px; margin-left:7px;" src="{% static "webapp/img/Fill 71.png" %}" />
 											</p>
 
@@ -131,7 +131,7 @@
 									{% if todo.isChecked == 0 %}
 
 
-									<a class="list-group-item list-group-item-action list-group-item-unscheduled" onClick="getRequest({{todo.id}})">
+									<a class="list-group-item list-group-item-action list-group-item-unscheduled" onClick="setViewMode({{todo.id}})">
 										<span class="glyphicon glyphicon-ok-circle glyphicon-ok-circle-u" id= {{todo.id}} onclick="checkTodo()"></span>
 
 										<span class="glyphicon glyphicon-trash glyphicon-trash-u" id= {{todo.id}} onclick="deleteTodo()"></span>
@@ -139,7 +139,7 @@
 
 										<div class="p-2">
 
-											<p class="mb-1" id={{todo.id}}>{{ todo.title}}
+											<p class="mb-1" id="todo{{todo.id}}">{{ todo.title}}
 												<img style="margin-bottom:3px; margin-left:7px;" src="{% static "webapp/img/Fill 71.png" %}" />
 											</p>
 
@@ -152,14 +152,14 @@
 									{% for todo in todoList %}
 									{% if todo.isScheduled == 1 %}
 									{% if todo.isChecked == 1 %}
-									<a class="list-group-item list-group-item-action list-group-item-unscheduled" onClick="getRequest({{todo.id}})">
+									<a class="list-group-item list-group-item-action list-group-item-unscheduled" onClick="setViewMode({{todo.id}})">
 										<span class="glyphicon glyphicon-ok-circle glyphicon-ok-circle-u makeBlue" id= {{todo.id}} onclick="checkTodo()"></span>
 										<span class="glyphicon glyphicon-trash glyphicon-trash-u" id= {{todo.id}} onclick="deleteTodo()"></span>
 
 
 										<div class="p-2">
 
-											<p class="mb-1" id={{todo.id}}>{{ todo.title}}
+											<p class="mb-1" id="todo{{todo.id}}">{{ todo.title}}
 												<img style="margin-bottom:3px; margin-left:7px;" src="{% static "webapp/img/Fill 71.png" %}" />
 											</p>
 
@@ -276,7 +276,9 @@
 				</select>
 			</div>
 
-			<button type="button" class="btn btn-primary" onclick="newTodo()">Submit</button>
+			<button id="submitButton" type="button" class="btn btn-primary" onclick="newTodo()">Submit</button>
+			<button id="cancelButton" type="button" class="btn btn-danger" onclick="cancel()">Cancel</button>
+			<button id="saveButton" type="button" class="btn btn-primary">Save Changes</button>
 
 		</form>
 
