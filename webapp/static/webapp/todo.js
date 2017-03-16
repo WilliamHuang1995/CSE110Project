@@ -259,9 +259,7 @@ function checkTodo(){
 
             checkRequest(text);
 
-            $(div).removeClass('glyphicon-ok-circle-q');
-            $(div).addClass('glyphicon-ok-circle-u');
-
+            div.classList.toggle('makeBlue');
 
         }
     }
