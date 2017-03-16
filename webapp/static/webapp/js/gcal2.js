@@ -26,7 +26,7 @@ const DAY_IN_HOURS = 24;
  * Includes: Days to not schedule stuff
  *           The time range
  *****************************************************************/
-var minutesBreak = 10; // 10 minutes of break betwee events
+var minutesBreak = 0; // 10 minutes of break betwee events
 
 var freeday = Array(7);
 freeday[0] = false;
@@ -37,8 +37,8 @@ freeday[4] = false;
 freeday[5] = false;
 freeday[6] = false;
 
-var FreeStart = 8;  // Default start of free time 8:00
-var FreeEnd = 18;   // Default end of free time 17:00
+var FreeStart = 10;  // Default start of free time 8:00
+var FreeEnd = 22;   // Default end of free time 17:00
 
 
 const COLOR_COUNT = 6;
