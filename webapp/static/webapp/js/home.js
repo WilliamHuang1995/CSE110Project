@@ -104,12 +104,14 @@ function addEvent(val) {
 
 /*****************************************************************
  * Allows user to press enter to complete form.
+ * issue currently, needs fix. uncomment once fixed.
  *****************************************************************/
+/*
 $("#modalWindow").keyup(function(event){
     if(event.keyCode == 13 && $('#modalWindow').hasClass('in')){   
         $(".confirmation-button").click();
     }
-});
+});*/
 
 /*****************************************************************
  * Allows user to quick add a todo
