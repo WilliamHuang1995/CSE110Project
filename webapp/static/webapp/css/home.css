@@ -15,14 +15,11 @@
 
 /* CSS used here will be applied after bootstrap.css */
 
-#top-content img,
-#top-content a{
-    display:inline;
 
-}
 body{
     font-family: 'Lato', sans-serif;
     height: 100vh;
+    background-color: #F6F7F7;
 }
 
 ::-webkit-scrollbar { 
@@ -31,11 +28,31 @@ body{
 *:focus {
     outline: none !important;
 }
+
+.nav {
+    margin: auto;
+}
+
 .navbar-fixed-left {
-    width: 40px;
+    left: 0px;
+    top: 0px;
+    width: 4em;
     position: fixed;
     border-radius: 0;
-    height: 100%;
+    height: 100vh;
+}
+
+.logo {
+    margin-top: .25em;
+    height: 4em;
+    width: 4em;
+}
+
+.img-responsive {
+    padding: .25em;
+    height: 3em;
+    width: 3em;
+    margin: .5em;
 }
 
 /* Idk if this does anything yet*/
@@ -43,15 +60,9 @@ body{
     /* Current Issue: margin-top: 10px;
     Will screw up the navbar as well. Need to fix.
     */
-    margin-left: 60px;
+    margin-left: 4em;
     height:100vh;
 
-}
-
-.img-responsive {
-    padding: 6px;
-    max-width:40px; 
-    max-height:40px
 }
 
 #calendar{
@@ -244,3 +255,11 @@ input:focus {
 	border-radius: 0px; 
 }
 
+#active-hours-form {
+    text-align: center;
+    margin: 0px auto;
+}
+
+#logout-button {
+    float: left;
+}

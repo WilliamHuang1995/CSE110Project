@@ -16,6 +16,7 @@
     <script src="{% static "webapp/todo.js" %}" type="text/javascript"></script>
     <link href="https://gitcdn.github.io/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css" rel="stylesheet">
     <script src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script>
+    <link rel="stylesheet" href="{% static "webapp/css/home.css" %}" type="text/css"/>
     <link rel="stylesheet" href="{% static "webapp/todo.css" %}" type="text/css"/>
 </head>
 
@@ -30,34 +31,27 @@
                     <h3>Settings</h3>
                 </div>
                 <div class="modal-body">
-                    <form class="form-inline">
+                    <form id="active-hours-form" class="form-inline">
                         <div id="start-time-input-div" class="form-group">
-                            <label class="control-label col-sm-2" for="active-start-time-input">
-                                Active Hours:
-                            </label>
-                            <div class="col-sm-10">
-                                <input class="form-control" name="start-date" value="10:00" type="time" id="active-start-time-input">
-                            </div>
+                            <label class="control-label" for="active-start-time-input">Active Hours:</label>
+                            <input class="form-control" name="start-date" value ="10:00" type="time" step="3600" id="active-start-time-input">
                         </div>
                         <div id="end-time-input-div" class="form-group">
-                            <label class="control-label col-sm-2" for="active-end-time-input">
-                                To:
-                            </label>
-                            <div class="col-sm-10">
-                                <input class="form-control" name="start-date" value="22:00" type="time" id="active-end-time-input">
-                            </div>
+                            <label class="control-label" for="active-end-time-input">To</label>
+                            <input class="form-control" name="start-date" value="22:00" type="time" step="3600" id="active-end-time-input">
                         </div>
                     </form>
-                    <button id="logout-button" class="btn btn-danger btn-large btn-block">Log Out</button>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Save Changes</button>
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                    <span id="logout-button" class="btn btn-danger">Log Out</span>
+                    <span class="btn btn-danger">Cancel</span>
+                    <span class="btn btn-primary confirmation-button" type="submit">Save Changes</span>
                 </div>
             </div>
 
         </div>
     </div>
+
     <!--- navbar yo -->
     <div class="navbar navbar-inverse navbar-fixed-left" role="navigation">
         <ul class="nav navbar-nav">
