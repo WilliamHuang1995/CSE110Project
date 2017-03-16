@@ -31,6 +31,25 @@ import random
 
 from django.core.mail import send_mail
 
+def get_smart(request):
+	userAuth = user_is_auth(request)
+	if not userAuth:
+		return prompt_login(request)
+
+	userSmartUnsched = Todo.objects.raw('select * from webapp_todo where "UserID"= %s and "IsScheduled" = 0 and not "IsSmart" = 0 and "IsChecked" = 0', [userAuth])
+
+	returnArray = []
+
+	for userTodo in userSmartUnsched:
+
+		priorityStr = 'low'
+
+		if(userTodo.IsSmart == 2):
+			priorityStr = 'high'
+
+		returnArray.append({'name': userTodo.title, 'priorityStr': priorityStr, "duration" : userTodo.EstimateTime})
+	return HttpResponse(json.dumps(returnArray),content_type='application/json')
+
 def get_request(request):
 	#db_result = Todo.objects.raw('SELECT * FROM webapp_todo')
 	#db_json = serializers.serialize('json', db_result, fields=('id', 'title'))
@@ -44,7 +63,7 @@ def get_request(request):
 		year = x[0:4]
 		month = x[5:7]
 		day = x[8:10]
-		todoTuple = {'title': 	item.title, 'description': item.Description, 'estimateTime': item.EstimateTime, 'year': year, 'month': month, 'day': day, 'location': item.Location, 'isChecked': item.IsChecked}
+		todoTuple = {'title': 	item.title, 'description': item.Description, 'estimateTime': item.EstimateTime, 'year': year, 'month': month, 'day': day, 'location': item.Location, 'priority': item.IsSmart, 'isChecked': item.IsChecked}
 		data.append(todoTuple)
 
 	return HttpResponse(json.dumps(data),content_type='application/json')
@@ -67,6 +86,33 @@ def update_request(request):
 	insertToDoResult.save(update_fields=['IsScheduled'])
 
 	return render(request, 'webapp/todo-test.html')
+
+def edit_todo_request(request):
+	if request.method != 'POST':
+		return redirect('/')
+
+	userAuth = user_is_auth(request)
+	if not userAuth:
+		return prompt_login(request)
+
+	edit_id = request.POST.get('id')
+	edit_title = request.POST.get('title')
+	edit_description = request.POST.get('description')
+	edit_estimatedTime = request.POST.get('estimateTime')
+	edit_priority = request.POST.get('priority')
+	edit_dueDate = request.POST.get('dueDate')
+	edit_location = request.POST.get('location')
+
+
+	insertToDoResult = Todo(id=edit_id, title=edit_title, Description=edit_description, EstimateTime=edit_estimatedTime, DueDate=edit_dueDate, Location=edit_location)
+
+	insertToDoResult.save(update_fields=['title', 'Description', 'EstimateTime', 'DueDate', 'Location'])
+
+	response_data = {}
+	response_data['success'] = 'True'
+
+	return HttpResponse(json.dumps(response_data),content_type='application/json')
+
 
 def check_request(request):
 	if request.method != 'POST':
@@ -114,12 +160,20 @@ def post_request(request):
 	input_dueDate = request.POST.get('dueDate')
 	input_location = request.POST.get('location')
 
+	if input_priority == "Priority ":
+		thisPriority = 0;
+	elif input_priority == "Normal ":
+		thisPriority = 1;
+	else:
+		thisPriority = 2;
+
+
 	print(type(input_estimatedTime))
 	#if type(input_estimatedTime) == str or math.isnan(input_estimatedTime):
 #		print("asdfasdf")
 #		input_estimatedTime = 0
 
-	insertToDoResult = Todo(title=input_title,UserID=userAuth,Description=input_description,EstimateTime=input_estimatedTime,DueDate=input_dueDate, Location=input_location)
+	insertToDoResult = Todo(title=input_title,UserID=userAuth,Description=input_description,EstimateTime=input_estimatedTime,DueDate=input_dueDate, Location=input_location, IsSmart=thisPriority)
 	insertToDoResult.save()
 
 	#queryset = Todo.objects.raw('SELECT id FROM webapp_todo WHERE UserID=%s',[calendo_session_token])

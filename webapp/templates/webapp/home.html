@@ -22,6 +22,7 @@
         <link rel="stylesheet" href="{% static 'webapp/fullcalendar/fullcalendar-custom.css' %}" type = "text/css"/>
         <!--Import Font Awesome-->
         <link rel="stylesheet" href='https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css' type = "text/css"/>
+		<link href='http://fonts.googleapis.com/css?family=Lato:400,700' rel='stylesheet' type='text/css'>
 
         <script src='{% static "webapp/fullcalendar/lib/jquery.min.js" %}'></script>
         <script src='{% static "webapp/fullcalendar/lib/moment.min.js" %}'></script>
@@ -147,15 +148,16 @@
                                                 <input id="saturday" type="checkbox"> Saturday
                                             </label>
                                         </div>
-                                    </div>
-                                </div>
+                                  </div>
+                              </div>
                             </form>
                         </div>
                         <div class="modal-footer">
                             <span id="logout-button" class="btn btn-danger">Log Out</span>
                             <span class="btn btn-danger" data-dismiss="modal">Cancel</span>
-                            <span class="btn btn-primary confirmation-button" type="submit">Save Changes</span>
+                            <span class="btn btn-primary" type="submit" onclick="settingSave()">Save Changes</span>
                         </div>
+
                     </div>
 
                 </div>
@@ -254,13 +256,14 @@
             </div>
         </div>
 
-        <!-- nav bar -->
+        <!--- navbar yo -->
         <div class="navbar navbar-inverse navbar-fixed-left" role="navigation">
             <ul class="nav navbar-nav">
                 <div id="top-content" class="navbar-fixed-top">
-                    <li><img src="{% static 'webapp/img/nav_logo.png' %}" class="logo" /></li>
-                    <li><a href=#><img src="{% static 'webapp/img/nav_calendar.png' %}" class="img-responsive"/></a></li>
-                    <li><a href=/todo><li><img src="{% static 'webapp/img/nav_task1.png' %}" class="img-responsive"/></a></li>
+                    <li><a href="/#"><img src="{% static 'webapp/img/nav_logo.png' %}" class="logo" /></a></li>
+                    <div class="wrapper-home"><li><a href=/todo><li><img src="{% static 'webapp/img/nav_task1.png' %}" class="img-responsive"/></a></li></div>
+					
+                    <!--TRYING OUT GETTING RID OF TAB <li><a href=/#><img src="{% static 'webapp/img/nav_calendar.png' %}" class="img-responsive"/></a></li>-->
                 </div>
                 <li><img src="{% static 'webapp/img/nav_settings.png' %}" class="img-responsive navbar-fixed-bottom" data-toggle="modal" data-target="#settingsModal" style="cursor:pointer;"/></li>
             </ul>
