@@ -561,13 +561,12 @@ function addToCalendar(){
             changedEvent.location = $('#location-input').val()
             changedEvent.url=resp.htmlLink;
             changedEvent.id=External?resp.id:id;
-            changedEvent.color = '#FF9800';
+            changedEvent.color = '#4990e2';
             
             
             if(External){
                 $('#calendar').fullCalendar('renderEvent', changedEvent,stick=true);
             }else{
-                alert("internal");
                 $('#calendar').fullCalendar('updateEvent',changedEvent);
                 
             }

@@ -374,7 +374,7 @@ function listUpcomingEvents() {
                 url: url,
                 location: entry.location,
                 description: entry.description,
-                color: '#FF9800' //change it back later if u want
+                color: '#4990e2' //change it back later if u want  #FF9800
 
             });
 
