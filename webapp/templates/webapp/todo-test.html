@@ -32,11 +32,11 @@
                 </div>
                 <div class="modal-body">
                     <form id="active-hours-form" class="form-inline">
-                        <div id="start-time-input-div" class="form-group">
+                        <div id="start-time-input-div" class="col-sm-6 form-group">
                             <label class="control-label" for="active-start-time-input">Active Hours:</label>
                             <input class="form-control" name="start-date" value ="10:00" type="time" step="3600" id="active-start-time-input">
                         </div>
-                        <div id="end-time-input-div" class="form-group">
+                        <div id="end-time-input-div" class="col-sm-6 form-group">
                             <label class="control-label" for="active-end-time-input">To</label>
                             <input class="form-control" name="start-date" value="22:00" type="time" step="3600" id="active-end-time-input">
                         </div>
@@ -56,7 +56,7 @@
     <div class="navbar navbar-inverse navbar-fixed-left" role="navigation">
         <ul class="nav navbar-nav">
             <div id="top-content" class="navbar-fixed-top">
-                <li><img src="{% static 'webapp/img/nav_logo.png' %}" class="img-responsive" /></li>
+                <li><img src="{% static 'webapp/img/nav_logo.png' %}" class="logo" /></li>
                 <li><a href="/"><img src="{% static 'webapp/img/nav_calendar.png' %}" class="img-responsive"/></a></li>
                 <li><a href=/todo><li><img src="{% static 'webapp/img/nav_task1.png' %}" class="img-responsive"/></a></li>
             </div>

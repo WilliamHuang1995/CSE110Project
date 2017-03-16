@@ -19,7 +19,7 @@
 
         <!--Import fullcalendar/jquery-->
         <link rel="stylesheet" href="{% static 'webapp/fullcalendar/fullcalendar.css' %}" type = "text/css"/>
-			 	<link rel="stylesheet" href="{% static 'webapp/fullcalendar/fullcalendar-custom.css' %}" type = "text/css"/>
+        <link rel="stylesheet" href="{% static 'webapp/fullcalendar/fullcalendar-custom.css' %}" type = "text/css"/>
         <!--Import Font Awesome-->
         <link rel="stylesheet" href='https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css' type = "text/css"/>
 
@@ -48,15 +48,31 @@
                         <h3>Settings</h3>
                     </div>
                     <div class="modal-body">
+
                         <form id="active-hours-form" class="form-inline">
-                            <div id="start-time-input-div" class="form-group">
+
+                            <div class="col-sm-4">
                                 <label class="control-label" for="active-start-time-input">Active Hours:</label>
-                                <input class="form-control" name="start-date" value ="10:00" type="time" step="3600" id="active-start-time-input">
                             </div>
-                            <div id="end-time-input-div" class="form-group">
-                                <label class="control-label" for="active-end-time-input">To</label>
-                                <input class="form-control" name="start-date" value="22:00" type="time" step="3600" id="active-end-time-input">
+                            <div id="time-input-div col-sm-8" class="form-group">
+                                <div id="start-time-input-div">
+                                    <input class="form-control" name="start-date" value ="10:00" type="time" step="3600" id="active-start-time-input">
+                                    <label class="control-label" for="active-end-time-input">To</label>
+                                    <div id="end-time-input-div" class="form-group">
+                                        <input class="form-control" name="start-date" value="22:00" type="time" step="3600" id="active-end-time-input">
+                                    </div>
+                                </div>
                             </div>
+                            <div class="col-sm-4">
+                                <label class="control-label" for="active-start-time-input">Break Time Length:</label>
+                                
+                            </div>
+                            <div id="time-input-div col-sm-8" class="form-group">
+                                <div id="free-time">
+                                    <input class="form-control" id="break-time-input" name="break-time" value ="0" type="number" step="5" max="60" min="0">
+                                </div>
+                            </div>
+
                         </form>
                     </div>
                     <div class="modal-footer">
@@ -167,7 +183,7 @@
                 <div id="top-content" class="navbar-fixed-top">
                     <li><img src="{% static 'webapp/img/nav_logo.png' %}" class="logo" /></li>
                     <li><a href=#><img src="{% static 'webapp/img/nav_calendar.png' %}" class="img-responsive"/></a></li>
-                    <li><a href=/todo><li><img src="{% static 'webapp/img/  nav_task1.png' %}" class="img-responsive"/></a></li>
+                    <li><a href=/todo><li><img src="{% static 'webapp/img/nav_task1.png' %}" class="img-responsive"/></a></li>
                 </div>
                 <li><img src="{% static 'webapp/img/nav_settings.png' %}" class="img-responsive navbar-fixed-bottom" data-toggle="modal" data-target="#settingsModal" style="cursor:pointer;"/></li>
             </ul>
@@ -249,8 +265,11 @@
             </div>
         </div>
 
-        <script type="text/javascript" src='{% static "webapp/js/home.js" %}'></script>
+
+
         <script type="text/javascript" src='{% static "webapp/js/gcal2.js" %}'></script>
+        <script type="text/javascript" src='{% static "webapp/js/home.js" %}'></script>
+
         <!-- The following has to go with the above script-->
         <script async defer src="https://apis.google.com/js/api.js"
                 onload="this.onload=function(){};handleClientLoad()"

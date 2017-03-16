@@ -102,11 +102,13 @@ body{
 }
 
 #calendarTrash,#calendar-container{
-    height:100vh;
+    height: 100vh;
     position:relative;
 }
 #calendar-container{
-    padding: 10px 15px 20px 0;
+    /* padding: 10px 15px 20px 0; */
+    padding: 1.5em 5em 1.5em 1.5em;
+
 }
 
 h3 {
@@ -117,20 +119,28 @@ h2 {
 	padding-bottom:18px;
 }
 
-
 .button-group{
+
     position: absolute;
-    bottom: 20px;
+    bottom: .25em;
     width: 100%;
-    padding-right: 40px;
+    margin: auto;
+    padding-left: 1em;
+    padding-right: 1em;
+
 }
 
 #authorize-button {
-    margin-top: 0px;
-    
+    position: relative;
+    bottom: .5em;
+    margin-top: 1em;
+    padding-bottom: 1em;
 }
 #signout-button {
-    margin-top: 10px;
+    position: relative;
+    bottom: .5em;
+    margin-top: 1em;
+    padding-bottom: 1em;
 }
 
 
@@ -143,9 +153,6 @@ h2 {
 #id{
     color: #4990e2;
 }
-
-
-
 
 .quick-add {
 	padding-top: 25px;
@@ -256,8 +263,8 @@ input:focus {
 }
 
 #active-hours-form {
-    text-align: center;
-    margin: 0px auto;
+    /*text-align: center;
+    margin: 0px auto;*/
 }
 
 #logout-button {
