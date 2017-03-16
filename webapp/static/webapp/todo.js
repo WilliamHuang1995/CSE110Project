@@ -246,9 +246,20 @@ function postRequest(){
         var temp = JSON.parse(response);
         console.log(temp);
 
-
+        if(document.getElementById("priorityOpt").value == "Priority "){
         $("#unscheduledDiv").append('\
             <a href="#" class="list-group-item list-group-item-action list-group-item-unscheduled" onClick="setViewMode(' + temp + ')">\
+                <span class="glyphicon glyphicon-ok-circle glyphicon-ok-circle-u" onClick="checkTodo()"></span>\
+                <span class="glyphicon glyphicon-trash glyphicon-trash-u" id= ' + temp + ' onclick="deleteTodo()"></span>\
+                <div class="p-2">\
+                    <p class="mb-1" id=' + temp + '> ' + document.getElementById("task").value +'\
+                    </p>\
+                </div>\
+            </a>');
+        }
+        else {
+            $("#unscheduledDiv").append('\
+            <a href="#" class="list-group-item list-group-item-action list-group-item-unscheduled" onClick="getRequest(' + temp + ')">\
                 <span class="glyphicon glyphicon-ok-circle glyphicon-ok-circle-u" onClick="checkTodo()"></span>\
                 <span class="glyphicon glyphicon-trash glyphicon-trash-u" id= ' + temp + ' onclick="deleteTodo()"></span>\
                 <div class="p-2">\
@@ -257,6 +268,8 @@ function postRequest(){
                     </p>\
                 </div>\
             </a>');
+
+        }
 
         document.getElementById("task").value = null;
         document.getElementById("loc").value = null;

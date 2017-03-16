@@ -1,13 +1,25 @@
+/*
+@font-face {
+  font-family: 'MyScriptFont';
+  src: url('webfont.eot'); 
+  src: url('webfont.eot?#iefix') format('embedded-opentype'), 
+       url('webfont.woff2') format('woff2'), 
+       url('webfont.woff') format('woff'),
+       url('MyScriptFont.ttf')  format('truetype'), 
+       url('webfont.svg#svgFontName') format('svg'); 
+}
+*/
+
+
+
+
 /* CSS used here will be applied after bootstrap.css */
 
-#top-content img,
-#top-content a{
-    display:inline;
 
-}
-body{
-    font-family:  lato;
+html, body{
+    font-family: 'Lato', sans-serif;
     height: 100vh;
+    background-color: #F6F7F7;
 }
 
 ::-webkit-scrollbar { 
@@ -16,11 +28,34 @@ body{
 *:focus {
     outline: none !important;
 }
+
+.nav {
+
+    margin: auto;       
+}
+
 .navbar-fixed-left {
-    width: 40px;
+    left: 0px;
+    top: 0px;
+    width: 4em;
     position: fixed;
     border-radius: 0;
-    height: 100%;
+    height: 100vh;
+}
+
+.logo {
+
+    margin-top: .25em;
+    height: 4em;
+    width: 4em;
+}
+
+.img-responsive {
+
+    padding: .25em;
+    height: 3em;
+    width: 3em;
+    margin: .5em;
 }
 
 /* Idk if this does anything yet*/
@@ -28,20 +63,15 @@ body{
     /* Current Issue: margin-top: 10px;
     Will screw up the navbar as well. Need to fix.
     */
-    margin-left: 60px;
+    margin-left: 4em;
     height:100vh;
 
-}
-
-.img-responsive {
-    padding: 6px;
-    max-width:40px; 
-    max-height:40px
 }
 
 #calendar{
     padding-top: 10px;
 }
+
 #external-events {
 
     width: 100%;
@@ -52,6 +82,7 @@ body{
     overflow:scroll;
     /*border around the stuff*/
 }
+
 #external-events .fc-event {
     text-align: left;
     width: 100%;
@@ -67,20 +98,19 @@ body{
     background-color: #4990e2; 
 }
 
-.col-md-4 {
-	right: 18px;
-}
-
 #external-events .fc-event:hover, .fc-event:focus, .fc-event:active {
 		background-color: #3A73B5; 
 }
 
 #calendarTrash,#calendar-container{
-    height:100vh;
+    height: 100vh;
     position:relative;
+	display: block;
 }
 #calendar-container{
-    padding: 10px 15px 20px 0;
+    /* padding: 10px 15px 20px 0; */
+    padding: 1.5em 1.5em 1.5em 1.5em;
+
 }
 
 h3 {
@@ -91,20 +121,37 @@ h2 {
 	padding-bottom:18px;
 }
 
+.row {
+    margin-left: 0px;
+}
 
 .button-group{
+
     position: absolute;
-    bottom: 20px;
+    bottom: .25em;
     width: 100%;
-    padding-right: 40px;
+    margin: auto;
+    padding-left: 0em;
+    padding-right: 1em;	
+
+}
+
+.btn-group, .btn-group-vertical {
+    padding-top, padding-bottom: 30px !important;
+    font-size: 18px !important;
 }
 
 #authorize-button {
-    margin-top: 0px;
-    
+    position: relative;
+    bottom: .5em;
+    margin-top: 1em;
+    padding-bottom: 1em;
 }
 #signout-button {
-    margin-top: 10px;
+    position: relative;
+    bottom: .5em;
+    margin-top: 1em;
+    padding-bottom: 1em;
 }
 
 
@@ -117,9 +164,6 @@ h2 {
 #id{
     color: #4990e2;
 }
-
-
-
 
 .quick-add {
 	padding-top: 25px;
@@ -201,11 +245,8 @@ input:focus ~ .bar:before, input:focus ~ .bar:after {
 
 /* Form styling ------------------------------- */
 
-.input-group        { 
-  position:relative; 
-	width: 100%;
-}
-input         {
+
+input {
   font-size:20px;
   padding:10px 10px 10px 5px;
   display:block;
@@ -226,6 +267,14 @@ input:focus {
 .input-group-addon {
 	background-color: transparent; 
 	border: 0px; 
-	border-radius: 0px; 
+	border-radius: 0px;	
 }
 
+#active-hours-form {
+    /*text-align: center;
+    margin: 0px auto;*/
+}
+
+#logout-button {
+    float: left;
+}

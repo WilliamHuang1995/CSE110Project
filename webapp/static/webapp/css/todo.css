@@ -1,12 +1,17 @@
 body {
   margin: 0;
   min-width: 250px;
+  font-family: lato, sans-serif;
 }
 .navbar-fixed-left {
     width: 40px;
     position: fixed;
     border-radius: 0;
     height: 100%;
+}
+
+.container {
+	height: 100% !important;
 }
 
 /* Include the padding and border in an element's total width and height */

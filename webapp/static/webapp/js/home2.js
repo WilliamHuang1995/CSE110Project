@@ -18,24 +18,6 @@ function initializeClient(){
     });
 }
 
-
-function settingSave(){
-    //needs to check if calendar is hidden maybe
-    freeday[0]=$("#sunday").is(":checked");
-    freeday[1]=$("#monday").is(":checked");
-    freeday[2]=$("#tuesday").is(":checked");
-    freeday[3]=$("#wednesday").is(":checked");
-    freeday[4]=$("#thursday").is(":checked");
-    freeday[5]=$("#friday").is(":checked");
-    freeday[6]=$("#saturday").is(":checked");
-    minutesBreak = Number($("#break-time-input").val());
-    FreeStart = $("#active-start-time-input").val().substring(0,2)
-    FreeEnd = $("#active-end-time-input").val().substring(0,2);
-    $("#settingsModal").modal('hide');
-    $("#calendar").fullCalendar('removeEvents');
-    listUpcomingEvents();
-
-}
 /*****************************************************************
  * GLOBAL CONSTANTS
  *****************************************************************/
@@ -122,14 +104,12 @@ function addEvent(val) {
 
 /*****************************************************************
  * Allows user to press enter to complete form.
- * issue currently, needs fix. uncomment once fixed.
  *****************************************************************/
-/*
 $("#modalWindow").keyup(function(event){
     if(event.keyCode == 13 && $('#modalWindow').hasClass('in')){   
         $(".confirmation-button").click();
     }
-});*/
+});
 
 /*****************************************************************
  * Allows user to quick add a todo
@@ -216,25 +196,11 @@ function displayModal(calEvent, strSubmitFunc, eventType) {
             $("#url").hide();
             $('.delete-button').hide();
         }
-        //Calendo Event created via Smart Scheduling
-        else if(calEvent.id.includes("smart-schedule")&& calEvent.url==undefined){
-            $('h3.eventType').text('Schedule To-Do');
-            $('.confirmation-button').text('Accept Schedule');
-            //Body
-            $('#event-name-input').val(calEvent.title);
-            $('#start-time-input').val(calEvent.start.format(ACCEPTED_DATE_FORMAT));
-            $('#end-time-input').val(calEvent.end.format(ACCEPTED_DATE_FORMAT));
-            $('#location-input').val(calEvent.location);
-            $('#description-input').val(calEvent.description);
-            $(".confirmation-button").attr("onclick","addToCalendar()");
-            $("#url").hide();
-            $('.delete-button').hide();
-        }
         //Google Calendar Event
         else{
             //set global var to remember the GCal ID
             id=calEvent.id;
-            console.log("ID: "+id);
+            console.log(id);
             //Case where it already exists on Google Calendar
             $('h3.eventType').text('Edit Event');
             $('.confirmation-button').text('Save Changes');
@@ -246,7 +212,7 @@ function displayModal(calEvent, strSubmitFunc, eventType) {
             $('#location-input').val(calEvent.location);
             $('#description-input').val(calEvent.description);
             $(".confirmation-button").attr("onclick",strSubmitFunc);
-            console.log("URL: "+calEvent.url);
+            console.log(calEvent.url);
             $("#url").attr("href",""+calEvent.url);
             $("#url").show();
             $('.delete-button').show();
@@ -282,6 +248,7 @@ function deleteEvent(){
         }).execute();
         //removes from local calendar as well
         $('#calendar').fullCalendar('removeEvents', changedEvent.id);
+
         $("#modalWindow").modal('hide');
         //display success message
         $("#event-remove-success").slideDown();
@@ -486,7 +453,6 @@ $(document).ready(function() {
         eventClick: function(calEvent, jsEvent, view) {
             changedEvent = calEvent;
             id=calEvent.id;
-            console.log(calEvent);
             displayModal(calEvent, "saveChanges()", "Save Changes");
             return false;
         },
@@ -512,7 +478,6 @@ $(document).ready(function() {
         }
 
     });
-
 });
 
 
@@ -587,19 +552,11 @@ function generateEvent(){
  * Called by Drop
  * Trigger: User wants to add TO DO to Calendar
  * Precondition: No events exist, user already created TODO event
- *    OR 
- *               Smart-Scheduled
  * Postcondition: Event Created on both Calendars
  * Uses Google Calendar API
  *****************************************************************/
 function addToCalendar(){
     try{
-        //store id of pre
-        var External = true;
-        id=changedEvent.id;
-        if(changedEvent.id.includes('smart-schedule')){
-            External = false;
-        }
         initializeClient();
 
         if (!validateEvent($('#start-time-input').val(), $('#end-time-input').val())) {
@@ -639,22 +596,12 @@ function addToCalendar(){
             changedEvent.description = $('#description-input').val()
             changedEvent.location = $('#location-input').val()
             changedEvent.url=resp.htmlLink;
-            changedEvent.id=External?resp.id:id;
-            changedEvent.color = '#4990e2';
-
-
-            if(External){
-                $('#calendar').fullCalendar('renderEvent', changedEvent,stick=true);
-            }else{
-                $('#calendar').fullCalendar('updateEvent',changedEvent);
-
-            }
-
+            changedEvent.id=resp.id;
+            $('#calendar').fullCalendar('renderEvent', changedEvent,stick=true);
         });
 
         //Remove from todolist event
         //Will not trigger if user does not click button.
-
 /********************************************
  * dfa;dlfkajdfalkfj
 
@@ -666,12 +613,7 @@ function addToCalendar(){
         console.log(ourId); 
         console.log("what am I");
         updateRequest(ourId);
-
-
-        if(External){
-            todoEvent.remove();
-        }
-
+        todoEvent.remove();
 
         //close the modal window after completion
         $("#modalWindow").modal('hide');
@@ -840,7 +782,3 @@ function clearModalErrors() {
     $('#start-time-input-help').hide();
     $('#end-time-input-help').hide();
 }
-
-$(".btn").mouseup(function() {
-    $(this).blur();  
-})

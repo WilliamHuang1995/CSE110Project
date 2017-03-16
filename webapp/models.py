@@ -53,7 +53,7 @@ class Todo(models.Model):
 	#SmartSchedule = models.IntegerField(default=0)
 	IsScheduled = models.IntegerField(default=0)
 	IsChecked = models.IntegerField(default=0)
-	
+	IsSmart = models.IntegerField(default=0)
 
 	def __str__(self):
 			return self.title

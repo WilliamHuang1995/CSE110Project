@@ -18,24 +18,6 @@ function initializeClient(){
     });
 }
 
-
-function settingSave(){
-    //needs to check if calendar is hidden maybe
-    freeday[0]=$("#sunday").is(":checked");
-    freeday[1]=$("#monday").is(":checked");
-    freeday[2]=$("#tuesday").is(":checked");
-    freeday[3]=$("#wednesday").is(":checked");
-    freeday[4]=$("#thursday").is(":checked");
-    freeday[5]=$("#friday").is(":checked");
-    freeday[6]=$("#saturday").is(":checked");
-    minutesBreak = Number($("#break-time-input").val());
-    FreeStart = $("#active-start-time-input").val().substring(0,2)
-    FreeEnd = $("#active-end-time-input").val().substring(0,2);
-    $("#settingsModal").modal('hide');
-    $("#calendar").fullCalendar('removeEvents');
-    listUpcomingEvents();
-
-}
 /*****************************************************************
  * GLOBAL CONSTANTS
  *****************************************************************/
@@ -122,14 +104,12 @@ function addEvent(val) {
 
 /*****************************************************************
  * Allows user to press enter to complete form.
- * issue currently, needs fix. uncomment once fixed.
  *****************************************************************/
-/*
 $("#modalWindow").keyup(function(event){
     if(event.keyCode == 13 && $('#modalWindow').hasClass('in')){   
         $(".confirmation-button").click();
     }
-});*/
+});
 
 /*****************************************************************
  * Allows user to quick add a todo
@@ -512,7 +492,6 @@ $(document).ready(function() {
         }
 
     });
-
 });
 
 
@@ -641,20 +620,20 @@ function addToCalendar(){
             changedEvent.url=resp.htmlLink;
             changedEvent.id=External?resp.id:id;
             changedEvent.color = '#4990e2';
-
-
+            
+            
             if(External){
                 $('#calendar').fullCalendar('renderEvent', changedEvent,stick=true);
             }else{
                 $('#calendar').fullCalendar('updateEvent',changedEvent);
-
+                
             }
 
         });
 
         //Remove from todolist event
         //Will not trigger if user does not click button.
-
+<<<<<<< HEAD
 /********************************************
  * dfa;dlfkajdfalkfj
 
@@ -666,16 +645,16 @@ function addToCalendar(){
         console.log(ourId); 
         console.log("what am I");
         updateRequest(ourId);
-
-
+        todoEvent.remove();
+=======
         if(External){
             todoEvent.remove();
         }
-
+>>>>>>> 0209997f168a59b5b44b2a60d1f14c94cdfe6953
 
         //close the modal window after completion
         $("#modalWindow").modal('hide');
-
+        
         //success notification
         $("#event-add-success").slideDown();
         setTimeout(function(){ hide();}, waitTime);
@@ -840,7 +819,3 @@ function clearModalErrors() {
     $('#start-time-input-help').hide();
     $('#end-time-input-help').hide();
 }
-
-$(".btn").mouseup(function() {
-    $(this).blur();  
-})

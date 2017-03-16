@@ -31,6 +31,25 @@ import random
 
 from django.core.mail import send_mail
 
+def get_smart(request):
+	userAuth = user_is_auth(request)
+	if not userAuth:
+		return prompt_login(request)
+
+	userSmartUnsched = Todo.objects.raw('select * from webapp_todo where "UserID"= %s and "IsScheduled" = 0 and not "IsSmart" = 0 and "IsChecked" = 0', [userAuth])
+
+	returnArray = []
+
+	for userTodo in userSmartUnsched:
+
+		priorityStr = 'low'
+
+		if(userTodo.IsSmart == 2):
+			priorityStr = 'high'
+
+		returnArray.append({'name': userTodo.title, 'priorityStr': priorityStr, "duration" : userTodo.EstimateTime})
+	return HttpResponse(json.dumps(returnArray),content_type='application/json')
+
 def get_request(request):
 	#db_result = Todo.objects.raw('SELECT * FROM webapp_todo')
 	#db_json = serializers.serialize('json', db_result, fields=('id', 'title'))
@@ -84,9 +103,6 @@ def edit_todo_request(request):
 	#edit_priority = request.POST.get('priority')
 	edit_dueDate = request.POST.get('dueDate')
 	edit_location = request.POST.get('location')
-
-	print(edit_id)
-	print(edit_location)
 
 
 	insertToDoResult = Todo(id=edit_id, title=edit_title, Description=edit_description, EstimateTime=edit_estimatedTime, DueDate=edit_dueDate, Location=edit_location)
@@ -145,12 +161,20 @@ def post_request(request):
 	input_dueDate = request.POST.get('dueDate')
 	input_location = request.POST.get('location')
 
+	if input_priority == "Priority ":
+		thisPriority = 0;
+	elif input_priority == "Normal ":
+		thisPriority = 1;
+	else:
+		thisPriority = 2;
+
+
 	print(type(input_estimatedTime))
 	#if type(input_estimatedTime) == str or math.isnan(input_estimatedTime):
 #		print("asdfasdf")
 #		input_estimatedTime = 0
 
-	insertToDoResult = Todo(title=input_title,UserID=userAuth,Description=input_description,EstimateTime=input_estimatedTime,DueDate=input_dueDate, Location=input_location)
+	insertToDoResult = Todo(title=input_title,UserID=userAuth,Description=input_description,EstimateTime=input_estimatedTime,DueDate=input_dueDate, Location=input_location, IsSmart=thisPriority)
 	insertToDoResult.save()
 
 	#queryset = Todo.objects.raw('SELECT id FROM webapp_todo WHERE UserID=%s',[calendo_session_token])
