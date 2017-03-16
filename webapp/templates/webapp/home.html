@@ -50,67 +50,117 @@
                     </div>
                     <div class="modal-body">
 
-                        <form id="settings-form">
+                        <!--form id="settings-form">
+<div class="col-sm-4">
+<label class="control-label" for="active-start-time-input">Active Hours:</label>
+</div>
+<div id="time-input-div col-sm-8" class="form-group form-inline">
+<div id="start-time-input-div">
+<input class="form-control" name="start-date" value ="10:00" type="time" step="3600" id="active-start-time-input">
+<label class="control-label" for="active-end-time-input">To</label>
+<div id="end-time-input-div" class="form-group">
+<input class="form-control" name="start-date" value="22:00" type="time" step="3600" id="active-end-time-input">
+</div>
+</div>
+</div>
 
-                           
-                                <div class="col-sm-4">
-                                    <label class="control-label" for="active-start-time-input">Active Hours:</label>
-                                </div>
-                                <div id="time-input-div col-sm-8" class="form-group form-inline">
-                                    <div id="start-time-input-div">
+<div class="row">
+<div class="col-sm-4">
+<label class="control-label" for="active-start-time-input">Break Time Length:</label>
+</div>
+<div id="free-time col-sm-8" class="form-group">
+<input class="form-control" id="break-time-input" name="break-time" value ="0" type="number" step="5" max="60" min="0">
+</div>
+</div>
+<div class="row col-sm-6">
+<label class="control-label" for="weekend-input">Smart-Schedule Days:</label>
+</div>
+<div class="row col-sm-12">
+<div class="btn-group" data-toggle="buttons">
+<label class="btn btn-primary btn-xs">
+<input type="checkbox"> Sunday
+</label>
+<label class="btn btn-primary btn-xs">
+<input type="checkbox"> Monday
+</label>
+<label class="btn btn-primary btn-xs">
+<input type="checkbox"> Tuesday
+</label>
+<label class="btn btn-primary btn-xs">
+<input type="checkbox"> Wednesday
+</label>
+<label class="btn btn-primary btn-xs">
+<input type="checkbox"> Thursday
+</label>
+<label class="btn btn-primary btn-xs">
+<input type="checkbox"> Friday
+</label>
+<label class="btn btn-primary btn-xs">
+<input type="checkbox"> Saturday
+</label>
+</div>
+</div>
+</form>
+</div-->
+                        <div class="modal-body">
+                            <form class="form-horizontal">
+
+                                <div class="form-group">
+                                    <label class="control-label">Active Hours:</label>
+                                    <div id="time-input-div" class="form-inline">
                                         <input class="form-control" name="start-date" value ="10:00" type="time" step="3600" id="active-start-time-input">
                                         <label class="control-label" for="active-end-time-input">To</label>
-                                        <div id="end-time-input-div" class="form-group">
-                                            <input class="form-control" name="start-date" value="22:00" type="time" step="3600" id="active-end-time-input">
-                                        </div>
+                                        <input class="form-control" name="start-date" value="22:00" type="time" step="3600" id="active-end-time-input">
                                     </div>
                                 </div>
-                            
-                            <div class="row">
-                                <div class="col-sm-4">
-                                    <label class="control-label" for="active-start-time-input">Break Time Length:</label>
-                                </div>
-                                <div id="free-time col-sm-8" class="form-group">
-                                    <input class="form-control" id="break-time-input" name="break-time" value ="0" type="number" step="5" max="60" min="0">
-                                </div>
-                            </div>
-                            <div class="row col-sm-6">
-                                <label class="control-label" for="weekend-input">Smart-Schedule Days:</label>
-                            </div>
-                            <div class="row col-sm-12">
-                                <div class="btn-group" data-toggle="buttons">
-                                    <label class="btn btn-primary btn-xs">
-                                        <input type="checkbox" id='sunday'> Sunday
-                                    </label>
-                                    <label class="btn btn-primary btn-xs">
-                                        <input type="checkbox" id='monday'> Monday
-                                    </label>
-                                    <label class="btn btn-primary btn-xs">
-                                        <input type="checkbox" id='tuesday'> Tuesday
-                                    </label>
-                                    <label class="btn btn-primary btn-xs">
-                                        <input type="checkbox" id='wednesday'> Wednesday
-                                    </label>
-                                    <label class="btn btn-primary btn-xs">
-                                        <input type="checkbox" id='thursday'> Thursday
-                                    </label>
-                                    <label class="btn btn-primary btn-xs">
-                                        <input type="checkbox" id='friday'> Friday
-                                    </label>
-                                    <label class="btn btn-primary btn-xs">
-                                        <input type="checkbox" id='saturday'> Saturday
-                                    </label>
-                                </div>
-                            </div>
-                        </form>
-                    </div>
-                    <div class="modal-footer">
-                        <span id="logout-button" class="btn btn-danger">Log Out</span>
-                        <span class="btn btn-danger" data-dismiss="modal">Cancel</span>
-                        <span class="btn btn-primary" type="submit" onclick="settingSave()">Save Changes</span>
-                    </div>
-                </div>
 
+                                <div class="form-group">
+                                    <label class="control-label" for="break-time-input">Break Time Length:</label>
+                                    <div class="">
+                                        <input class="form-control" id="break-time-input" name="break-time" value ="0" type="number" step="5" max="60" min="0">
+                                        <span class="bar"></span>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="control-label">Active Days:</label>
+                                    <div class="">
+                                        <div class="btn-group" data-toggle="buttons">
+                                            <label class="btn btn-primary btn-xs">
+                                                <input id="sunday" type="checkbox"> Sunday
+                                            </label>
+                                            <label class="btn btn-primary btn-xs">
+                                                <input id="monday" type="checkbox"> Monday
+                                            </label>
+                                            <label class="btn btn-primary btn-xs">
+                                                <input id="tuesday" type="checkbox"> Tuesday
+                                            </label>
+                                            <label class="btn btn-primary btn-xs">
+                                                <input id="wednesday" type="checkbox"> Wednesday
+                                            </label>
+                                            <label class="btn btn-primary btn-xs">
+                                                <input id="thursday" type="checkbox"> Thursday
+                                            </label>
+                                            <label class="btn btn-primary btn-xs">
+                                                <input id="friday" type="checkbox"> Friday
+                                            </label>
+                                            <label class="btn btn-primary btn-xs">
+                                                <input id="saturday" type="checkbox"> Saturday
+                                            </label>
+                                        </div>
+                                  </div>
+                              </div>
+                            </form>
+                        </div>
+                        <div class="modal-footer">
+                            <span id="logout-button" class="btn btn-danger">Log Out</span>
+                            <span class="btn btn-danger" data-dismiss="modal">Cancel</span>
+                            <span class="btn btn-primary" type="submit" onclick="settingSave()">Save Changes</span>
+                        </div>
+
+                    </div>
+
+                </div>
             </div>
         </div>
 
@@ -269,12 +319,12 @@
 
                     <div id='external-events'>
 
-												{%csrf_token%}
-												{% for todo in todoList %}
-                                                {% if todo.isScheduled == 0 %}
+                        {%csrf_token%}
+                        {% for todo in todoList %}
+                        {% if todo.isScheduled == 0 %}
                         <div data-todoDesc="{{todo.description}}" data-todoLoc="{{todo.location}}" data-todoId="{{todo.id}}" class='fc-event' >{{todo.title}}</div>
-												{% endif %} 
-                                                {% endfor %}
+                        {% endif %} 
+                        {% endfor %}
 
 
 
