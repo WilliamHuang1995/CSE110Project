@@ -633,7 +633,7 @@ function addToCalendar(){
 
         //Remove from todolist event
         //Will not trigger if user does not click button.
-
+<<<<<<< HEAD
 /********************************************
  * dfa;dlfkajdfalkfj
 
@@ -645,12 +645,12 @@ function addToCalendar(){
         console.log(ourId); 
         console.log("what am I");
         updateRequest(ourId);
-
-
+        todoEvent.remove();
+=======
         if(External){
             todoEvent.remove();
         }
-
+>>>>>>> 0209997f168a59b5b44b2a60d1f14c94cdfe6953
 
         //close the modal window after completion
         $("#modalWindow").modal('hide');

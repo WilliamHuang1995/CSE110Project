@@ -177,12 +177,12 @@
             </div>
         </div>
 
-        <!--- navbar yo -->
+        <!-- nav bar -->
         <div class="navbar navbar-inverse navbar-fixed-left" role="navigation">
             <ul class="nav navbar-nav">
                 <div id="top-content" class="navbar-fixed-top">
                     <li><img src="{% static 'webapp/img/nav_logo.png' %}" class="logo" /></li>
-                    <li><a href=/#><img src="{% static 'webapp/img/nav_calendar.png' %}" class="img-responsive"/></a></li>
+                    <li><a href=#><img src="{% static 'webapp/img/nav_calendar.png' %}" class="img-responsive"/></a></li>
                     <li><a href=/todo><li><img src="{% static 'webapp/img/nav_task1.png' %}" class="img-responsive"/></a></li>
                 </div>
                 <li><img src="{% static 'webapp/img/nav_settings.png' %}" class="img-responsive navbar-fixed-bottom" data-toggle="modal" data-target="#settingsModal" style="cursor:pointer;"/></li>
@@ -238,18 +238,24 @@
                     </div>
 
                     <div id='external-events'>
-
+<<<<<<< HEAD
 												{%csrf_token%}
 												{% for todo in todoList %}
                                                 {% if todo.isScheduled == 0 %}
                         <div data-todoDesc="{{todo.description}}" data-todoLoc="{{todo.location}}" data-todoId="{{todo.id}}" class='fc-event' >{{todo.title}}</div>
 												{% endif %} 
                                                 {% endfor %}
+=======
+                        {%csrf_token%}
 
+
+                        {% for todo in todoList %}
+                        <div data-todoDesc="{{todo.description}}" data-todoLoc="{{todo.location}}" class='fc-event'>{{todo.title}}</div>
+                        {% endfor %}
 
 
                     </div>
-
+>>>>>>> 0209997f168a59b5b44b2a60d1f14c94cdfe6953
 
                     <div class="button-group">
                         <button id="authorize-button" class="btn btn-primary btn-large btn-block">Click to Show Google Calendar</button>

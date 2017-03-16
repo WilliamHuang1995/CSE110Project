@@ -13,6 +13,11 @@ import json
 import time
 import math
 
+import viewstest
+import viewshtml
+import viewslogin
+import viewsapi
+
 from .models import Confirm_Email
 from .models import Session
 
@@ -26,6 +31,7 @@ import random
 
 
 from django.core.mail import send_mail
+
 
 def todos_test(request):
 
