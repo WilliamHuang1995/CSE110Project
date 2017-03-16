@@ -45,7 +45,7 @@ function getRequest(id){
             //$('#smart-schedule-switch').trigger('click');
             //$.getScript("https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js")
             //$('#smart-schedule-switch').bootstrapToggle('toggle')
-            $('#smart-schedule-switch').trigger('click');
+            //$('#smart-schedule-switch').trigger('click');
             //$('#smart-schedule-switch').bootstrapToggle('on')
             //test = document.getElementById("smart-schedule-switch");
             //test.bootstrapToggle('toggle');
